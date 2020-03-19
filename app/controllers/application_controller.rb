@@ -1,3 +1,5 @@
+# Applicable File
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, prepend: true
 
@@ -7,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionView::MissingTemplate, with: :routing_error
 
+  # Applicable Chunk
   def not_found
     raise ActiveRecord::RecordNotFound, "Not Found"
   end

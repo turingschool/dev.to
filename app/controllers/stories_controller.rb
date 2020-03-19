@@ -1,3 +1,5 @@
+# Applicable File
+
 class StoriesController < ApplicationController
   DEFAULT_HOME_FEED_ATTRIBUTES_FOR_SERIALIZATION = {
     only: %i[
@@ -33,6 +35,7 @@ class StoriesController < ApplicationController
     render template: "articles/search"
   end
 
+  # Applicable Chunk
   def show
     @story_show = true
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
@@ -82,6 +85,7 @@ class StoriesController < ApplicationController
     end
   end
 
+  # Applicable Chunk
   def handle_possible_redirect
     potential_username = params[:username].tr("@", "").downcase
     @user = User.find_by("old_username = ? OR old_old_username = ?", potential_username, potential_username)
@@ -214,6 +218,7 @@ class StoriesController < ApplicationController
     redirect_to "/internal/articles/#{@article.id}" if params[:view] == "moderate"
   end
 
+  # Applicable Chunk
   def handle_article_show
     assign_article_show_variables
     set_surrogate_key_header @article.record_key

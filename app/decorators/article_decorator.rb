@@ -1,3 +1,5 @@
+# Applicable File
+
 class ArticleDecorator < ApplicationDecorator
   def current_state_path
     published ? "/#{username}/#{slug}" : "/#{username}/#{slug}?preview=#{password}"
