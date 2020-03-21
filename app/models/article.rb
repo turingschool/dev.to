@@ -1,3 +1,6 @@
+# Model: all the data and its related logic
+# Lowest level of the pattern
+
 class Article < ApplicationRecord
   include CloudinaryHelper
   include ActionView::Helpers
@@ -11,9 +14,13 @@ class Article < ApplicationRecord
   attr_accessor :publish_under_org
   attr_writer :series
 
+  # delegates methods and allows development use
+  # delegating the method name to user
   delegate :name, to: :user, prefix: true
+  # delegating the method username to user
   delegate :username, to: :user, prefix: true
 
+  # informs which table the data belongs to
   belongs_to :user
   belongs_to :job_opportunity, optional: true
   belongs_to :organization, optional: true
@@ -22,6 +29,9 @@ class Article < ApplicationRecord
   counter_culture :user
   counter_culture :organization
 
+  # this is where we determine the data table relationships
+  # one to many or many to many
+  # below is examples of many to many data table relationships
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -30,6 +40,9 @@ class Article < ApplicationRecord
   has_many :rating_votes
   has_many :page_views
 
+  # validates does data checking for the user
+  # slug is referencing the end of a url
+  # below checks if published is truthy then the format is Regex and uniqueness is the user id - similar to a ternary on the FE
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }
   validates :title, presence: true,
@@ -57,6 +70,7 @@ class Article < ApplicationRecord
   validates :video_source_url, url: { allow_blank: true, schemes: ["https"] }
 
   after_update_commit :update_notifications, if: proc { |article| article.notifications.any? && !article.saved_changes.empty? }
+  # this sets up the data before a user is logged in and other data is fired off
   before_validation :evaluate_markdown
   before_validation :create_slug
   before_create     :create_password
