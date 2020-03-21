@@ -1,8 +1,14 @@
+<%# passes the title to shell/_top which is rendered via layouts/application.html.erb %>
 <% title @article.title %>
 
+<%# renders a partial in app/views/shared which loads webcomponents-loader.js %>
 <%= render "shared/webcomponents_loader_script" %>
+
+<%# javascript_pack_tag is a helper method part of webpacker %>
 <%= javascript_pack_tag "clipboardCopy", defer: true %>
 
+<%# performs fragment caching that will renew after 30 hours %>
+<%# section within cache fragment will use postscribe to deliver ads asynchronously if the processed html of the article contains ltag_gist_liquid_tag %>
 <% cache("content-related-optional-scripts-#{@article.id}-#{@article.updated_at}", expires_in: 30.hours) do %>
   <% if @article.processed_html.include? "ltag_gist-liquid-tag" %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js"
@@ -31,11 +37,13 @@
     </script>
   <% end %>
 
+<%# if the processed html of the article includes runkit-element then the rails helper javascript_include_tag will add a scrip tag for the below source %>
   <% if @article.processed_html.include? "runkit-element" %>
     <%= javascript_include_tag "https://embed.runkit.com" %>
   <% end %>
 <% end %>
 
+<%# if params[i] == "i" (internal_navigation helper method) then render the first block, which includes use of memoisation, as well as some meta tags, otherwise render the second block which has a different set of meta tags %>
 <% if internal_navigation? %>
     <link rel="canonical" href="<%= @article.canonical_url.presence || "https://#{ApplicationConfig['APP_DOMAIN']}#{@article.path}" %>" />
     <meta name="description" content="<%= @article.description_and_tags %>">
