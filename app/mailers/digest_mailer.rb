@@ -1,3 +1,9 @@
+# mailers are what is sent out as an email to a user - literally a mailer
+# this mailer is for a users article choice - sends the first six
+# it generates a generic title by pulling article first title, size of article length, an end phrase and the emojis
+# it adds on three random emojis to the email from the array on line 28
+# end phrase comes from a list of phrases in an array on line 38
+
 class DigestMailer < ApplicationMailer
   default from: -> { "DEV Digest <#{SiteConfig.default_site_email}>" }
 
