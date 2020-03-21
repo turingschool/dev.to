@@ -1,5 +1,7 @@
 # Controller - handles the user interface
 # interprets mouse and keyboard inputs to update the model and view
+# this page appears to house all the function declerations for the code base specific to only the user
+# this is similar to a class on the front end that houses all the functions for that specific class - such as a user class
 
 class UsersController < ApplicationController
   before_action :set_no_cache_header
