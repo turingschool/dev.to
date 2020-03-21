@@ -1,7 +1,10 @@
+# this appears to be the logic behind how emails are sent out and what they should contain
+
 class EmailLogic
   attr_reader :open_percentage, :last_email_sent_at, :days_until_next_email, :articles_to_send
 
   def initialize(user)
+    # initialize the email with all these paramters
     @user = user
     @open_percentage = nil
     @ready_to_receive_email = nil
@@ -11,6 +14,8 @@ class EmailLogic
   end
 
   def analyze
+    # logic around what arguments the email will take in
+    # determines the email that will be sent out
     @last_email_sent_at = get_last_digest_email_user_received
     @open_percentage = get_open_rate
     @days_until_next_email = get_days_until_next_email
@@ -23,6 +28,8 @@ class EmailLogic
     @ready_to_receive_email
   end
 
+  # private information hidden from frontend or user
+  # includes user experience_level information and user email information
   private
 
   def get_articles_to_send
