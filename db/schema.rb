@@ -1176,6 +1176,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.string "website_url"
+    #boolean column for opted in to dev email
     t.datetime "workshop_expiration"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
