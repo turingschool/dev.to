@@ -251,7 +251,7 @@
 
 <% stick_nav_cache_key = "sticky-sidebar-#{@article.id}-#{(@organization || @user).profile_updated_at}-#{(@organization || @user).last_article_at}-#{@variant_number}-#{(@organization || @user).pro?}" %>
 
-<%# cache the stick_nav_cache_key and rendering of the stick_nav partial with a 50 hour partial %>
+<%# cache the stick_nav_cache_key and rendering of the stick_nav partial with a 50 hour expiry %>
 <% cache(stick_nav_cache_key, expires_in: 50.hours) do %>
   <%= render "articles/sticky_nav" %>
 <% end %>
