@@ -1,7 +1,11 @@
+// deconstruct h and component from preact
+// import proptypes for testing
+// import variable debounce from lodash
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
+// import seven variable fns from searchableItemList component
 import {
   defaultState,
   loadNextPage,
@@ -11,16 +15,19 @@ import {
   toggleTag,
   clearSelectedTags,
 } from '../searchableItemList/searchableItemList';
+// import four components ItemList..
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
 
+// declare four new variables with string values
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
 const READING_LIST_ARCHIVE_PATH = '/readinglist/archive';
 const READING_LIST_PATH = '/readinglist';
 
+// declare anonymous fn variable that returns a header with information about tag query
 const FilterText = ({ selectedTags, query, value }) => {
   return (
     <h1>
@@ -31,14 +38,20 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
+// define ReadingList component with props passed in
 export class ReadingList extends Component {
   constructor(props) {
     super(props);
 
+    // set props to availableTags and statusView
     const { availableTags, statusView } = this.props;
+    // set default state of the component
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
     // bind and initialize all shared functions
+    // set six state values for the ReadingList component
+    // The bind() method creates a new function that,
+    // when called, has its this keyword set to the provided value
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
       leading: true,
     });
@@ -50,6 +63,7 @@ export class ReadingList extends Component {
   }
 
   componentDidMount() {
+    // set state for component and call fn with object argument passed through
     const { hitsPerPage, statusView } = this.state;
 
     this.performInitialSearch({
@@ -62,6 +76,12 @@ export class ReadingList extends Component {
     });
   }
 
+  // this fn sets state for query and selectedTags
+  // then sets a variable equal to the function statusViewValid
+  // then runs a ternary on newStatusView and newPath to see if variables are truthy / falsey
+  // then sets state of statusView to value returend from ternary in newStatusView and items to an empty array
+  // then runs a search query on selected tags and newStatusView
+  // then updates history path with new data from newPath
   toggleStatusView = event => {
     event.preventDefault();
 
@@ -88,6 +108,11 @@ export class ReadingList extends Component {
     window.history.replaceState(null, null, newPath);
   };
 
+  // this fn takes in an event and an item
+  // then state is set with statusView, items, and totalCount
+  // then a fetch call is made with PUT and status view
+  // then the item is added to newItems spliced in at indexOf 1 and state is set with archiving, items, and totalCount
+  // a set time out is called at the end to hide the 'snackbar'
   toggleArchiveStatus = (event, item) => {
     event.preventDefault();
 
@@ -122,6 +147,9 @@ export class ReadingList extends Component {
     return statusView === STATUS_VIEW_VALID;
   }
 
+  // this fn runs a conditional that checks if itemsLoaded and statusViewValid return value are truthy
+  // if truthy it renders a div containing the FilterText component and a header about bookmarks
+  // if falsey it renders line 180 with the FilterText component and an empty archive list
   renderEmptyItems() {
     const { itemsLoaded, selectedTags, query } = this.state;
 
@@ -160,6 +188,17 @@ export class ReadingList extends Component {
     );
   }
 
+  // declares seven variables to state value
+  // runs a ternary on isStatusViewValid and sets string to archiveButtonLabel
+  // renders the ItemList component for each item in the array of itemsToRender
+  // which holds the ItemListItemArchiveButton and ItemListItem components
+  // runs another ternary on snackBar which checks isStatusViewValid and sets to either archiving or unarchiving
+  // if snackbar value not archiving is falsey it renders a section with
+  // a input field for list search
+  // a filter on header tags
+  // ItemListTags component
+  // items container section holding all the results from the search and filter
+  // and ItemListLoadMoreButton component
   render() {
     const {
       items,
@@ -258,6 +297,7 @@ export class ReadingList extends Component {
   }
 }
 
+// proptype testing for data type passed into props
 ReadingList.defaultProps = {
   statusView: STATUS_VIEW_VALID,
 };
