@@ -36,7 +36,8 @@ class StoriesController < ApplicationController
   end
 
   # Applicable Chunk
-  # shows an article or podcast depending on params passed in
+  # shows an article or podcast depending on params passed in.
+  # should only need the article branches of the if statement˝
   def show
     @story_show = true
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
@@ -87,7 +88,7 @@ class StoriesController < ApplicationController
   end
 
   # Applicable Chunk
-  # redirects to proper user or organization ar˝ticle path
+  # redirects to proper user or organization article path
   def handle_possible_redirect
     potential_username = params[:username].tr("@", "").downcase
     @user = User.find_by("old_username = ? OR old_old_username = ?", potential_username, potential_username)
