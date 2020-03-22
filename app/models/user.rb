@@ -681,4 +681,9 @@ class User < ApplicationRecord
     follower_relationships.destroy_all
     follows.destroy_all
   end
+
+  # #Add method for sending emails
+  # Find all users opted in
+  # Retireve top articles
+  # Iterate through users and send random article
 end
