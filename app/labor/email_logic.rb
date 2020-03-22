@@ -16,6 +16,7 @@ class EmailLogic
   def analyze
     # logic around what arguments the email will take in
     # determines the email that will be sent out
+    # below are helper methods
     @last_email_sent_at = get_last_digest_email_user_received
     @open_percentage = get_open_rate
     @days_until_next_email = get_days_until_next_email
@@ -59,6 +60,8 @@ class EmailLogic
                    limit(8)
                end
 
+    # this returns false if the article length is less than 3
+    # if false - does not run method
     @ready_to_receive_email = false if articles.length < 3
 
     articles

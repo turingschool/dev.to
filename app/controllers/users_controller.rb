@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/:id.:format
-  # def here is similar to a FE function decleration, does not end with ; but rather keyword end
+  # def here is similar to a FE function decleration, does not end with ; but rather keyword 'end'
   def update
     set_tabs(params["user"]["tab"])
     # conditional checks if there is a user

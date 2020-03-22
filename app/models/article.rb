@@ -21,6 +21,7 @@ class Article < ApplicationRecord
   delegate :username, to: :user, prefix: true
 
   # informs which table the data belongs to
+  # example of one to many relationship
   belongs_to :user
   belongs_to :job_opportunity, optional: true
   belongs_to :organization, optional: true
@@ -104,6 +105,7 @@ class Article < ApplicationRecord
                           where("published_at > ? AND comments_count < ? AND score > ?", 12.hours.ago, 6, -4)
                       }
 
+  # applies that particular method to the scoped information below
   scope :limited_column_select, lambda {
     select(:path, :title, :id, :published,
            :comments_count, :positive_reactions_count, :cached_tag_list,
