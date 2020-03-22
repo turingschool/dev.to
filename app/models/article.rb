@@ -677,4 +677,8 @@ class Article < ApplicationRecord
   def async_bust
     Articles::BustCacheWorker.perform_async(id)
   end
+
+  # #Add method to get top articles based on page views, created in last 2 weeks
+
+  # Article.where('created_at > ?', 2.weeks.ago).order(page_views: :desc)
 end
