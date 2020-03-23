@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
       # rubocop:enable RSpec/NamedSubject
 
       it { is_expected.to have_many(:organization_memberships).dependent(:destroy) }
-
+      it { is_expected.to have_many(:reading_collections) }
       it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:github_username).allow_nil }
       it { is_expected.to validate_uniqueness_of(:twitter_username).allow_nil }
