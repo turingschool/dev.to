@@ -63,7 +63,7 @@ class User < ApplicationRecord
   mount_uploader :profile_image, ProfileImageUploader
 
   devise :omniauthable, :registerable, :database_authenticatable, :confirmable, :rememberable
-
+  # Need to create row for daily dev subscription(boolean)
   validates :email,
             length: { maximum: 50 },
             email: true,
@@ -682,3 +682,6 @@ class User < ApplicationRecord
     follows.destroy_all
   end
 end
+
+# subscribe and unsubscribe actions
+#

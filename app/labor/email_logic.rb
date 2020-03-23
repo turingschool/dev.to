@@ -1,6 +1,7 @@
 class EmailLogic
   attr_reader :open_percentage, :last_email_sent_at, :days_until_next_email, :articles_to_send
-
+  # another page to reference
+  # Need to recreate an email logic page for our emails
   def initialize(user)
     @user = user
     @open_percentage = nil
@@ -25,6 +26,7 @@ class EmailLogic
 
   private
 
+  # Need to get logic for finding correct articles
   def get_articles_to_send
     fresh_date = get_fresh_date
 
@@ -89,6 +91,9 @@ class EmailLogic
     @user.email_messages.where(mailer: "DigestMailer#digest_email").last&.sent_at
   end
 
+  # ^Could be another way to keep track of the emails sent to the user
+  #  To me this looks like it keeps track of the last email sent to the user
+  # find a way to maybe add parameters so that it can look
   def get_fresh_date
     a_few_days_ago = 4.days.ago.utc
     return a_few_days_ago unless @last_email_sent_at

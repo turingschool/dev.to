@@ -15,6 +15,8 @@ class MailchimpBot
     upsert_to_newsletter
   end
 
+  #  This method gathers the information needed to send up to the third party (mail chimp)
+  #  when the user subscribes to a news letter
   def upsert_to_newsletter
     # attempt to update email if user changed email addresses
     success = false

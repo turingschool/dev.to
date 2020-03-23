@@ -1,6 +1,6 @@
 class DigestMailer < ApplicationMailer
   default from: -> { "DEV Digest <#{SiteConfig.default_site_email}>" }
-
+  # Create new mailer class to send daily dev || add to this one
   def digest_email(user, articles)
     @user = user
     @articles = articles.first(6)

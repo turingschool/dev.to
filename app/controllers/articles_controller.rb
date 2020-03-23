@@ -106,6 +106,10 @@ class ArticlesController < ApplicationController
     @org_members = @organization.users.pluck(:name, :id) if @organization
   end
 
+  # Maybe we would need this when they get the email and want to preview the article...?
+  # Thoughts one how the email being sent out will look is a little unclear. Probably
+  # not with a preview anymore though, will most likely be built out by us and we will
+  # decide what it looks like.
   def preview
     authorize Article
 

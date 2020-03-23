@@ -10,3 +10,5 @@ module Users
     end
   end
 end
+
+# might need to create something like this
