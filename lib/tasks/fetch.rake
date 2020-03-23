@@ -1,5 +1,7 @@
 desc "This task is called by the Heroku scheduler add-on"
-
+# Write a task to send email, maybe scheduler is running everyday
+# Conditional send email digest task on line 54 called by Heroku scheduler
+# The task we write might be similair
 task get_podcast_episodes: :environment do
   Podcast.published.select(:id).find_each do |podcast|
     Podcasts::GetEpisodesWorker.perform_async(podcast_id: podcast.id, limit: 5)
