@@ -45,6 +45,11 @@
   </div>
 <% end %>
 
+<%# Mar 20, 2020: Line 50 to 75 seem like the layout we'll need to use when creating the checkbox.
+It seems as the this files way of commenting out code is with '<%' characters simaliar to React where
+we use the curly braces {}
+It would look something like this > 'Subscribe to recieve your Daily Dev'  %>
+
 <h2>Export content</h2>
 <% if @user.export_requested? %>
   <h4 style="font-weight:400">
