@@ -8,7 +8,7 @@ RSpec.describe ReadingCollection, type: :model do
 
   describe "relationships" do
     it { is_expected.to belong_to :user }
-    it { is_expected.to have_many :reading_collection_articles }
+    it { is_expected.to have_many(:reading_collection_articles).dependent(:destroy) }
     it { is_expected.to have_many(:articles).through(:reading_collection_articles) }
   end
 end
