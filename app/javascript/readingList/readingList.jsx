@@ -172,6 +172,7 @@ export class ReadingList extends Component {
       archiving,
     } = this.state;
 
+    const { collections } = this.props;
     const isStatusViewValid = this.statusViewValid();
 
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
@@ -247,7 +248,7 @@ export class ReadingList extends Component {
             </div>
           </div>
 
-          <CollectionList />
+          <CollectionList collections={collections} />
 
           <ItemListLoadMoreButton
             show={showLoadMoreButton}
@@ -266,6 +267,7 @@ ReadingList.defaultProps = {
 };
 
 ReadingList.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.object).isRequired,
   availableTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   statusView: PropTypes.oneOf([STATUS_VIEW_VALID, STATUS_VIEW_ARCHIVED]),
 };
