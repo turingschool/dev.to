@@ -10,6 +10,7 @@ function loadElement() {
         <ReadingList
           availableTags={currentUser.followed_tag_names}
           statusView={root.dataset.view}
+          collections={JSON.parse(root.dataset.readingCollections)}
         />,
         root,
         root.firstElementChild,
