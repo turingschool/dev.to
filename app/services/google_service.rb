@@ -1,13 +1,15 @@
 class GoogleService
   def self.youtube_videos(keywords)
-    new.videos(keywords)
+    new.youtube_videos(keywords)
   end
 
   def youtube_videos(keywords)
-    get_json("/youtube/v3/search",
-             part: "snippet",
-             q: keywords,
-             maxResults: 10)
+    json = get_json("/youtube/v3/search",
+                    part: "snippet",
+                    q: keywords,
+                    maxResults: 10)
+
+    json[:items]
   end
 
   private
