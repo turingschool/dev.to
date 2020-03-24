@@ -66,6 +66,7 @@ class NotifyMailer < ApplicationMailer
     mail(to: params[:email_to], subject: params[:email_subject])
   end
 
+  # keyword : potato
   def new_message_email(direct_message)
     @message = direct_message
     @user = @message.direct_receiver

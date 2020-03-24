@@ -64,6 +64,7 @@ class NotifyMailerPreview < ActionMailer::Preview
     NotifyMailer.feedback_message_resolution_email(params)
   end
 
+  # keyword : potato
   def new_message_email
     NotifyMailer.new_message_email(Message.last)
   end
