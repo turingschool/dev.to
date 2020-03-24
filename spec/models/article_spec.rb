@@ -26,7 +26,7 @@ RSpec.describe Article, type: :model do
     it { is_expected.to have_many(:reactions).dependent(:destroy) }
     it { is_expected.to have_many(:notifications).dependent(:delete_all) }
     it { is_expected.to have_many(:notification_subscriptions).dependent(:destroy) }
-    it { is_expected.to have_many(:reading_collection_articles) }
+    it { is_expected.to have_many(:reading_collection_articles).dependent(:destroy) }
     it { is_expected.to have_many(:reading_collections).through(:reading_collection_articles) }
 
     it { is_expected.to validate_presence_of(:user_id) }
