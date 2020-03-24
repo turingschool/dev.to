@@ -19,7 +19,7 @@ RSpec.describe EmailLogic, type: :labor do
         expect(h.articles_to_send.length).to eq(3)
       end
 
-      it "marks as not ready if there isn't atleast 3 articles" do
+      it "marks as not ready if there isn't at least 3 articles" do
         create_list(:article, 2, positive_reactions_count: 40, score: 40)
         h = described_class.new(user).analyze
         expect(h.should_receive_email?).to eq(false)
