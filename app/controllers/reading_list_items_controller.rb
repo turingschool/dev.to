@@ -1,6 +1,8 @@
 class ReadingListItemsController < ApplicationController
   def index
     @reading_list_items_index = true
+    @reading_collections = ReadingCollection.where(user_id: session_current_user_id).to_a
+    # Article.joins(:taggings).joins(:tags).select("articles.*").where("tags.name = 'javascript'")
     set_view
     generate_algolia_search_key
   end
