@@ -250,7 +250,8 @@ class StoriesController < ApplicationController
     assign_second_and_third_user
     not_found if permission_denied?
     @comment = Comment.new(body_markdown: @article&.comment_template)
-    @youtube_videos = youtube_videos(@article.cached_tag_list)
+    # @youtube_videos = youtube_videos(@article.cached_tag_list)
+    @youtube_videos = youtube_videos("coronavirus, lockdown, turing, student")
   end
 
   def youtube_videos(tags)
