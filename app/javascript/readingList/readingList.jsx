@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
+import { CollectionList } from './collectionList';
 
 import {
   defaultState,
@@ -245,6 +246,8 @@ export class ReadingList extends Component {
               {items.length > 0 ? itemsToRender : this.renderEmptyItems()}
             </div>
           </div>
+
+          <CollectionList />
 
           <ItemListLoadMoreButton
             show={showLoadMoreButton}
