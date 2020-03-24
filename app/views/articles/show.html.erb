@@ -206,9 +206,12 @@ Location of title in html is line 127 -->
 Somewhere below...I believe is a "classic dev post" followed by "another post you might like"
 Depending on where we decide to put these videos would be either right here at the top or maybe below the suggested_articles -->
 
-  <h2>TESTING</h2>
   <% cache("article-bottom-content-#{@article.id}", expires_in: 18.hours) do %>
     <% @classic_article = Suggester::Articles::Classic.new(@article, not_ids: [@article.id]).get.first %>
+    <%= render "liquids/youtube", 
+      id: "SPmsYI9uy0I",
+      width: @width,
+      height: @height %>
     <% if @classic_article %>
       <%= render "additional_content_boxes/article_box",
                  article: @classic_article,
