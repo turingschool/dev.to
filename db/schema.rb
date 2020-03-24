@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,8 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_214321) do
-
+ActiveRecord::Schema.define(version: 2020_03_24_202847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1063,6 +1064,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.boolean "email_comment_notifications", default: true
     t.boolean "email_community_mod_newsletter", default: false
     t.boolean "email_connect_messages", default: true
+    t.boolean "email_daily_dev", default: false
     t.boolean "email_digest_periodic", default: true, null: false
     t.boolean "email_follower_notifications", default: true
     t.boolean "email_membership_newsletter", default: false
