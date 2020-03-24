@@ -1,0 +1,10 @@
+<h1 style="text-align: center;">
+  DEV Daily
+</h1>
+<h4 style="text-align: center;">An article you might find interesting based on your tags</h4>
+<ul>
+  <li style="margin:18px auto">
+    <a href="https://dev.to<%= @article.path %>" style="font-weight: bold;color:#0045ff;font-size:calc(0.93em + 0.2vw);"><%= @article.title.strip %></a> <%= truncate(@article.description, length: 120) %>
+  </li>
+   <hr />
+</ul>
