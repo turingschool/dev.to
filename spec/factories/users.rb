@@ -21,6 +21,7 @@ FactoryBot.define do
     checked_terms_and_conditions { true }
     signup_cta_variant           { "navbar_basic" }
     email_digest_periodic        { false }
+    email_daily_dev              { false }
 
     after(:create) do |user|
       create(:identity, user_id: user.id)
