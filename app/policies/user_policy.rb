@@ -22,6 +22,7 @@ class UserPolicy < ApplicationPolicy
     email_newsletter email_public
     email_tag_mod_newsletter
     email_unread_notifications
+    email_daily_dev
     employer_name
     employer_url
     employment_title
