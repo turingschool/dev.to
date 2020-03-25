@@ -5,6 +5,7 @@ class ReadingListItemsController < ApplicationController
     # Article.joins(:taggings).joins(:tags).select("articles.*").where("tags.name = 'javascript'")
     set_view
     generate_algolia_search_key
+    @tags = Tag.all
   end
 
   def update
