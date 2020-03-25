@@ -29,6 +29,8 @@ class Article < ApplicationRecord
   has_many :notification_subscriptions, as: :notifiable, inverse_of: :notifiable, dependent: :destroy
   has_many :rating_votes
   has_many :page_views
+  has_many :reading_collection_articles, dependent: :destroy
+  has_many :reading_collections, through: :reading_collection_articles
 
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }

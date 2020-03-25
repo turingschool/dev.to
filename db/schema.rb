@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_214321) do
+ActiveRecord::Schema.define(version: 2020_03_23_220842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -875,6 +875,23 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
+  create_table "reading_collection_articles", force: :cascade do |t|
+    t.bigint "article_id"
+    t.datetime "created_at", null: false
+    t.bigint "reading_collection_id"
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_reading_collection_articles_on_article_id"
+    t.index ["reading_collection_id"], name: "index_reading_collection_articles_on_reading_collection_id"
+  end
+
+  create_table "reading_collections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_reading_collections_on_user_id"
+  end
+
   create_table "roles", id: :serial, force: :cascade do |t|
     t.datetime "created_at"
     t.string "name"
@@ -1225,6 +1242,9 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "page_views", "articles", on_delete: :cascade
   add_foreign_key "podcasts", "users", column: "creator_id"
+  add_foreign_key "reading_collection_articles", "articles"
+  add_foreign_key "reading_collection_articles", "reading_collections"
+  add_foreign_key "reading_collections", "users"
   add_foreign_key "sponsorships", "organizations"
   add_foreign_key "sponsorships", "users"
   add_foreign_key "tag_adjustments", "articles", on_delete: :cascade

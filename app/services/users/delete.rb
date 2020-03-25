@@ -8,6 +8,7 @@ module Users
       delete_comments
       delete_articles
       delete_user_activity
+      delete_reading_collections
       user.unsubscribe_from_newsletters
       CacheBuster.bust("/#{user.username}")
       user.delete
@@ -32,6 +33,10 @@ module Users
 
     def delete_articles
       DeleteArticles.call(user)
+    end
+
+    def delete_reading_collections
+      user.reading_collections.map { |collection| ReadingCollection.destroy(collection.id) }
     end
   end
 end
