@@ -1,14 +1,16 @@
 import { h } from 'preact';
 import PropTypes from 'prop-types';
 
-export const Collection = ({ title }) => {
+export const Collection = ({ name }) => {
   return (
-    <section className="collection">
-      <p>{`${title}`}</p>
+    <section className="collection item-wrapper">
+      <div className="item">
+        <p className="item-title">{`${name}`}</p>
+      </div>
     </section>
   );
 };
 
 Collection.propTypes = {
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
