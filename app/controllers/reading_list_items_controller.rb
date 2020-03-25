@@ -8,6 +8,7 @@ class ReadingListItemsController < ApplicationController
     # Article.joins(:tags).where("tags.name = 'javascript'").where("articles.created_at BETWEEN ? AND ?",Time.now-2.weeks,Time.now)
     set_view
     generate_algolia_search_key
+    # use available method for tag search/ select
     @tags = Tag.all
   end
 
