@@ -26,7 +26,11 @@ class EmailLogic
   end
 
   def analyze_daily_email
+<<<<<<< HEAD
     @articles_to_send = most_viewed_article.first
+=======
+    @articles_to_send = one_article
+>>>>>>> Create and test analyze_daily_email method
   end
 
   def should_receive_email?
