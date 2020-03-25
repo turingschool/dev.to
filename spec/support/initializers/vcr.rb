@@ -14,4 +14,6 @@ VCR.configure do |config|
     u = URI.parse(i.request.uri)
     i.request.uri.sub!(/:\/\/.*#{Regexp.escape(u.host)}/, "://#{u.host}")
   end
+
+  config.filter_sensitive_data("<YOUTUBE_DATA_KEY>") { ENV["YOUTUBE_DATA_KEY"] }
 end
