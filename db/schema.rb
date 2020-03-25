@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_214321) do
+ActiveRecord::Schema.define(version: 2020_03_24_014427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,6 +386,15 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.boolean "published", default: false
     t.float "success_rate", default: 0.0
     t.datetime "updated_at", null: false
+  end
+
+  create_table "emailed_articles", force: :cascade do |t|
+    t.bigint "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["article_id"], name: "index_emailed_articles_on_article_id"
+    t.index ["user_id"], name: "index_emailed_articles_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -1063,6 +1072,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.boolean "email_comment_notifications", default: true
     t.boolean "email_community_mod_newsletter", default: false
     t.boolean "email_connect_messages", default: true
+    t.boolean "email_daily_dev", default: false
     t.boolean "email_digest_periodic", default: true, null: false
     t.boolean "email_follower_notifications", default: true
     t.boolean "email_membership_newsletter", default: false
@@ -1215,6 +1225,8 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
   add_foreign_key "chat_channel_memberships", "chat_channels"
   add_foreign_key "chat_channel_memberships", "users"
   add_foreign_key "classified_listings", "users", on_delete: :cascade
+  add_foreign_key "emailed_articles", "articles"
+  add_foreign_key "emailed_articles", "users"
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "messages", "chat_channels"
   add_foreign_key "messages", "users"

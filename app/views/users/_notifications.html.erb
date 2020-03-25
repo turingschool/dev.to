@@ -6,6 +6,10 @@
       <%= f.label :email_newsletter, "Send me weekly newsletter emails" %>
     </div>
     <div class="sub-field">
+      <%= f.check_box :email_daily_dev %>
+      <%= f.label :email_daily_dev, "Send me a daily email relevant to my tags" %>
+    </div>
+    <div class="sub-field">
       <%= f.check_box :email_digest_periodic %>
       <%= f.label :email_digest_periodic, "Send me a periodic digest of top posts from my tags" %>
     </div>

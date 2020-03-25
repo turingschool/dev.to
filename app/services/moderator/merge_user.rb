@@ -54,6 +54,7 @@ module Moderator
 
       email_attr = {
         email_comment_notifications: false,
+        email_daily_dev: false,
         email_digest_periodic: false,
         email_follower_notifications: false,
         email_mention_notifications: false,
