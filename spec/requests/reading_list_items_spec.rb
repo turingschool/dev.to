@@ -15,7 +15,7 @@ RSpec.describe "ReadingListItems", type: :request do
     it "returns reading list page" do
       get "/readinglist"
       expect(response.body).to include("Reading List")
-      expect(response.body).to include('id="reading-collection"')
+      expect(response.body).to include('id="reading-collections"')
     end
   end
 
