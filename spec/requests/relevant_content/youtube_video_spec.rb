@@ -7,7 +7,8 @@ RSpec.describe "Relevant Content", :vcr do
 
       post "/relevant_content?keywords=#{keywords}"
       expect(response).to be_successful
-      JSON.parse(response.body, symbolize_names: true)
+      parsed_response = JSON.parse(response.body, symbolize_names: true)
+      expect(parsed_response[:data][:attributes][:videos].length).to eq 50
     end
   end
 end
