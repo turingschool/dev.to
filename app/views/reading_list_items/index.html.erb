@@ -18,7 +18,18 @@
 <% end %>
 
 <div class="home">
-  <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>" data-reading-collections="<%= @reading_collections %>">
+  <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>">
+  </div>
+
+  <div class="item-list-container" id="reading-collections" data-reading-collections="<%= @reading_collections %>">
+
+      <h3>Reading Collections</h3>
+      <% @reading_collections.each do |collection| %>
+        <ul>
+          <li><%= link_to collection.name.to_s, "/reading_collections/#{collection.id}" %>
+        </ul>
+      <% end %>
+      <%= render partial: "reading_collections/new" %>
   </div>
 </div>
 
