@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get "/enter" => "registrations#new", :as => :sign_up
   end
 
+  post "/relevant_content" => "relevant_content#create"
+
   namespace :admin do
     # Check administrate gem docs
     DashboardManifest::DASHBOARDS.each do |dashboard_resource|
