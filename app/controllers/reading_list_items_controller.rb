@@ -4,6 +4,7 @@ class ReadingListItemsController < ApplicationController
     @reading_collections = ReadingCollection.where(user_id: session_current_user_id).to_json
     set_view
     generate_algolia_search_key
+    # use available method for tag search/ select
     @tags = Tag.all
   end
 
