@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
-import { NewListForm } from './NewListForm'
 
 import {
   defaultState,
@@ -19,25 +18,17 @@ import { ItemListTags } from '../src/components/ItemList/ItemListTags';
 
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
+// change these to curated list path once route is in place?
 const READING_LIST_ARCHIVE_PATH = '/readinglist/archive';
 const READING_LIST_PATH = '/readinglist';
 
-const FilterText = ({ selectedTags, query, value }) => {
-  return (
-    <h1>
-      {selectedTags.length === 0 && query.length === 0
-        ? value
-        : 'Nothing with this filter 🤔'}
-    </h1>
-  );
-};
-
-export class ReadingList extends Component {
+export class CuratedList extends Component {
   constructor(props) {
     super(props);
+    this.state = {name: '', description: '', articles: []}
 
-    const { availableTags, statusView } = this.props;
-    this.state = defaultState({ availableTags, archiving: false, statusView });
+    // const { availableTags, statusView } = this.props;
+    // this.state = defaultState({ availableTags, archiving: false, statusView });
 
     // bind and initialize all shared functions
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
@@ -52,130 +43,32 @@ export class ReadingList extends Component {
   }
 
   componentDidMount() {
-    const { hitsPerPage, statusView } = this.state;
+    // const { hitsPerPage, statusView } = this.state;
 
-    this.performInitialSearch({
-      containerId: 'reading-list',
-      indexName: 'SecuredReactions',
-      searchOptions: {
-        hitsPerPage,
-        filters: `status:${statusView}`,
-      },
-    });
+    // this.performInitialSearch({
+    //   containerId: 'reading-list',
+    //   indexName: 'SecuredReactions',
+    //   searchOptions: {
+    //     hitsPerPage,
+    //     filters: `status:${statusView}`,
+    //   },
+    // });
   }
-
-  toggleStatusView = event => {
-    event.preventDefault();
-
-    const { query, selectedTags } = this.state;
-
-    const isStatusViewValid = this.statusViewValid();
-    const newStatusView = isStatusViewValid
-      ? STATUS_VIEW_ARCHIVED
-      : STATUS_VIEW_VALID;
-    const newPath = isStatusViewValid
-      ? READING_LIST_ARCHIVE_PATH
-      : READING_LIST_PATH;
-
-    // empty items so that changing the view will start from scratch
-    this.setState({ statusView: newStatusView, items: [] });
-
-    this.search(query, {
-      page: 0,
-      tags: selectedTags,
-      statusView: newStatusView,
-    });
-
-    // change path in the address bar
-    window.history.replaceState(null, null, newPath);
-  };
-
-  toggleArchiveStatus = (event, item) => {
-    event.preventDefault();
-
-    const { statusView, items, totalCount } = this.state;
-    window.fetch(`/reading_list_items/${item.id}`, {
-      method: 'PUT',
-      headers: {
-        'X-CSRF-Token': window.csrfToken,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ current_status: statusView }),
-      credentials: 'same-origin',
-    });
-
-    const t = this;
-    const newItems = items;
-    newItems.splice(newItems.indexOf(item), 1);
-    t.setState({
-      archiving: true,
-      items: newItems,
-      totalCount: totalCount - 1,
-    });
-
-    // hide the snackbar in a few moments
-    setTimeout(() => {
-      t.setState({ archiving: false });
-    }, 1000);
-  };
-
-  statusViewValid() {
-    const { statusView } = this.state;
-    return statusView === STATUS_VIEW_VALID;
-  }
-
-  renderEmptyItems() {
-    const { itemsLoaded, selectedTags, query } = this.state;
-
-    if (itemsLoaded && this.statusViewValid()) {
-      return (
-        <div className="items-empty">
-          <FilterText
-            selectedTags={selectedTags}
-            query={query}
-            value="Your Reading List is Lonely"
-          />
-          <h3>
-            Hit the
-            <span className="highlight">SAVE</span>
-            or
-            <span className="highlight">
-              Bookmark
-              <span role="img" aria-label="Bookmark">
-                🔖
-              </span>
-            </span>
-            to start your Collection
-          </h3>
-        </div>
-      );
-    }
-
-    return (
-      <div className="items-empty">
-        <FilterText
-          selectedTags={selectedTags}
-          query={query}
-          value="Your Archive List is Lonely"
-        />
-      </div>
-    );
-  }
-
   render() {
-    const {
-      items,
-      itemsLoaded,
-      totalCount,
-      availableTags,
-      selectedTags,
-      showLoadMoreButton,
-      archiving,
-    } = this.state;
+    // const {
+    //   items,
+    //   itemsLoaded,
+    //   totalCount,
+    //   availableTags,
+    //   selectedTags,
+    //   showLoadMoreButton,
+    //   archiving,
+    // } = this.state;
 
     const isStatusViewValid = this.statusViewValid();
 
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
+    // itemsToRender will map over each article in a specific curated list, assign the resulting ItemListItem to an array
     const itemsToRender = items.map(item => {
       return (
         <ItemListItem item={item}>
@@ -195,6 +88,7 @@ export class ReadingList extends Component {
       ''
     );
     return (
+      // when rendered, find articles within state or wherever they are stored, render each one of those as a ItemListItem
       <div className="home item-list">
         <div className="side-bar">
           <div className="widget filters">
@@ -240,7 +134,7 @@ export class ReadingList extends Component {
             {/* on click, display addCuratedList form */}
             <button>+</button>
             <ul>
-              {/* render each curated list as a button linking to the curatedList component view, will implement once curatedList data is linked and passed */}
+              {/* // make these clickable and links to a curatedList component view */}
               <p></p><li>Best of 2019</li>
               <p></p><li>Cool Stuff</li>
             </ul>
@@ -270,18 +164,3 @@ export class ReadingList extends Component {
     );
   }
 }
-
-ReadingList.defaultProps = {
-  statusView: STATUS_VIEW_VALID,
-};
-
-ReadingList.propTypes = {
-  availableTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  statusView: PropTypes.oneOf([STATUS_VIEW_VALID, STATUS_VIEW_ARCHIVED]),
-};
-
-FilterText.propTypes = {
-  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  value: PropTypes.string.isRequired,
-  query: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
