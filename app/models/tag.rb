@@ -11,6 +11,9 @@ class Tag < ActsAsTaggableOn::Tag
   belongs_to :badge, optional: true
   has_one :sponsorship, as: :sponsorable, inverse_of: :sponsorable, dependent: :destroy
 
+  has_many :reading_collection_tags
+  has_many :reading_collections, through: :reading_collection_tags
+
   mount_uploader :profile_image, ProfileImageUploader
   mount_uploader :social_image, ProfileImageUploader
 
