@@ -18,8 +18,8 @@ export class CollectionList extends Component {
     if (!collections.length) {
       this.setState({
         collections: [
-          { id: 1, title: 'first_test_post' },
-          { id: 2, title: 'second_test_post' },
+          { id: 1, name: 'first_test_post' },
+          { id: 2, name: 'second_test_post' },
         ],
       });
     }
@@ -28,10 +28,19 @@ export class CollectionList extends Component {
   render() {
     const { collections } = this.state;
     const collectionsToRender = collections.map(collection => {
-      return <Collection key={collection.id} title={collection.title} />;
+      return <Collection key={collection.id} name={collection.name} />;
     });
 
-    return <section className="collection-cont">{collectionsToRender}</section>;
+    return (
+      <section className="collection-cont results results--loaded">
+        <div className="results-header">
+          {collections.length
+            ? `Collections (${collections.length})`
+            : 'Collections'}
+        </div>
+        {collectionsToRender}
+      </section>
+    );
   }
 }
 
