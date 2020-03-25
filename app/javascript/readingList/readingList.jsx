@@ -173,6 +173,7 @@ export class ReadingList extends Component {
     } = this.state;
 
     const { collections } = this.props;
+
     const isStatusViewValid = this.statusViewValid();
 
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
@@ -248,12 +249,14 @@ export class ReadingList extends Component {
             </div>
           </div>
 
-          <CollectionList collections={collections} />
-
           <ItemListLoadMoreButton
             show={showLoadMoreButton}
             onClick={this.loadNextPage}
           />
+        </div>
+
+        <div className="items-container">
+          <CollectionList collections={collections} />
         </div>
 
         {snackBar}
