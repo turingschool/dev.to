@@ -223,6 +223,12 @@ class User < ApplicationRecord
     language_settings["estimated_default_language"]
   end
 
+  def self.daily_dev
+    users = where(email_daily_dev: true)
+    articles = Article.most_popular
+    DailyDevWorker.perform_later(users, articles)
+  end
+
   def self.trigger_delayed_index(record, remove)
     return if remove
 
