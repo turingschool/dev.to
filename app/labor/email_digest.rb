@@ -11,6 +11,10 @@ class EmailDigest
   end
 
   # initialized with users as an empty array
+  def self.send_daily_digest_email(users = [])
+    new(users).send_daily_digest_email
+  end
+
   def initialize(users = [])
     @users = users.empty? ? get_users : users
     # backend constructor - passing through users
