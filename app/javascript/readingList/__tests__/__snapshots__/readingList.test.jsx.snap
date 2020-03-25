@@ -70,5 +70,44 @@ exports[`<ReadingList /> renders properly 1`] = `
       </div>
     </div>
   </div>
+  <div
+    class="items-container"
+  >
+    <section
+      class="collection-cont results results--loaded"
+    >
+      <div
+        class="results-header"
+      >
+        Collections (2)
+      </div>
+      <section
+        class="collection item-wrapper"
+      >
+        <div
+          class="item"
+        >
+          <p
+            class="item-title"
+          >
+            first_test_post
+          </p>
+        </div>
+      </section>
+      <section
+        class="collection item-wrapper"
+      >
+        <div
+          class="item"
+        >
+          <p
+            class="item-title"
+          >
+            second_test_post
+          </p>
+        </div>
+      </section>
+    </section>
+  </div>
 </div>
 `;
