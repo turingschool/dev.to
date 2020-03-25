@@ -33,6 +33,16 @@ RSpec.describe EmailDigest, type: :labor do
           user, [instance_of(Article), instance_of(Article), instance_of(Article)]
         )
       end
+
+      it "send daily digest email" do
+        create_list(:article, 3)
+
+        described_class.send_daily_digest_email
+
+        expect(DailyDigestMailer).to have_received(:daily_digest_email).with(
+          user, [instance_of(Article), instance_of(Article), instance_of(Article)]
+        )
+      end
     end
   end
 end
