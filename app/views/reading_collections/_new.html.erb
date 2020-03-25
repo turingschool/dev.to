@@ -1,0 +1,12 @@
+<h3>New Reading Collection</h3>
+<%= form_tag "/reading_collections", method: :post do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :namen %>
+    <br>
+  <% @tags.each do |tag| %>
+    <%= check_box_tag "tags[]", tag.id %>
+    <%= h tag.name %>
+      <br>
+  <% end %>
+  <%= submit_tag "Create Collection" %>
+<% end %>
