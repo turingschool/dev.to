@@ -257,8 +257,12 @@ class StoriesController < ApplicationController
   def youtube_videos(tags)
     tag = tags.split(",")[0]
     videos = GoogleService.youtube_videos(tag)
-    video = videos[0]
-    YoutubeVideo.new(video)
+    selected_vids = []
+    3.times do
+      video = videos.pop
+      selected_vids << YoutubeVideo.new(video)
+    end
+    selected_vids
   end
 
   def permission_denied?
