@@ -23,6 +23,7 @@ RSpec.describe User, type: :model do
       it { is_expected.to have_many(:comments) }
       it { is_expected.to have_many(:email_messages).class_name("Ahoy::Message") }
       it { is_expected.to have_many(:identities).dependent(:destroy) }
+      it { is_expected.to have_many(:machine_collections).dependent(:destroy) }
       it { is_expected.to have_many(:mentions).dependent(:destroy) }
       it { is_expected.to have_many(:notes) }
       it { is_expected.to have_many(:notifications).dependent(:destroy) }
