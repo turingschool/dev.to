@@ -7,7 +7,7 @@ module Notifications
     def perform(users, articles)
       users.each do |user|
         article = articles.sample
-        DailyDevMailer.send_email(user, article)
+        DailyDevMailer.daily_dev_email(user, article)
       end
     end
   end
