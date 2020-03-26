@@ -225,8 +225,8 @@ class User < ApplicationRecord
 
   def self.daily_dev
     users = where(email_daily_dev: true)
-    articles = Article.most_popular
-    DailyDevWorker.perform_later(users, articles)
+    articles = %w[article1 article2 article3]
+    Notifications::DailyDevWorker.perform_async(users, articles)
   end
 
   def self.trigger_delayed_index(record, remove)
