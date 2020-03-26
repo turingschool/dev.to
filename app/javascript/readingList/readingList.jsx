@@ -31,7 +31,6 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
-// check a
 export class ReadingList extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +52,8 @@ export class ReadingList extends Component {
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
 
+    // **** const { collections } = this.state items 
+
     this.performInitialSearch({
       containerId: 'reading-list',
       indexName: 'SecuredReactions',
@@ -62,6 +63,23 @@ export class ReadingList extends Component {
       },
     });
   }
+
+  // // this is mine *** brainstorming
+  // getCollections = (event, collection) => {
+  //   const { collections } = this.state;
+  //   window.fetch(`$localhost:3000/{user_id}/collections`, {
+  //   //   method: 'PUT',
+  //   //   headers: {
+  //   //     'X-CSRF-Token': window.csrfToken,
+  //   //     'Content-Type': 'application/json',
+  //   //   },
+  //   //   body: JSON.stringify({ collection : collections}),
+      
+  //   //   credentials: 'same-origin',
+  //   // });
+  // };
+  // // brainstorming
+
 
   toggleStatusView = event => {
     event.preventDefault();
@@ -185,7 +203,16 @@ export class ReadingList extends Component {
         </ItemListItem>
       );
     });
-
+    // const collectionItemsToRender = collectionItems.map(collectionItem => {
+    //   return (
+    //     <CollectionListItem item={item}>
+    //       <ItemListItemArchiveButton
+    //         text={archiveButtonLabel}
+    //         onClick={e => this.toggleArchiveStatus(e, item)}
+    //       />
+    //     </CollectionListItem>
+    //   );
+    // });
     const snackBar = archiving ? (
       <div className="snackbar">
         {isStatusViewValid ? 'Archiving...' : 'Unarchiving...'}
