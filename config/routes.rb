@@ -214,6 +214,7 @@ Rails.application.routes.draw do
   resources :podcasts, only: %i[new create]
   resolve("ProMembership") { [:pro_membership] } # see https://guides.rubyonrails.org/routing.html#using-resolve
 
+  post "/:user_id/collections" => "collections#create"
   get "/:user_id/collections/new" => "collections#new"
   get "/search/tags" => "search#tags"
   get "/search/chat_channels" => "search#chat_channels"
