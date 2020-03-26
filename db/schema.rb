@@ -294,7 +294,6 @@ ActiveRecord::Schema.define(version: 2020_03_26_214202) do
   end
 
   create_table "collections", id: :serial, force: :cascade do |t|
-    t.string "cached_tag_list"
     t.datetime "created_at", null: false
     t.string "description"
     t.string "main_image"
