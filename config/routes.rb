@@ -344,6 +344,7 @@ Rails.application.routes.draw do
 
   # for testing rails mailers
   unless Rails.env.production?
+    get "/email" => "email#index"
     get "/rails/mailers" => "rails/mailers#index"
     get "/rails/mailers/*path" => "rails/mailers#preview"
   end
