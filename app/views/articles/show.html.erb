@@ -231,7 +231,12 @@
     <%= render "articles/org_branding", organization: @organization %>
     <%= render "articles/full_comment_area" %>
   </div>
-
+  <div class="suggested_videos_section">
+    <h3>Suggested Video</h3>
+    <div class="suggested_video_container">
+    <%= render "liquids/youtube", id: @youtube_videos.video_id, width: 560, height: 315 %>
+    </div>
+  </div>
   <%# create a cache with an 18 hour expiry for suggested articles, unclear why the @classic_article variable is being instantiated here and not in the view as app/labor/suggester queries the db %>
   <% cache("article-bottom-content-#{@article.id}", expires_in: 18.hours) do %>
     <% @classic_article = Suggester::Articles::Classic.new(@article, not_ids: [@article.id]).get.first %>
