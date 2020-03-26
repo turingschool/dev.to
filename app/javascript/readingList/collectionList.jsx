@@ -32,7 +32,10 @@ export class CollectionList extends Component {
     });
 
     return (
-      <section className="collection-cont results results--loaded">
+      <section
+        className="collection-cont results results--loaded"
+        id="reading-collection"
+      >
         <div className="results-header">
           {collections.length
             ? `Collections (${collections.length})`
