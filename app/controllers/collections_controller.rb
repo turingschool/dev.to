@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
-    @collection = Collection.new(title: collection_params[:collection_title], user_id: collection_params[:user_id])
+    @collection = Collection.new(title: collection_params[:collection_title], cached_tag_list: collection_params[:name], user_id: collection_params[:user_id])
     if @collection.save
       redirect_to "/readinglist"
     else
@@ -18,6 +18,7 @@ class CollectionsController < ApplicationController
   private
 
   def collection_params
-    params.permit(:collection_title, :tag, :user_id)
+    tags = params[:tag].permit(:name)
+    params.permit(:collection_title, :tag, :user_id).merge(tags)
   end
 end
