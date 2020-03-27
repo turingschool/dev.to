@@ -32,6 +32,10 @@
       <%= f.label :email_comment_notifications, "Send me an email when someone replies to me in a comment thread" %>
     </div>
     <div class="sub-field">
+      <%= f.check_box :email_daily_dev %>
+      <%= f.label :email_daily_dev, "Send me an email that contains an article literally every day" %>
+    </div>
+    <div class="sub-field">
       <%= f.check_box :email_follower_notifications %>
       <%= f.label :email_follower_notifications, "Send me an email when someone new follows me" %>
     </div>

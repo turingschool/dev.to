@@ -75,13 +75,14 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { host: config.app_domain }
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: "587",
-    enable_starttls_auto: true,
-    user_name: '<%= ENV["DEVELOPMENT_EMAIL_USERNAME"] %>',
-    password: '<%= ENV["DEVELOPMENT_EMAIL_PASSWORD"] %>',
-    authentication: :plain,
-    domain: "localhost:3000"
+    # address: "smtp.gmail.com",
+    # port: "587",
+    # enable_starttls_auto: true,
+    # user_name: '<%= ENV["DEVELOPMENT_EMAIL_USERNAME"] %>',
+    # password: '<%= ENV["DEVELOPMENT_EMAIL_PASSWORD"] %>',
+    # authentication: :plain,
+    # domain: "localhost:3000"
+    address: "localhost", port: 1025
   }
 
   config.action_mailer.preview_path = Rails.root.join("spec/mailers/previews")
