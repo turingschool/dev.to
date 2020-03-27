@@ -224,9 +224,16 @@ class User < ApplicationRecord
   end
 
   def self.daily_dev
-    users = where(email_daily_dev: true)
+    users = opted_in_daily_dev
     articles = %w[article1 article2 article3]
-    Notifications::DailyDevWorker.perform_async(users, articles)
+    users.each do |user|
+      article = articles.sample
+      Notifications::DailyDevWorker.perform_async(user.email, user.id, article)
+    end
+  end
+
+  def self.opted_in_daily_dev
+    where(email_daily_dev: true)
   end
 
   def self.trigger_delayed_index(record, remove)

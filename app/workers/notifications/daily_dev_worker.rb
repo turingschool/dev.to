@@ -4,11 +4,8 @@ module Notifications
 
     sidekiq_options queue: :medium_priority, retry: 10
 
-    def perform(users, articles)
-      users.each do |user|
-        article = articles.sample
-        DailyDevMailer.daily_dev_email(user, article)
-      end
+    def perform(email, id, article)
+      DailyDevMailer.daily_dev_email(email, id, article).deliver_now
     end
   end
 end
