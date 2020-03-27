@@ -9,7 +9,7 @@ class ReadingCollection < ApplicationRecord
   def get_articles
     Article.where("created_at >= ?", 1.week.ago).
       tagged_with(tag_list, any: true).
-      order("positive_reactions_count DESC").
+      order("page_views_count DESC").
       limit(10)
   end
 end
