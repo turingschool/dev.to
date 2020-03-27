@@ -1,4 +1,4 @@
 desc 'sends daily dev emails'
-task daily_dev: :environment do
-  User.daily_dev_email
+task daily_dev_emails: :environment do
+  User.daily_dev
 end
