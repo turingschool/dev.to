@@ -82,7 +82,7 @@ Rails.application.configure do
     # password: '<%= ENV["DEVELOPMENT_EMAIL_PASSWORD"] %>',
     # authentication: :plain,
     # domain: "localhost:3000"
-    address: "localhost", port: 1080
+    address: "localhost", port: 1025
   }
 
   config.action_mailer.preview_path = Rails.root.join("spec/mailers/previews")
