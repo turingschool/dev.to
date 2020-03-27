@@ -11,6 +11,9 @@ class MachineCollectionsController < ApplicationController
     if @collection.save
       redirect_to "/readinglist"
     else
+      @user = User.find(params[:user_id])
+      @tags = Tag.all
+      flash[:alert] = @collection.errors.full_messages.to_sentence
       render :new
     end
   end
