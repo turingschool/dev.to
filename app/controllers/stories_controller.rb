@@ -255,8 +255,21 @@ class StoriesController < ApplicationController
 
   def youtube_videos(tags)
     videos = GoogleService.youtube_videos(tags)
-    video = videos[0]
-    YoutubeVideo.new(video)
+    videos.delete_if { |video| video[:id][:videoId].nil? }
+    most_relevant = videos[0..2]
+    sorted = videos.sort_by { |video| video[:snippet][:publishedAt] }
+    most_recent = sorted.reverse![0..2]
+    combined = most_relevant.concat(most_recent)
+    ids_combined = combined.map { |video| video[:id][:videoId] }
+    id_string = ids_combined.join(",")
+    video_data = GoogleService.video_data(id_string)
+
+    videos_final = combined.map do |video|
+      statistics = video_data.detect { |video_d| video_d[:id] == video[:id][:videoId] }
+      YoutubeVideo.new(video, statistics)
+    end
+
+    videos_final[0]
   end
 
   def permission_denied?
