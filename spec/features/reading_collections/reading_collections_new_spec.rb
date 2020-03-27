@@ -2,28 +2,32 @@ require "rails_helper"
 require "pry"
 
 RSpec.describe ReadingCollection do
-  describe "as a user when i visit /readinglist", type: :feature do
-    it "i can create a new reading collection" do
-      user = create(:user)
-      described_class.create(user: user, name: "Name")
+  describe "as a user when i visit /readinglist", type: :system do
+    let_it_be(:user) { create(:user) }
 
-      create(:tag, name: "JavaScript")
-      # uncomment below line to pass test
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    before do
+      sign_in user
+    end
+
+    it "i can create a new reading collection" do
+      described_class.create(user: user, name: "Phil's Collection")
+      article = create(:article)
+      create_list(:article, 10)
+
       visit "/readinglist"
 
-      expect(page).to have_content("Reading List")
-      expect(page).to have_content("Name")
-
       within(".home") do
-        within("#reading-collections") do
-          fill_in "Name", with: "Phil's Collection"
+        within("#reading-list") do
+          fill_in "Name", with: "Second Collection"
+          find(:css, "#tags_[value=#{article.cached_tag_list.split(', ').first}]").set(true)
           click_button("Create Collection")
         end
       end
 
       expect(page).to have_current_path("/readinglist")
       expect(described_class.count).to eq(2)
+      expect(Article.count).to eq(11)
+      expect(described_class.last.articles.count).to eq(1)
     end
   end
 end
