@@ -10,7 +10,7 @@ class ReadingCollection < ApplicationRecord
 
   def get_articles(tags)
     self.articles = tags.map do |t|
-      Article.cached_tagged_with(t).first
-    end.to_a
+      Article.where("articles.created_at BETWEEN ? AND ?", Time.zone.now - 1.week, Time.zone.now).order("positive_reactions_count DESC").cached_tagged_with(t)[0]
+    end
   end
 end
