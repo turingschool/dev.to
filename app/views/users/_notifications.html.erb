@@ -2,13 +2,12 @@
 <%= form_for(@user) do |f| %>
   <div class="checkbox-field">
     <div class="sub-field">
-      <%= f.check_box :email_newsletter %>
-      <%= f.label :email_newsletter, "Send me weekly newsletter emails" %>
+      <%= f.check_box :email_daily_digest_notifications %>
+      <%= f.label :email_daily_digest_notifications, "Send me my daily dev email" %>
     </div>
-    <!-- keyword: potato -->
     <div class="sub-field">
       <%= f.check_box :email_newsletter %>
-      <%= f.label :email_newsletter, "Send me my daily dev email" %>
+      <%= f.label :email_newsletter, "Send me weekly newsletter emails" %>
     </div>
     <div class="sub-field">
       <%= f.check_box :email_digest_periodic %>
