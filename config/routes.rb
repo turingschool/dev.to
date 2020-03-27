@@ -117,6 +117,7 @@ Rails.application.routes.draw do
           get :me
         end
       end
+      get "/:user_id/collections", to: "machine_collections#index"
       resources :tags, only: [:index] do
         collection do
           get "/onboarding", to: "tags#onboarding"
