@@ -4,6 +4,7 @@ class ReadingListItemsController < ApplicationController
     @reading_collections = ReadingCollection.where(user_id: session_current_user_id).to_json
     set_view
     generate_algolia_search_key
+    # move below line into reading_collections_new controller after partial refactor
     @tags = Tag.all
   end
 
