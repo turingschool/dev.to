@@ -1,4 +1,4 @@
-class CollectionsController < ApplicationController
+class MachineCollectionsController < ApplicationController
   before_action :authenticate_user!
 
   def new
@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
-    @collection = Collection.new(title: collection_params[:collection_title], cached_tag_list: collection_params[:name], user_id: collection_params[:user_id])
+    @collection = MachineCollection.new(title: collection_params[:collection_title], cached_tag_list: collection_params[:name], user_id: collection_params[:user_id])
     if @collection.save
       redirect_to "/readinglist"
     else
