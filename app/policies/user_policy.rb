@@ -9,6 +9,7 @@ class UserPolicy < ApplicationPolicy
     contact_consent
     currently_hacking_on
     currently_learning
+    email_daily_digest_notifications
     display_sponsors dribbble_url
     editor_version education email
     email_badge_notifications
