@@ -1,0 +1,15 @@
+<h1>Create new collection:</h1>
+
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+<%= form_tag "/#{@user.id}/collections" do %>
+  <%= label_tag :collection_title %>
+  <%= text_field_tag :collection_title %>
+  <%= label_tag :collection_tags %>
+  <%= collection_select(:tag, :name, @tags, :name, :name) %>
+  <%= submit_tag "Create Collection" %>
+<% end %>
