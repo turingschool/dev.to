@@ -1,1 +1,4 @@
-##Add rake task that calls on user class method that sends reminders
+desc 'sends daily dev emails'
+tast daily_dev: :environment do
+  User.daily_dev_email
+end
