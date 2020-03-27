@@ -28,4 +28,13 @@ RSpec.describe "Views a collection", type: :system do
     expect(page).not_to have_content(article4.title)
     expect(page).to have_css(".article", count: 3)
   end
+
+  it "behaves appropriately if user signs out" do
+    sign_out user
+
+    visit "/readingcollections/#{reading_collection.slug}"
+
+    expect(page).not_to have_content(reading_collection.name)
+    expect(page).not_to have_css(".article")
+  end
 end
