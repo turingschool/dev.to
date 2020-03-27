@@ -7,19 +7,19 @@ RSpec.describe ReadingCollection do
 
     before do
       sign_in user
+      described_class.create(user: user, name: "Phil's Collection")
+      create_list(:article, 10)
+      visit "/readinglist"
     end
 
     it "i can create a new reading collection" do
-      described_class.create(user: user, name: "Phil's Collection")
       article = create(:article)
-      create_list(:article, 10)
-
-      visit "/readinglist"
 
       within(".home") do
         within("#reading-list") do
           fill_in "Name", with: "Second Collection"
           find(:css, "#tags_[value=#{article.cached_tag_list.split(', ').first}]").set(true)
+          find(:css, "#tags_[value=#{article.cached_tag_list.split(', ').second}]").set(true)
           click_button("Create Collection")
         end
       end
@@ -27,7 +27,7 @@ RSpec.describe ReadingCollection do
       expect(page).to have_current_path("/readinglist")
       expect(described_class.count).to eq(2)
       expect(Article.count).to eq(11)
-      expect(described_class.last.articles.count).to eq(1)
+      expect(described_class.last.articles.count).to eq(2)
     end
   end
 end
