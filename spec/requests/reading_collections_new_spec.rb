@@ -8,10 +8,7 @@ RSpec.describe "Reading Collections Create", type: :request do
   let(:article3) { create(:article, user_id: separate_user.id) }
 
   before do
-    article2.tag_list.remove(article2.tag_list[0])
-    article2.tag_list.remove(article2.tag_list[0])
-    article2.tag_list.remove(article2.tag_list[0])
-    article2.tag_list.remove(article2.tag_list[0])
+    article2.tag_list.remove(article2.tag_list[0..3])
     article3.tag_list.add(article.tag_list[0])
     sign_in user
   end
