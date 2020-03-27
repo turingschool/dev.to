@@ -7,10 +7,11 @@ import { PropTypes } from 'preact-compat';
 // the user making the component
 // this will a ref to a show page for that collection
 export const CollectionListItem = ({ title, collection_id, user_id }) => {
+  // this will be path to our collection show
   const path = `${ user_id }/collections/${ collection_id }`
  return (
    <div>
-     <a href = path> 
+     <a href = { path }/> 
       <h1> {title}</h1>
      </a>
    </div>

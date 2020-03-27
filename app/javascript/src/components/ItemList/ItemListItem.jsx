@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import { PropTypes } from 'preact-compat';
 
+// dont understand what is happening here
 export const ItemListItem = ({ item, children }) => {
   const adaptedItem = {
     path: item.article_path || item.searchable_reactable_path,

@@ -12,6 +12,7 @@ import {
   clearSelectedTags,
 } from '../searchableItemList/searchableItemList';
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
+import { CollectionListItem } from '../src/components/collecionioniondfkt/CollectionListItem'
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
@@ -64,22 +65,11 @@ export class ReadingList extends Component {
     });
   }
 
-  // // this is mine *** brainstorming
-  // getCollections = (event, collection) => {
-  //   const { collections } = this.state;
-  //   window.fetch(`$localhost:3000/{user_id}/collections`, {
-  //   //   method: 'PUT',
-  //   //   headers: {
-  //   //     'X-CSRF-Token': window.csrfToken,
-  //   //     'Content-Type': 'application/json',
-  //   //   },
-  //   //   body: JSON.stringify({ collection : collections}),
-      
-  //   //   credentials: 'same-origin',
-  //   // });
-  // };
-  // // brainstorming
-
+  getCollections = () => {
+    const { collections } = this.state;
+    window.fetch(`$localhost:3000/api/v0/${user_id}/collections`)
+    // collections will h
+  }
 
   toggleStatusView = event => {
     event.preventDefault();
@@ -179,7 +169,7 @@ export class ReadingList extends Component {
     );
   }
 
-  render() {
+  ave to go back () {
     const {
       items,
       itemsLoaded,
@@ -203,16 +193,11 @@ export class ReadingList extends Component {
         </ItemListItem>
       );
     });
-    // const collectionItemsToRender = collectionItems.map(collectionItem => {
-    //   return (
-    //     <CollectionListItem item={item}>
-    //       <ItemListItemArchiveButton
-    //         text={archiveButtonLabel}
-    //         onClick={e => this.toggleArchiveStatus(e, item)}
-    //       />
-    //     </CollectionListItem>
-    //   );
-    // });
+    const collectionItemsToRender = collectionItems.map(collectionItem => {
+      return (
+        <CollectionList Item title={collectionItem.title} collectionId={collectionItem.collection_id} userId={user_id} />
+      );
+    });
     const snackBar = archiving ? (
       <div className="snackbar">
         {isStatusViewValid ? 'Archiving...' : 'Unarchiving...'}
