@@ -1,10 +1,15 @@
+// deconstruct h and component from preact
+// import proptypes for testing
 import { h, Component } from 'preact';
 import sendFollowUser from '../src/utils/sendFollowUser';
+// import SidebarUser component
 import SidebarUser from './sidebarUser';
 
 class SidebarWidget extends Component {
   constructor(props) {
     super(props);
+    // The bind() method creates a new function that,
+    // when called, has its this keyword set to the provided value
     this.getSuggestedUsers = this.getSuggestedUsers.bind(this);
     this.getTagInfo = this.getTagInfo.bind(this);
     this.followUser = this.followUser.bind(this);
@@ -14,11 +19,13 @@ class SidebarWidget extends Component {
     };
   }
 
+  // on initialization component calls two fns getTagInfo and getSuggestedUsers
   componentDidMount() {
     this.getTagInfo();
     this.getSuggestedUsers();
   }
 
+  // this fn sets state to a parsed json of tag info
   getTagInfo() {
     this.setState({
       tagInfo: JSON.parse(
@@ -27,6 +34,9 @@ class SidebarWidget extends Component {
     });
   }
 
+  // this fn does a fetch call for taginfo name
+  // then sets state of suggestedUsers to the parsed json of the data
+  // catch for fetch errors
   getSuggestedUsers() {
     const { tagInfo } = this.state;
     fetch(`/api/users?state=sidebar_suggestions&tag=${tagInfo.name}`, {
@@ -45,6 +55,11 @@ class SidebarWidget extends Component {
       });
   }
 
+  // this fn takes in a user parameter
+  // sets state with suggestedUsers
+  // runs anonymous function toggleFollowState whcih sets a couple different variables
+  // sets state of suggestedUsers with updatedSuggestedUsers
+  // runs the fn sendFollowUser with user and toggleFollowState values
   followUser(user) {
     const { suggestedUsers } = this.state;
     const updatedUser = user;
@@ -64,6 +79,10 @@ class SidebarWidget extends Component {
     sendFollowUser(user, toggleFollowState);
   }
 
+  // this function is what shows on the page
+  // sets state with suggestedUsers
+  // displays the sidebar component for each user in suggestedUsers array
+  // if array length = 0, then it renders a header and a section with users to follow
   render() {
     const { suggestedUsers } = this.state;
     const users = suggestedUsers.map((user, index) => (

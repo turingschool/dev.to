@@ -4,15 +4,20 @@
 # EmailDigets.send_periodic_digest_email(Users.first(4))
 
 class EmailDigest
+  # self. = this.
   def self.send_periodic_digest_email(users = [])
+    # new calls initialize method line 13
     new(users).send_periodic_digest_email
   end
 
+  # initialized with users as an empty array
   def initialize(users = [])
     @users = users.empty? ? get_users : users
+    # backend constructor - passing through users
   end
 
   def send_periodic_digest_email
+    # find_each for each user
     @users.find_each do |user|
       user_email_heuristic = EmailLogic.new(user).analyze
       next unless user_email_heuristic.should_receive_email?

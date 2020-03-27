@@ -1,3 +1,8 @@
+# Controller - handles the user interface
+# interprets mouse and keyboard inputs to update the model and view
+# this page appears to house all the function declerations for the code base specific to only the user
+# this is similar to a class on the front end that houses all the functions for that specific class - such as a user class
+
 class UsersController < ApplicationController
   before_action :set_no_cache_header
   before_action :raise_suspended, only: %i[update]
@@ -6,19 +11,24 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[onboarding_update onboarding_checkbox_update]
 
   # GET /settings/@tab
+  # backend language here is straighforward
+  # checks if current user and skips skip_authorization otherwise redirects to sign up
   def edit
     unless current_user
       skip_authorization
       return redirect_to sign_up_path
     end
+    # after it has the wanted user info it sets the user
     set_user
     set_tabs(params["tab"] || "profile")
     handle_settings_tab
   end
 
   # PATCH/PUT /users/:id.:format
+  # def here is similar to a FE function decleration, does not end with ; but rather keyword 'end'
   def update
     set_tabs(params["user"]["tab"])
+    # conditional checks if there is a user
     if @user.update(permitted_attributes(@user))
       RssReaderFetchUserWorker.perform_async(@user.id) if @user.feed_url.present?
       notice = "Your profile was successfully updated."
@@ -35,6 +45,7 @@ class UsersController < ApplicationController
       @user.touch(:profile_updated_at)
       redirect_to "/settings/#{@tab}"
     else
+      # else if no user render the function 'edit' line 14
       render :edit
     end
   end
@@ -52,6 +63,8 @@ class UsersController < ApplicationController
     redirect_to "/settings/#{@tab}"
   end
 
+  # this function updates the language settings for the user
+  # params are user and preferred_languages
   def update_language_settings
     set_tabs("misc")
     @user.language_settings["preferred_languages"] = Languages::LIST.keys & params[:user][:preferred_languages].to_a
@@ -64,6 +77,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # this function destroys the user account and deletes email from database
+  # params are email and user account
+  # on destroy this function runs several other functions
+  # confirm_destroy, full_delete, remove_association, onboarding_update, onboarding_checkbox_update, join_org
   def request_destroy
     set_tabs("account")
     if @user.email?
@@ -149,6 +166,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # this function removes the user from the organization tag
+  # parameters include user_id and organization_id
   def leave_org
     org = Organization.find_by(id: params[:organization_id])
     authorize org
@@ -157,6 +176,8 @@ class UsersController < ApplicationController
     redirect_to "/settings/organization/new"
   end
 
+  # this function adds the user to an orgnization tag
+  # parameters include user_id, type_of_user, and organization_id
   def add_org_admin
     adminable = User.find(params[:user_id])
     org = Organization.find_by(id: params[:organization_id])
@@ -219,6 +240,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # private is how a developer can hide code or data from a user on the frontend
+  # this is where private information is stored like credit card info or user personal data
   private
 
   def render_update_response
