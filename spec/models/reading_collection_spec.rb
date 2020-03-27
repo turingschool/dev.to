@@ -16,6 +16,18 @@ RSpec.describe ReadingCollection, type: :model do
     it { is_expected.to have_many(:articles).through(:reading_collection_articles) }
   end
 
+  describe "attributes" do
+    it "has attributes" do
+      user = create(:user)
+      reading_collection = described_class.create!(name: "My Collection", user: user)
+
+      expect(reading_collection.name).to eq("My Collection")
+      expect(reading_collection.user_id).to eq(user.id)
+      slug = reading_collection.slug
+      expect(slug.include?("my-collection")).to eq(true)
+    end
+  end
+
   describe "model methods" do
     describe "#set-slug" do
       it "sets a unique slug before create" do
@@ -30,6 +42,10 @@ RSpec.describe ReadingCollection, type: :model do
 
         expect(slug2).to be_a String
         expect(slug).not_to eq(slug2)
+
+        reading_collection2.slug = nil
+        reading_collection2.save
+        expect(reading_collection2.slug).not_to be_nil
       end
     end
   end
