@@ -7,7 +7,7 @@ FactoryBot.define do
       published { true }
       date { "01/01/2015" }
       # tags { Faker::Hipster.words(number: 4).join(", ") }
-      tags { "coronavirus, lockdown, turing, student" }
+      tags { "linux, go, beginners" }
       canonical_url { Faker::Internet.url }
       with_canonical_url { false }
       with_date { false }
