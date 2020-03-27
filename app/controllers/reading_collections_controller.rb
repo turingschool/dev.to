@@ -13,9 +13,7 @@ class ReadingCollectionsController < ApplicationController
   private
 
   def collection_params
-    {
-      name: params[:name], user: current_user
-    }
+    { name: params[:name], user: current_user }
   end
 end
 
