@@ -36,10 +36,13 @@ export class CollectionList extends Component {
         className="collection-cont results results--loaded"
         id="reading-collection"
       >
-        <div className="results-header">
+        <div className="results-header collection-header">
           {collections.length
             ? `Collections (${collections.length})`
             : 'Collections'}
+          <a className="new-collection" href="/readingcollections/new">
+            +
+          </a>
         </div>
         {collectionsToRender}
       </section>
