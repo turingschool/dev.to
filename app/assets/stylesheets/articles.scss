@@ -63,7 +63,7 @@
   .side-bar {
     float: left;
     width: 280px;
-    height: 700px;
+    height: 1000px;
     font-size: 0.85em;
     line-height: 1.35em;
     display: none;
@@ -913,6 +913,22 @@
   @include dev-card;
   padding: 48px 24px;
   text-align: center;
+}
+
+.collection-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collection-btn {
+  background: #0045ff;
+  color: white;
+}
+
+.new-collection {
+  font-size: 3rem;
 }
 
 // Notifications filtering on mobile.
