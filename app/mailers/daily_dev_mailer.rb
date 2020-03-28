@@ -1,10 +1,11 @@
 class DailyDevMailer < ApplicationMailer
   default from: -> { "Daily Dev <#{SiteConfig.default_site_email}>" }
 
-  def daily_dev_email(address, id, article)
+  def daily_dev_email(user, article)
+    @user = user
     @article = article
-    @unsubscribe = generate_unsubscribe_token(id, :email_daily_dev)
+    @unsubscribe = generate_unsubscribe_token(@user.id, :email_daily_dev)
     subject = "Your Daily Dev"
-    mail(to: address, subject: subject)
+    mail(to: @user.email, subject: subject)
   end
 end
