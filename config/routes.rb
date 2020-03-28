@@ -217,6 +217,7 @@ Rails.application.routes.draw do
 
   post "/:user_id/collections" => "machine_collections#create"
   get "/:user_id/collections/new" => "machine_collections#new"
+  get "/:user_id/collections/:slug" => "machine_collections#show"
   get "/search/tags" => "search#tags"
   get "/search/chat_channels" => "search#chat_channels"
   get "/chat_channel_memberships/find_by_chat_channel_id" => "chat_channel_memberships#find_by_chat_channel_id"
