@@ -4,7 +4,7 @@ import { CollectionForm } from '../readingList/collectionForm';
 
 function loadElement() {
   getUserDataAndCsrfToken().then(() => {
-    const root = document.getElementById('collection-list');
+    const root = document.getElementById('collection-form');
     if (root) {
       render(<CollectionForm tagList="" />, root, root.firstElementChild);
     }
