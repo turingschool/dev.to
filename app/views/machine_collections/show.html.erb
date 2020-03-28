@@ -1,0 +1,7 @@
+<h2>Articles in <%= @collection.title %></h2>
+
+<div class="machine_collection_articles">
+  <% @collection_articles.map do |article| %>
+    <li>Title: <%= article.title %>, Page views: <%= article.page_views_count %></li>
+  <% end %>
+</div>

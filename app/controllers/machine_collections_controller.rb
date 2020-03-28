@@ -18,6 +18,11 @@ class MachineCollectionsController < ApplicationController
     end
   end
 
+  def show
+    @collection = MachineCollection.find(params[:id])
+    @collection_articles = @collection.articles_past_seven_days
+  end
+
   private
 
   def collection_params
