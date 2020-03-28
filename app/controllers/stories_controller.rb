@@ -272,12 +272,10 @@ class StoriesController < ApplicationController
     id_string = ids_combined.join(",")
     video_data = GoogleService.video_data(id_string)
 
-    videos_final = combined.map do |video|
+    combined.map do |video|
       statistics = video_data.detect { |video_d| video_d[:id] == video[:id][:videoId] }
       YoutubeVideo.new(video, statistics)
     end
-
-    videos_final[0]
   end
 
   def permission_denied?
