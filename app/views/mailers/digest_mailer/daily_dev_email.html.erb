@@ -14,7 +14,7 @@
      <hr />
 </ul> %>
 
-<section style="dipslay: flex; justify-content: center; width: 80%; max-width: 800px;">
+<section style="display: flex; justify-content: center; width: 80%; max-width: 800px; text-align: center;">
 <%# I dont think this first line is right, since the digest was iterating through the articles rather than just presenting one. %>
   <img src="<%= @article.main_image %>" style="width: 100%;" />
   <h3 style="font-weight: bold;font-size:calc(0.93em + 0.2vw);"><%= @article.title %></h3>
@@ -22,7 +22,6 @@
   <p><%= @article.published_at %>
   <article>
     <%= @article.processed_html %>
-    <%= @article.cached_tag_list %>
   </article>
 </section>
 
