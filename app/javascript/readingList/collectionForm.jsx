@@ -26,7 +26,7 @@ export class CollectionForm extends Component {
     e.preventDefault();
     const tagArr = tags.split(',');
     if (title.length && tags.length) {
-      fetch('/reading_collections', {
+      fetch('/api/reading_collections', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -34,12 +34,13 @@ export class CollectionForm extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title,
-          tags: tagArr,
+          name: title,
+          tag_list: tagArr,
         }),
         credentials: 'same-origin',
+      }).then(() => {
+        window.location.href = '/readinglist';
       });
-      window.location.href = '/readinglist';
     } else {
       console.log('Please fill out fields');
     }
@@ -55,7 +56,7 @@ export class CollectionForm extends Component {
           <input
             type="text"
             name="title"
-            placeholder="Title..."
+            placeholder="Collection Name..."
             onChange={this.handleChange}
             className="articleform__title"
             required
