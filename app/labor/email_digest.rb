@@ -26,6 +26,12 @@ class EmailDigest
     end
   end
 
+  def send_daily_dev_email
+    @users.find_each do |user|
+      EmailLogic.new(user).analyze_daily_dev
+    end
+  end
+
   private
 
   def get_users
