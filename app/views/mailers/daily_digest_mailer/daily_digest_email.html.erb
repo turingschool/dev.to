@@ -1,0 +1,30 @@
+<h1 style="text-align: center;">Your DEV Daily Digest</h1>
+<h4 style="text-align: center;color: rebeccapurple;">A Daily Article Based on Your Preferences 💜</h4>
+<div>
+<hr />
+</div>
+<div style="display: flex; flex-direction: row; justify-content: center;">
+  <img style="height: 200px;margin: 20px"src=<%=  @article.main_image %> alt='article headline' />
+  <div style="display: flex; flex-direction: column; justify-content: center;align-items: space-between">
+    <h2 style="text-align: center"><%=  @article.title %></h2>
+    <p style="text-align: center"><%=  @article.description %></p>
+  </div>
+</div>
+<a style="text-align: center;display: flex; flex-direction: column; justify-content: center;margin: 20px;" href=<%=  @article.path %>>Link to Full Article</a>
+<div style="text-align: center;background-color: rebeccapurple;color: white; padding: 3px;">For Similar Content, Follow: <%=  @article.cached_tag_list %></div>
+<hr />
+
+<center style="margin-top:50px;">
+  <em>
+      <p>You can update preferences to help us send you articles you would be interested in. 👍</p>
+      <br />
+      Visit <b><a href="http://dev.to/settings/notifications" style="text-decoration: none;">your settings</a></b> to enter your preferred email notifications.
+      <br /><br />
+      You can change it any time in the future. Happy coding!
+
+      Your digest is not yet customized. Follow the people and technologies on
+      <a href="https://dev.to" style="text-decoration: none;">dev.to</a> that interest you in order to receive the most relevant posts in your inbox.
+
+  </em>
+</center>
+
