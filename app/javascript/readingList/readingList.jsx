@@ -13,6 +13,7 @@ import {
 } from '../searchableItemList/searchableItemList';
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
 import { CollectionListItem } from '../src/components/CollectionList/CollectionListItem';
+import { CollectionListButton } from '../src/components/CollectionListButton/CollecitonListButton';
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
@@ -64,8 +65,8 @@ export class ReadingList extends Component {
     this.getCollections(currentUser.id)
   }
 
-  getCollections = (user_id) => {
-    const url =`api/${user_id}/collections`
+  getCollections = (userId) => {
+    const url =`api/${userId}/collections`
     fetch(url)
     .then(response => {
     return response.json()})
@@ -175,6 +176,7 @@ export class ReadingList extends Component {
   }
 
   render() {
+    const collectionListButton = <CollectionListButton  userId={currentUser.id}></CollectionListButton> 
     const {
       items,
       itemsLoaded,
@@ -187,9 +189,11 @@ export class ReadingList extends Component {
     } = this.state;
     const collectionItemsToRender = collectionItems.map(collectionItem => {
       return (
-        <CollectionListItem title={collectionItem.attributes.title} collectionId={collectionItem.id} userId={currentUser.id} />
+        <CollectionListItem title={collectionItem.attributes.title} collectionId={collectionItem.id} userId={currentUser.id} >
+        </CollectionListItem>
       );
     });
+
 
     const isStatusViewValid = this.statusViewValid();
 
@@ -278,6 +282,7 @@ export class ReadingList extends Component {
             <div>
               {items.length > 0 ? collectionItemsToRender : this.renderEmptyItems()}
             </div>
+            {collectionListButton}
           </div>
         </div>
 
