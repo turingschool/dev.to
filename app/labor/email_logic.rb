@@ -26,7 +26,7 @@ class EmailLogic
   end
 
   def analyze_daily_email
-    @articles_to_send = one_article
+    @articles_to_send = most_viewed_article
   end
 
   def should_receive_email?
@@ -71,8 +71,12 @@ class EmailLogic
     articles
   end
 
-  def one_article
-    @user.followed_articles.first if user_has_followings?
+  def most_viewed_article
+    # if user_has_followings?
+    Article.order("page_views_count DESC").
+      where.not(user_id: @user.id).
+      limit(1)
+    # end
   end
 
   def get_days_until_next_email
