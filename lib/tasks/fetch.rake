@@ -55,6 +55,10 @@ task send_email_digest: :environment do
   end
 end
 
+task send_daily_digest: :environment do
+    DailyDigestEmail.send_daily_digest_email
+end
+
 task award_badges: :environment do
   BadgeRewarder.award_yearly_club_badges
   BadgeRewarder.award_beloved_comment_badges

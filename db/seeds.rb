@@ -37,11 +37,11 @@ User.create!(
   summary: Faker::Lorem.paragraph_by_chars(number: 199, supplemental: false),
   profile_image: File.open(Rails.root.join("app/assets/images/#{rand(1..40)}.png")),
   website_url: Faker::Internet.url,
-  twitter_username: Faker::Internet.username(specifier: name),
+  twitter_username: Faker::Internet.username(specifier: 'linda'),
   email_comment_notifications: false,
   email_follower_notifications: false,
   email_daily_digest_notifications: false,
-  email: 'yueling1222@gmail.com',
+  email: 'linda_le@maildrop.cc',
   confirmed_at: Time.current,
   password: "password"
 )
