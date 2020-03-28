@@ -2,6 +2,6 @@
 
 <div class="machine_collection_articles">
   <% @collection_articles.map do |article| %>
-    <li><%= article.title %></li>
+    <li>Title: <%= article.title %>, Page views: <%= article.page_views_count %></li>
   <% end %>
 </div>
