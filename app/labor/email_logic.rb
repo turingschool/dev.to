@@ -72,8 +72,12 @@ class EmailLogic
   end
 
   def most_viewed_article
-    Article.order("page_views_count DESC").
+    two_weeks = 14.days.ago.utc
+
+    Article.where("published_at >= ?", two_weeks).
+      where("hotness_score > 20").
       where.not(user_id: @user.id).
+      order("page_views_count DESC").
       limit(1)
   end
 
