@@ -19,8 +19,9 @@
 
 <div class="home">
   <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>" data-reading-collections="<%= @reading_collections %>">
+    <%= render partial: "reading_collections/new" %>
   </div>
 </div>
 
 <%= javascript_pack_tag "readingList", defer: true %>
-<!-- add the javascript_pack_tag for "readingCollection" -->
+

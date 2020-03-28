@@ -103,6 +103,7 @@ Rails.application.routes.draw do
           get "me(/:status)", to: "articles#me", as: :me, constraints: { status: /published|unpublished|all/ }
         end
       end
+      resources :reading_collections, only: %i[create]
       resources :comments, only: %i[index show]
       resources :chat_channels, only: [:show]
       resources :videos, only: [:index]
@@ -366,6 +367,8 @@ Rails.application.routes.draw do
   get "/podcasts", to: redirect("pod")
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
+
+  get "/readingcollections/new", to: "reading_collections#new"
 
   get "/feed" => "articles#feed", :as => "feed", :defaults => { format: "rss" }
   get "/feed/tag/:tag" => "articles#feed",

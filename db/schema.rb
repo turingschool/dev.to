@@ -1117,7 +1117,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_020008) do
     t.datetime "last_article_at", default: "2017-01-01 05:00:00"
     t.datetime "last_comment_at", default: "2017-01-01 05:00:00"
     t.datetime "last_followed_at"
-    t.datetime "last_moderation_notification", default: "2017-01-01 05:00:00"
+    t.datetime "last_moderation_notification", default: "2017-01-01 07:00:00"
     t.datetime "last_notification_activity"
     t.string "last_onboarding_page"
     t.datetime "last_sign_in_at"
@@ -1244,6 +1244,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_020008) do
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "page_views", "articles", on_delete: :cascade
   add_foreign_key "podcasts", "users", column: "creator_id"
+  add_foreign_key "pro_memberships", "users"
   add_foreign_key "reading_collection_articles", "articles"
   add_foreign_key "reading_collection_articles", "reading_collections"
   add_foreign_key "reading_collections", "users"
