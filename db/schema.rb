@@ -1063,6 +1063,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_015128) do
     t.boolean "email_comment_notifications", default: true
     t.boolean "email_community_mod_newsletter", default: false
     t.boolean "email_connect_messages", default: true
+    t.boolean "email_daily_digest_notifications", default: false
     t.boolean "email_digest_periodic", default: true, null: false
     t.boolean "email_follower_notifications", default: true
     t.boolean "email_membership_newsletter", default: false

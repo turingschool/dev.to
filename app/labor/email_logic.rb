@@ -25,6 +25,10 @@ class EmailLogic
     self
   end
 
+  def analyze_daily_email
+    @articles_to_send = most_viewed_article.first
+  end
+
   def should_receive_email?
     @ready_to_receive_email
   end
@@ -65,6 +69,12 @@ class EmailLogic
     @ready_to_receive_email = false if articles.length < 3
 
     articles
+  end
+
+  def most_viewed_article
+    Article.order("page_views_count DESC").
+      where.not(user_id: @user.id).
+      limit(1)
   end
 
   def get_days_until_next_email
