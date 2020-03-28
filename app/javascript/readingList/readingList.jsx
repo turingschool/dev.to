@@ -12,6 +12,8 @@ import {
   clearSelectedTags,
 } from '../searchableItemList/searchableItemList';
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
+import { CollectionListItem } from '../src/components/CollectionList/CollectionListItem';
+import { CollectionListButton } from '../src/components/CollectionListButton/CollecitonListButton';
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
@@ -36,7 +38,7 @@ export class ReadingList extends Component {
     super(props);
 
     const { availableTags, statusView } = this.props;
-    this.state = defaultState({ availableTags, archiving: false, statusView });
+    this.state = defaultState({ availableTags, archiving: false, statusView, collectionItems: [] });
 
     // bind and initialize all shared functions
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
@@ -60,7 +62,20 @@ export class ReadingList extends Component {
         filters: `status:${statusView}`,
       },
     });
+    this.getCollections(currentUser.id)
   }
+
+  getCollections = (userId) => {
+    const url =`api/${userId}/collections`
+    fetch(url)
+    .then(response => {
+    return response.json()})
+    .then((data) => {
+    this.setState({
+      collectionItems: data.data
+    })
+  })
+  .catch((error) => console.log(error))}
 
   toggleStatusView = event => {
     event.preventDefault();
@@ -161,6 +176,7 @@ export class ReadingList extends Component {
   }
 
   render() {
+    const collectionListButton = <CollectionListButton  userId={currentUser.id}></CollectionListButton> 
     const {
       items,
       itemsLoaded,
@@ -169,7 +185,15 @@ export class ReadingList extends Component {
       selectedTags,
       showLoadMoreButton,
       archiving,
+      collectionItems
     } = this.state;
+    const collectionItemsToRender = collectionItems.map(collectionItem => {
+      return (
+        <CollectionListItem title={collectionItem.attributes.title} collectionId={collectionItem.id} userId={currentUser.id} >
+        </CollectionListItem>
+      );
+    });
+
 
     const isStatusViewValid = this.statusViewValid();
 
@@ -250,9 +274,20 @@ export class ReadingList extends Component {
             show={showLoadMoreButton}
             onClick={this.loadNextPage}
           />
+          <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
+            <div className="results-header">
+              { 'Collections List' }
+              {/* {` (${totalCount > 0 ? totalCount : 'empty'})`} */}
+            </div>
+            <div>
+              {items.length > 0 ? collectionItemsToRender : this.renderEmptyItems()}
+            </div>
+            {collectionListButton}
+          </div>
         </div>
 
         {snackBar}
+
       </div>
     );
   }

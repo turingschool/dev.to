@@ -116,6 +116,7 @@ group :development do
   gem "guard-rspec", "~> 4.7", require: false # Guard::RSpec automatically run your specs
   gem "memory_profiler", "~> 0.9", require: false # Memory profiling routines for Ruby 2.3+
   gem "pry", "~> 0.12" # An IRB alternative and runtime developer console
+   
   gem "pry-rails", "~> 0.3" # Use Pry as your rails console
   gem "web-console", "~> 3.7" # Rails Console on the Browser
   gem "yard", "~> 0.9.24" # YARD is a documentation generation tool for the Ruby programming language
