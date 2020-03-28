@@ -9,6 +9,6 @@ class MachineCollection < ApplicationRecord
 
   def articles_past_seven_days
     Article.where("position('#{cached_tag_list}' in cached_tag_list) > 0").
-      where("created_at > '#{Time.zone.today - 7.days}'")
+      where("created_at > '#{Time.zone.today - 7.days}'").order(page_views_count: :desc)
   end
 end
