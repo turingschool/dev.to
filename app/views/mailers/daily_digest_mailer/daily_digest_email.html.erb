@@ -1,13 +1,18 @@
-<h1 style="text-align: center;">DEV Daily Digest</h1>
+<h1 style="text-align: center;">Your DEV Daily Digest</h1>
 <h4 style="text-align: center;color: rebeccapurple;">A Daily Article Based on Your Preferences 💜</h4>
-<ul>
-  <%# <% @articles.each do |article| %> %>
-    <li style="margin:18px auto">
-      <a href="https://dev.to<%= article.path %>" style="font-weight: bold;color:#0045ff;font-size:calc(0.93em + 0.2vw);"><%= article.title.strip %></a> <%= truncate(article.description, length: 120) %>
-    </li>
-  <% end %>
-     <hr />
-</ul>
+<div>
+<hr />
+</div>
+<div style="display: flex; flex-direction: row; justify-content: center;">
+  <img style="height: 200px;margin: 20px"src=<%=  @article.main_image %> alt='article headline' />
+  <div style="display: flex; flex-direction: column; justify-content: center;align-items: space-between">
+    <h2 style="text-align: center"><%=  @article.title %></h2>
+    <p style="text-align: center"><%=  @article.description %></p>
+  </div>
+</div>
+<a style="text-align: center;display: flex; flex-direction: column; justify-content: center;margin: 20px;" href=<%=  @article.path %>>Link to Full Article</a>
+<div style="text-align: center;background-color: rebeccapurple;color: white; padding: 3px;">For Similar Content, Follow: <%=  @article.cached_tag_list %></div>
+<hr />
 
 
 <center style="margin-top:50px;">
