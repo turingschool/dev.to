@@ -19,7 +19,7 @@ class MachineCollectionsController < ApplicationController
   end
 
   def show
-    @collection = MachineCollection.find_by(params[:title])
+    @collection = MachineCollection.find(params[:id])
     @collection_articles = @collection.articles_past_seven_days
   end
 
