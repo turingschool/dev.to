@@ -36,12 +36,16 @@ class StoriesController < ApplicationController
   def show
     @story_show = true
     if (@article = Article.find_by(path: "/#{params[:username].downcase}/#{params[:slug]}")&.decorate)
+      # if the article is found for the params passed and it is an article by a user then invoke the handle_article_show method
+      # which is defined below, see annotations there
       handle_article_show
     elsif (@article = Article.find_by(slug: params[:slug])&.decorate)
+      # if the article is not associated with a user then invoke the handle_possible_redirect method, see annotations there
       handle_possible_redirect
     else
       @podcast = Podcast.available.find_by!(slug: params[:username])
       @episode = PodcastEpisode.available.find_by!(slug: params[:slug])
+      # if an article can't be found then look up a podcast for the user and an episode, and invoke the handle_podcast_show method, see annotations below
       handle_podcast_show
     end
   end
@@ -83,6 +87,7 @@ class StoriesController < ApplicationController
   end
 
   def handle_possible_redirect
+    # handles case where article not found, redirects user
     potential_username = params[:username].tr("@", "").downcase
     @user = User.find_by("old_username = ? OR old_old_username = ?", potential_username, potential_username)
     if @user&.articles&.find_by(slug: params[:slug])
@@ -196,6 +201,7 @@ class StoriesController < ApplicationController
   end
 
   def handle_podcast_show
+    # handles case where user not found, renders podcasts
     set_surrogate_key_header @episode.record_key
     @episode = @episode.decorate
     @podcast_episode_show = true
@@ -215,6 +221,7 @@ class StoriesController < ApplicationController
   end
 
   def handle_article_show
+    # invokes several methods to be passed to the article show view which are self explanatory
     assign_article_show_variables
     set_surrogate_key_header @article.record_key
     redirect_if_show_view_param
@@ -243,6 +250,32 @@ class StoriesController < ApplicationController
     assign_second_and_third_user
     not_found if permission_denied?
     @comment = Comment.new(body_markdown: @article&.comment_template)
+    @youtube_videos = youtube_videos(@article.cached_tag_list)
+  end
+
+  def youtube_videos(tags)
+    # tag = tags.split(",")[0]
+    # videos = GoogleService.youtube_videos(tag)
+    # selected_vids = []
+    # 3.times do
+    #   video = videos.pop
+    #   selected_vids << YoutubeVideo.new(video)
+    # end
+    # selected_vids
+    videos = GoogleService.youtube_videos(tags)
+    videos.delete_if { |video| video[:id][:videoId].nil? }
+    most_relevant = videos[0..2]
+    sorted = videos.sort_by { |video| video[:snippet][:publishedAt] }
+    most_recent = sorted.reverse![0..2]
+    combined = most_relevant.concat(most_recent)
+    ids_combined = combined.map { |video| video[:id][:videoId] }
+    id_string = ids_combined.join(",")
+    video_data = GoogleService.video_data(id_string)
+
+    combined.map do |video|
+      statistics = video_data.detect { |video_d| video_d[:id] == video[:id][:videoId] }
+      YoutubeVideo.new(video, statistics)
+    end
   end
 
   def permission_denied?

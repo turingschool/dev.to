@@ -18,6 +18,7 @@ vendor/bundle
 .torus.json
 coverage
 /tags
+/spec/support/fixtures/vcr_cassettes/
 
 # Ignore public uploads
 /public/uploads/*
@@ -72,3 +73,6 @@ docs/.static/api/
 
 # ES docker volume
 docker_data/
+
+# ignore vcr cassettes
+spec/support/fixtures/vcr_cassettes/

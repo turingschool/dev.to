@@ -1,10 +1,12 @@
 class Article < ApplicationRecord
+  # includes various helpers and modules to supplement the resource
   include CloudinaryHelper
   include ActionView::Helpers
   include AlgoliaSearch
   include Storext.model
   include Reactable
 
+  # makes use of the acts-as-taggable gem that makes it easier to assign tags to articles
   acts_as_taggable_on :tags
   resourcify
 
@@ -14,6 +16,7 @@ class Article < ApplicationRecord
   delegate :name, to: :user, prefix: true
   delegate :username, to: :user, prefix: true
 
+  # defines resource relationships
   belongs_to :user
   belongs_to :job_opportunity, optional: true
   belongs_to :organization, optional: true
@@ -22,6 +25,7 @@ class Article < ApplicationRecord
   counter_culture :user
   counter_culture :organization
 
+  # defines resource relationships
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -30,6 +34,7 @@ class Article < ApplicationRecord
   has_many :rating_votes
   has_many :page_views
 
+  # adds various validation checks for slugs including some regex to ensure characters are alphanumeric
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }
   validates :title, presence: true,
@@ -56,6 +61,7 @@ class Article < ApplicationRecord
   validates :video_closed_caption_track_url, url: { allow_blank: true, schemes: ["https"] }
   validates :video_source_url, url: { allow_blank: true, schemes: ["https"] }
 
+  # adds various checks to ensure that requisite information is present before saving an article in the db
   after_update_commit :update_notifications, if: proc { |article| article.notifications.any? && !article.saved_changes.empty? }
   before_validation :evaluate_markdown
   before_validation :create_slug
@@ -286,6 +292,7 @@ class Article < ApplicationRecord
     text_portion.strip
   end
 
+  # uses Rails built in method sanitize to ensure no malicious code entered that could for example be used in an SQL injection attack
   def body_text
     ActionView::Base.full_sanitizer.sanitize(processed_html)[0..7000]
   end
