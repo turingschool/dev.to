@@ -1,11 +1,12 @@
+<% title "New Reading Collection" %>
 
 <h3>New Reading Collection</h3>
 <%= form_tag "/reading_collections", method: :post do %>
   <%= label_tag :name %>
-  <%= text_field_tag :namen %>
+  <%= text_field_tag :name %>
     <br>
   <% @tags.each do |tag| %>
-    <%= check_box_tag "tags[]", tag.id %>
+    <%= check_box_tag "tags[]", tag.name %>
     <%= h tag.name %>
       <br>
   <% end %>

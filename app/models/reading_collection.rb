@@ -6,9 +6,19 @@ class ReadingCollection < ApplicationRecord
   validates :slug, presence: true, format: /\A[0-9a-z\-_]*\z/, uniqueness: { scope: :user_id }
   before_validation :set_slug
 
+  def get_articles
+    Article.where("created_at >= ?", 1.week.ago).
+      tagged_with(tag_list, any: true).
+      order("page_views_count DESC").
+      limit(10)
+  end
+
   private
 
   def set_slug
     self.slug = name.to_s.downcase.parameterize.tr("_", "") + "-" + rand(100_000).to_s(26)
   end
+
+  validates :name, :user_id, presence: true
+  acts_as_taggable_on :tags
 end
