@@ -74,11 +74,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
     port: "587",
-    enable_starttls_auto: true,
-    user_name: '<%= ENV["SENDGRID_USERNAME"] %>',
-    password: '<%= ENV["SENDGRID_PASSWORD"] %>',
-    authentication: :plain,
-    domain: "localhost:3000"
+    domain: "localhost:3000",
+    user_name: ENV["SENDGRID_USERNAME"],
+    password: ENV["SENDGRID_PASSWORD"],
+    authentication: "plain",
+    enable_starttls_auto: true
   }
 
   config.action_mailer.raise_delivery_errors = true

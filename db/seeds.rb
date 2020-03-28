@@ -40,8 +40,22 @@ User.create!(
   twitter_username: Faker::Name.unique.name,
   email_comment_notifications: false,
   email_follower_notifications: false,
-  email_daily_digest_notifications: false,
+  email_daily_digest_notifications: true,
   email: 'linda_le@maildrop.cc',
+  confirmed_at: Time.current,
+  password: "password"
+)
+
+User.create!(
+  name: 'Henry the Toad',
+  summary: Faker::Lorem.paragraph_by_chars(number: 199, supplemental: false),
+  profile_image: File.open(Rails.root.join("app/assets/images/#{rand(1..40)}.png")),
+  website_url: Faker::Internet.url,
+  twitter_username: Faker::Name.unique.name,
+  email_comment_notifications: false,
+  email_follower_notifications: false,
+  email_daily_digest_notifications: true,
+  email: 'henry_the_toad@guerrillamail.com',
   confirmed_at: Time.current,
   password: "password"
 )

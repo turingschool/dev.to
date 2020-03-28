@@ -10,9 +10,8 @@ class DailyDigestEmail
   def send_daily_digest_email
     @users.find_each do |user|
       article = EmailLogic.new(user).analyze_daily_email
-
       begin
-        DailyDigestMailer.daily_digest_email(user, article).deliver if user.email_daily_digest_notifications == true
+        DailyDigestMailer.daily_digest_email(user, article).deliver_now if user.email_daily_digest_notifications == true
       rescue StandardError => e
         Rails.logger.error("Email issue: #{e}")
       end
