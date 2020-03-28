@@ -7,4 +7,6 @@ class DailyDigestMailer < ApplicationMailer
     subject = "Daily Dev"
     mail(to: @user.email, subject: subject)
   end
+
+  
 end
