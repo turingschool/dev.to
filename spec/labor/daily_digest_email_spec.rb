@@ -21,7 +21,7 @@ RSpec.describe DailyDigestEmail, type: :labor do
   context "when daily digest email" do
     before { user.follow(author) }
 
-    it "sendemail based on highest page view count" do
+    it "send email based on highest page view count" do
       article = create(:article, user_id: author.id, page_views_count: 50)
       article2 = create(:article, user_id: user.id, page_views_count: 50)
       article3 = create(:article, user_id: author.id, page_views_count: 40)
