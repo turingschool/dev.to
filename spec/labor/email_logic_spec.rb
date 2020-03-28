@@ -81,14 +81,14 @@ RSpec.describe EmailLogic, type: :labor do
   end
 
   describe "#analyze_daily_email" do
-    it "email contains one article" do
-      author = create(:user)
-      user.follow(author)
-      article = create(:article, user_id: author.id)
+    it "finds an article published in the past 14 days, with the highest page view count, and a hotness score above 20" do
+      article = create(:article, page_views_count: 50,  published_at: 5.days.ago.utc, hotness_score: 25)
+      article2 = create(:article, page_views_count: 30, published_at: 15.days.ago.utc, hotness_score: 15)
 
       h = described_class.new(user).analyze_daily_email
 
       expect(h).to eq(article)
+      expect(h).not_to eq(article2)
     end
   end
 end
