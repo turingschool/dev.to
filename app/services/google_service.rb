@@ -7,8 +7,18 @@ class GoogleService
     json = get_json("/youtube/v3/search",
                     part: "snippet",
                     q: keywords,
-                    maxResults: 10)
+                    maxResults: 18)
+    json[:items]
+  end
 
+  def self.video_data(video_ids)
+    new.video_data(video_ids)
+  end
+
+  def video_data(video_ids)
+    json = get_json("/youtube/v3/videos",
+                    part: "statistics",
+                    id: video_ids)
     json[:items]
   end
 

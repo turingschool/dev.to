@@ -9,9 +9,14 @@ class YoutubeVideo
               :thumbnail_width,
               :thumbnail_height,
               :channel_id,
-              :channel_title
+              :channel_title,
+              :view_count,
+              :like_count,
+              :dislike_count,
+              :favorite_count,
+              :comment_count
 
-  def initialize(data)
+  def initialize(data, statistics)
     @kind = data[:kind]
     @etag = data[:etag]
     @video_id = data[:id][:videoId]
@@ -23,5 +28,10 @@ class YoutubeVideo
     @thumbnail_height = data[:snippet][:thumbnails][:high][:height]
     @channel_id = data[:snippet][:channelId]
     @channel_title = data[:snippet][:channelTitle]
+    @view_count = statistics[:statistics][:viewCount]
+    @like_count = statistics[:statistics][:likeCount]
+    @dislike_count = statistics[:statistics][:dislikeCount]
+    @favorite_count = statistics[:statistics][:favoriteCount]
+    @comment_count = statistics[:statistics][:commentCount]
   end
 end
