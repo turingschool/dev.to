@@ -21,6 +21,6 @@ class DailyDevEmail
   private
 
   def get_users
-    User.where(email_daily_dev: true).where.not(email: "")
+    User.where(email_daily_dev: true)
   end
 end
