@@ -56,7 +56,7 @@ task send_email_digest: :environment do
 end
 
 task send_daily_digest: :environment do
-    DailyDigestEmail.send_periodic_digest_email
+    DailyDigestEmail.send_daily_digest_email
 end
 
 task award_badges: :environment do
