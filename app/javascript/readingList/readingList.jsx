@@ -66,16 +66,13 @@ export class ReadingList extends Component {
 
   getCollections = (user_id) => {
     const url =`api/${user_id}/collections`
-    console.log('URL!!!! ->', url)
-  fetch(url)
-  .then(response => {
+    fetch(url)
+    .then(response => {
     return response.json()})
-  .then((data) => {
-    console.log('DATA!!! ->',data)
+    .then((data) => {
     this.setState({
       collectionItems: data.data
     })
-    // console.log(data.data);
   })
   .catch((error) => console.log(error))}
 
@@ -188,17 +185,11 @@ export class ReadingList extends Component {
       archiving,
       collectionItems
     } = this.state;
-    console.log('here', collectionItems)
     const collectionItemsToRender = collectionItems.map(collectionItem => {
-      console.log("COLLECTION ITEM!!!!!!", collectionItem)
       return (
         <CollectionListItem title={collectionItem.attributes.title} collectionId={collectionItem.id} userId={currentUser.id} />
       );
     });
-
-
-
-    console.log(collectionItemsToRender)
 
     const isStatusViewValid = this.statusViewValid();
 
@@ -272,7 +263,6 @@ export class ReadingList extends Component {
             </div>
             <div>
               {items.length > 0 ? itemsToRender : this.renderEmptyItems()}
-              {collectionItemsToRender }
             </div>
           </div>
 
@@ -280,9 +270,19 @@ export class ReadingList extends Component {
             show={showLoadMoreButton}
             onClick={this.loadNextPage}
           />
+          <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
+            <div className="results-header">
+              { 'Collections List' }
+              {/* {` (${totalCount > 0 ? totalCount : 'empty'})`} */}
+            </div>
+            <div>
+              {items.length > 0 ? collectionItemsToRender : this.renderEmptyItems()}
+            </div>
+          </div>
         </div>
 
         {snackBar}
+
       </div>
     );
   }
