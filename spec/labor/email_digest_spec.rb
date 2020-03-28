@@ -9,13 +9,11 @@ end
 
 RSpec.describe EmailDigest, type: :labor do
   let(:user) { create(:user, email_digest_periodic: true) }
-  let(:other_user) { create(:user, email_daily_digest_notifications: true) }
   let(:author) { create(:user) }
   let(:mock_delegator) { instance_double("FakeDelegator") }
 
   before do
     allow(DigestMailer).to receive(:digest_email) { mock_delegator }
-    allow(DailyDigestMailer).to receive(:daily_digest_email) { mock_delegator }
     allow(mock_delegator).to receive(:deliver).and_return(true)
     user
   end
@@ -30,16 +28,6 @@ RSpec.describe EmailDigest, type: :labor do
         described_class.send_periodic_digest_email
 
         expect(DigestMailer).to have_received(:digest_email).with(
-          user, [instance_of(Article), instance_of(Article), instance_of(Article)]
-        )
-      end
-
-      it "send daily digest email" do
-        create_list(:article, 3)
-
-        described_class.send_daily_digest_email
-
-        expect(DailyDigestMailer).to have_received(:daily_digest_email).with(
           user, [instance_of(Article), instance_of(Article), instance_of(Article)]
         )
       end
