@@ -41,7 +41,7 @@ User.create!(
   email_comment_notifications: false,
   email_follower_notifications: false,
   email_daily_digest_notifications: false,
-  email: 'yueling1222@gmail.com',
+  email: 'linda_le@maildrop.cc',
   confirmed_at: Time.current,
   password: "password"
 )
