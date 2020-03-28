@@ -2,7 +2,7 @@ require "rails_helper"
 
 class FakeDelegator < ActionMailer::MessageDelivery
   # TODO: we should replace all usage of .deliver to .deliver_now
-  def deliver(*args)
+  def deliver_now(*args)
     super
   end
 end
@@ -14,17 +14,17 @@ RSpec.describe DailyDigestEmail, type: :labor do
 
   before do
     allow(DailyDigestMailer).to receive(:daily_digest_email) { mock_delegator }
-    allow(mock_delegator).to receive(:deliver).and_return(true)
+    allow(mock_delegator).to receive(:deliver_now).and_return(true)
     user
   end
 
   context "when daily digest email" do
     before { user.follow(author) }
 
-    it "send email based on highest page view count" do
-      article = create(:article, user_id: author.id, page_views_count: 50)
-      article2 = create(:article, user_id: user.id, page_views_count: 50)
-      article3 = create(:article, user_id: author.id, page_views_count: 40)
+    it "send email based on highest page view count, article being published in last 14 days, and hotness score" do
+      article = create(:article, user_id: author.id, page_views_count: 50, published_at: 5.days.ago.utc, hotness_score: 25)
+      article2 = create(:article, user_id: user.id, page_views_count: 30, published_at: 15.days.ago.utc, hotness_score: 15)
+      article3 = create(:article, user_id: author.id, page_views_count: 40, published_at: 5.days.ago.utc, hotness_score: 25)
 
       described_class.send_daily_digest_email
 
