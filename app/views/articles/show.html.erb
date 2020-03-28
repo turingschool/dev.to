@@ -236,6 +236,7 @@
     <% @youtube_videos.each do |vid| %>
     <span class="suggested_video_container">
     <%= render "liquids/youtube", id: vid.video_id, width: 288, height: 162 %>
+    <%# add stats here for each video %>
     </span>
     <% end %>
   </div>
