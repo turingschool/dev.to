@@ -186,7 +186,7 @@ doc or email yo@dev.to.
 
 ## Video Walkthru 
 - If you would like a video walkthrough of the project please visit the link below. 
-- Video: https://vimeo.com/402820047 
+- Video: https://vimeo.com/402820047
 
 ## ERD Diagram
 
