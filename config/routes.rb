@@ -362,6 +362,10 @@ Rails.application.routes.draw do
 
   get "/pod", to: "podcast_episodes#index"
   get "/podcasts", to: redirect("pod")
+
+  # We will need to create a new route for our ccollections
+  # Similar to this reading list, but we will need the
+  # index, show, and create actions
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 
