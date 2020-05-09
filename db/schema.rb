@@ -293,6 +293,10 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.index ["user_id"], name: "index_classified_listings_on_user_id"
   end
 
+# We are going to be creating a new table with our collection data
+# Right now all it will have is the title and tags, it will also have
+# a relationship to articles becuase each collection will have many articles
+# and articles can have many collections
   create_table "collections", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
