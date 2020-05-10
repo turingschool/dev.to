@@ -17,6 +17,8 @@
   <meta name="twitter:description" content="Reading List for dev.to">
 <% end %>
 
+# ! This is where the Preact component is injected once the scaffolding of the HTML is loaded on the client side
+
 <div class="home">
   <div class="item-list-container" id="reading-list" data-algolia-key="<%= @secured_algolia_key %>" data-view="<%= @view %>">
   </div>

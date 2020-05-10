@@ -1,7 +1,9 @@
+// ! Imports from libraries
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
+// ! Imports from our codebase of other Preact components
 import {
   defaultState,
   loadNextPage,
@@ -16,11 +18,13 @@ import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListIt
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
 
+// ! Constant variables used within this components
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
 const READING_LIST_ARCHIVE_PATH = '/readinglist/archive';
 const READING_LIST_PATH = '/readinglist';
 
+// ! A Preact functional component that, if there are no selected tags and no query, renders all articles in a user's reading list, else if there is a tag or query renders a static message about not finding any articles.
 const FilterText = ({ selectedTags, query, value }) => {
   return (
     <h1>
@@ -31,13 +35,18 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
+// ! The main Preact component in this file
 export class ReadingList extends Component {
   constructor(props) {
     super(props);
 
+    // ! Destructures the keys of the props object
     const { availableTags, statusView } = this.props;
+
+    // ! The local state of this component that uses an imported function to construct some default state and then adds the keys of availableTags, archiving, and statusView to the default state to customize it for this particular component
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
+    // ! The older method of binding methods to a component to preserve the value of this when the method is invoked in a different context. bind(this) is explicitly telling JavaScript to invoke these methods on the ReadingList instance as opposed to the object on which they are invoked at the time of invocation.
     // bind and initialize all shared functions
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
       leading: true,
@@ -49,6 +58,7 @@ export class ReadingList extends Component {
     this.clearSelectedTags = clearSelectedTags.bind(this);
   }
 
+  // ! A React lifecycle method that is invoked when this component is mounted to the DOM. Sets up the search functionality for the component by assigning a search function to the component's index piece of state and then invokes the initial search, which returns a promise which upon resolution, assigns the results of the search to the items key of the local state
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
 
@@ -62,15 +72,20 @@ export class ReadingList extends Component {
     });
   }
 
+  // ! simply changes the statusView piece of state between "valid" and "archived"
+  // ! this.state.statusView is initially received as props and can be 'valid'. It is taken from the dataset of the root element, which is the parent element of the readingList.
+  // ! This method is toggling the URL path in the browser to show the either /readinglist or /readinlist/archive and also toggling the link text when clicking "View Archive"
   toggleStatusView = event => {
     event.preventDefault();
 
     const { query, selectedTags } = this.state;
 
     const isStatusViewValid = this.statusViewValid();
+
     const newStatusView = isStatusViewValid
       ? STATUS_VIEW_ARCHIVED
       : STATUS_VIEW_VALID;
+
     const newPath = isStatusViewValid
       ? READING_LIST_ARCHIVE_PATH
       : READING_LIST_PATH;
@@ -88,6 +103,7 @@ export class ReadingList extends Component {
     window.history.replaceState(null, null, newPath);
   };
 
+  // ! Sends a PUT request to the BE to change the status of an article in a user's reading list to archive, sets it to valid or archived
   toggleArchiveStatus = (event, item) => {
     event.preventDefault();
 
@@ -117,11 +133,15 @@ export class ReadingList extends Component {
     }, 1000);
   };
 
+  // ! If the status view is equal to 'valid', return true
   statusViewValid() {
     const { statusView } = this.state;
     return statusView === STATUS_VIEW_VALID;
   }
 
+  // ! If there are no items to render, then render the FilterText component (defined above in this file) with the value prop showing the reading list to be empty.
+  // ! If the statusView state is "valid" (e.g. reading list), then return the first message
+  // ! If the statusView is "archive", then return the second (default case) message
   renderEmptyItems() {
     const { itemsLoaded, selectedTags, query } = this.state;
 
@@ -160,6 +180,7 @@ export class ReadingList extends Component {
     );
   }
 
+  // ! The main render method of this component that is responsible for rendering content to the DOM
   render() {
     const {
       items,
@@ -174,6 +195,9 @@ export class ReadingList extends Component {
     const isStatusViewValid = this.statusViewValid();
 
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
+
+    // ! Render a list of ItemListItem components using the items piece of state that was set via the initial search and store the result in a variable for use later in the render method
+    // ! Each ItemListItem is a single article listing that falls under "Reading List" on the right side of the page, it has an article title, author, date, reading time, tags, and an archive button
     const itemsToRender = items.map(item => {
       return (
         <ItemListItem item={item}>
@@ -185,6 +209,7 @@ export class ReadingList extends Component {
       );
     });
 
+    // ! When the archive button is clicked on an ItemListItem, a snackbar appears in the lower left of the viewport.
     const snackBar = archiving ? (
       <div className="snackbar">
         {isStatusViewValid ? 'Archiving...' : 'Unarchiving...'}
@@ -192,14 +217,20 @@ export class ReadingList extends Component {
     ) : (
       ''
     );
+
+    // ! What is actually rendered
     return (
       <div className="home item-list">
+        {/* ! The LEFT side of the view */}
         <div className="side-bar">
           <div className="widget filters">
+            {/* ! The search bar to search your reading list */}
             <input
               onKeyUp={this.onSearchBoxType}
               placeHolder="search your list"
             />
+
+            {/* ! The clear all text will appear if a tag is selected */}
             <div className="filters-header">
               <h4 className="filters-header-text">my tags</h4>
               {Boolean(selectedTags.length) && (
@@ -217,12 +248,15 @@ export class ReadingList extends Component {
                 </a>
               )}
             </div>
+
+            {/* ! The list of a user's tags */}
             <ItemListTags
               availableTags={availableTags}
               selectedTags={selectedTags}
               onClick={this.toggleTag}
             />
 
+            {/* ! The link to change the view to the archive */}
             <div className="status-view-toggle">
               <a
                 href={READING_LIST_ARCHIVE_PATH}
@@ -235,6 +269,8 @@ export class ReadingList extends Component {
           </div>
         </div>
 
+        {/* ! The RIGHT side of the view */}
+        {/* ! Renders the itemsToRender defined above or invokes the renderEmptyItems method defined above */}
         <div className="items-container">
           <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
             <div className="results-header">
