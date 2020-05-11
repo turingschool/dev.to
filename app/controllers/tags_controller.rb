@@ -14,6 +14,8 @@ class TagsController < ApplicationController
     authorize @tag
   end
 
+  # finds all tags
+
   def update
     @tag = Tag.find_by!(id: params[:id])
     authorize @tag
@@ -31,6 +33,7 @@ class TagsController < ApplicationController
     authorize tag
     redirect_to "/admin/tags/#{tag.id}/edit"
   end
+  # find articles by tag
 
   private
 

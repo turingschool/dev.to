@@ -4,6 +4,7 @@ class Article < ApplicationRecord
   include AlgoliaSearch
   include Storext.model
   include Reactable
+  # imports ^
 
   acts_as_taggable_on :tags
   resourcify
@@ -18,10 +19,11 @@ class Article < ApplicationRecord
   belongs_to :job_opportunity, optional: true
   belongs_to :organization, optional: true
   belongs_to :collection, optional: true, touch: true
+  # defines which models can access this model
 
   counter_culture :user
   counter_culture :organization
-
+  # gem for counting, to see how many users there are and organizations that are related to this article?
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -29,6 +31,7 @@ class Article < ApplicationRecord
   has_many :notification_subscriptions, as: :notifiable, inverse_of: :notifiable, dependent: :destroy
   has_many :rating_votes
   has_many :page_views
+  # organizes this model to prepare for multiple comments, pins, votes, views, etc.
 
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }

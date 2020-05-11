@@ -7,6 +7,8 @@ class ArticlesController < ApplicationController
   before_action :set_cache_control_headers, only: %i[feed]
   after_action :verify_authorized
 
+  # defines actions to take before and after this controller loads
+
   def feed
     skip_authorization
 
@@ -29,6 +31,9 @@ class ArticlesController < ApplicationController
 
     render layout: false
   end
+  # the feed methodcreates an instance variable with articles ordered by their publish date,
+  # it also checks to see if the article recieved a username or tag
+  # if articles is not present, there will be nothing rendered
 
   def new
     base_editor_assigments
