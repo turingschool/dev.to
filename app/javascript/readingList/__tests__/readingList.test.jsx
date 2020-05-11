@@ -8,3 +8,6 @@ describe('<ReadingList />', () => {
     expect(tree).toMatchSnapshot();
   });
 });
+
+// we will need to add tests for the functionality of this component
+// and we will need to mock http requests to ensure they are sent with the correct arguments
