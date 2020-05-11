@@ -1,4 +1,5 @@
 # rubocop:disable Metrics/BlockLength
+# Using the routes to have access to thoes action methods
 
 Rails.application.routes.draw do
   use_doorkeeper do
