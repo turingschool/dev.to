@@ -1,5 +1,7 @@
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
+  # Verifies that versions and hashed value of the package contents in the project's package.json
   # As the integrity check is currently broken under Docker with webpacker,
   # we can't enable this flag by default
   # see <https://github.com/thepracticaldev/dev.to/pull/296#discussion_r210635685>
