@@ -1,3 +1,6 @@
+# actions happen here (almost like react) CRUD
+# in the controller we would write an action
+
 class Internal::UsersController < Internal::ApplicationController
   layout "internal"
 
@@ -25,6 +28,8 @@ class Internal::UsersController < Internal::ApplicationController
     @user = User.find(params[:id])
     @organizations = @user.organizations
   end
+
+  # Jordan will provide the data and from there we'll decide what components we want to make
 
   def update
     @user = User.find(params[:id])

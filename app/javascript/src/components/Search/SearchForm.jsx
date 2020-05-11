@@ -2,6 +2,11 @@ import 'preact/devtools';
 import PropTypes from 'prop-types';
 import { h } from 'preact';
 
+// need to figure out how a html erb file coexist with the component
+// can erb file render a componet, No, because JSX is Javascript, not HTML. but a gem called react rails
+// search all reference cant trace where searchForm is called
+// LOOK BY CLASSNAME
+
 export const SearchForm = ({
   searchTerm,
   onSearch,
