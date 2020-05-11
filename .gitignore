@@ -72,3 +72,8 @@ docs/.static/api/
 
 # ES docker volume
 docker_data/
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
