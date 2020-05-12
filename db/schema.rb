@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_195950) do
+ActiveRecord::Schema.define(version: 2020_05_11_195300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -525,11 +525,9 @@ ActiveRecord::Schema.define(version: 2020_05_11_195950) do
 
   create_table "machine_collections", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.bigint "tags_id"
     t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["tags_id"], name: "index_machine_collections_on_tags_id"
     t.index ["user_id"], name: "index_machine_collections_on_user_id", unique: true
   end
 
@@ -966,7 +964,6 @@ ActiveRecord::Schema.define(version: 2020_05_11_195950) do
     t.datetime "created_at"
     t.integer "hotness_score", default: 0
     t.string "keywords_for_search"
-    t.bigint "machine_collection_id"
     t.integer "mod_chat_channel_id"
     t.string "name"
     t.string "pretty_name"
@@ -985,7 +982,6 @@ ActiveRecord::Schema.define(version: 2020_05_11_195950) do
     t.datetime "updated_at"
     t.text "wiki_body_html"
     t.text "wiki_body_markdown"
-    t.index ["machine_collection_id"], name: "index_tags_on_machine_collection_id"
     t.index ["name"], name: "index_tags_on_name", unique: true
     t.index ["social_preview_template"], name: "index_tags_on_social_preview_template"
   end
@@ -1243,7 +1239,6 @@ ActiveRecord::Schema.define(version: 2020_05_11_195950) do
   add_foreign_key "tag_adjustments", "articles", on_delete: :cascade
   add_foreign_key "tag_adjustments", "tags", on_delete: :cascade
   add_foreign_key "tag_adjustments", "users", on_delete: :cascade
-  add_foreign_key "tags", "machine_collections"
   add_foreign_key "user_blocks", "users", column: "blocked_id"
   add_foreign_key "user_blocks", "users", column: "blocker_id"
   add_foreign_key "user_counters", "users", on_delete: :cascade

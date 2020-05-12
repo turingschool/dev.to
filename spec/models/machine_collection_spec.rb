@@ -6,7 +6,6 @@ RSpec.describe MachineCollection, type: :model do
   end
 
   describe "relationships" do
-    it { is_expected.to have_many :tags }
     it { is_expected.to belong_to :user }
   end
 end
