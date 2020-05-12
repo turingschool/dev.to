@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/search?key=AIzaSyCRRqK-CPdG1Rw0GoJyMEmWh29t6HmSt5o&maxResults=3&part=snippet&q=the-last-enemy1-23j8&type=video&videoEmbeddable=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.3
+      X-Honeycomb-Trace:
+      - 1;dataset=,trace_id=ca2454c5-711f-411f-b804-97e13b6d05c1,parent_id=f03fe714-8361-4d06-9751-fbbe62672005,context=e30=
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Tue, 12 May 2020 15:36:56 GMT
+      Date:
+      - Tue, 12 May 2020 15:36:56 GMT
+      Cache-Control:
+      - private, max-age=120, must-revalidate, no-transform
+      Etag:
+      - '"Dn5xIderbhAnUk5TAW0qkFFir0M/IbD5oWMOGEjGuw0lIQyVTeVcGAw"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Security-Policy:
+      - frame-ancestors 'self'
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Alt-Svc:
+      - h3-27=":443"; ma=2592000,h3-25=":443"; ma=2592000,h3-T050=":443"; ma=2592000,h3-Q050=":443";
+        ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+         "kind": "youtube#searchListResponse",
+         "etag": "\"Dn5xIderbhAnUk5TAW0qkFFir0M/IbD5oWMOGEjGuw0lIQyVTeVcGAw\"",
+         "regionCode": "US",
+         "pageInfo": {
+          "totalResults": 0,
+          "resultsPerPage": 3
+         },
+         "items": []
+        }
+    http_version: null
+  recorded_at: Tue, 12 May 2020 15:36:56 GMT
+recorded_with: VCR 5.1.0
