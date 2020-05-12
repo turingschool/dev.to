@@ -66,6 +66,8 @@ class DashboardsController < ApplicationController
     @organizations = current_user.member_organizations
   end
 
+  def stats; end
+
   private
 
   def fetch_and_authorize_user

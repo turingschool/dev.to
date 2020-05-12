@@ -1,4 +1,4 @@
-'use strict';
+
 
 /* global checkUserLoggedIn */
 
@@ -47,6 +47,16 @@ function fetchBaseData() {
 
   xmlhttp.open('GET', '/async_info/base_data', true);
   xmlhttp.send();
+}
+
+function incrementCounter() {
+  let counter = localStorage.getItem('counter')
+    ? localStorage.getItem('counter')
+    : 0;
+  counter = parseInt(counter, 10);
+  counter += 1;
+  localStorage.setItem('counter', counter);
+  return counter;
 }
 
 function initializeBodyData() {

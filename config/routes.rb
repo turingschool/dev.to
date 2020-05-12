@@ -329,6 +329,7 @@ Rails.application.routes.draw do
   get "/signout_confirm" => "users#signout_confirm"
   get "/dashboard" => "dashboards#show"
   get "/dashboard/pro" => "dashboards#pro"
+  get "/dashboard/stats" => "dashboards#stats"
   get "dashboard/pro/org/:org_id" => "dashboards#pro"
   get "dashboard/following" => "dashboards#following_tags"
   get "dashboard/following_tags" => "dashboards#following_tags"
