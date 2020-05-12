@@ -8,7 +8,7 @@ class MachineCollectionsController < ApplicationController
   end
 
   def machine_collection_params
-   params.require(:user).permit(:name, :tag_list) 
- end
+   params.require(:user).permit(:name, :tag_list)
+  end
 
 end
