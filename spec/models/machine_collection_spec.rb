@@ -9,5 +9,7 @@ RSpec.describe MachineCollection, type: :model do
   describe "relationships" do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :tags }
+    it { is_expected.to have_many :machine_collection_articles }
+    it { is_expected.to have_many(:articles).through(:machine_collection_articles) }
   end
 end
