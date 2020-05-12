@@ -1,0 +1,15 @@
+<div class="youtube"></div>
+<script>
+function displayVideos(videos) {
+    let videoContainer = document.querySelector('.youtube')
+    if (videos.length === 0) {
+      return videoContainer.innerHTML = `<h2>There were no videos found matching your topic.</h2>`
+    } else {return videos.map(video => {
+        let id = video.id;
+        videoContainer.innerHTML += `<article class="video-article">
+            <%= render "liquids/youtube", id: "${id}", width: 350, height: 350 %>
+          </article>`})}}
+  fetch(`/<%= @user.username %>/videos/youtube?tags=<%= @article.cached_tag_list %>`)
+    .then(res => res.json())
+    .then(data => displayVideos(data.data.attributes.videos))
+</script>
