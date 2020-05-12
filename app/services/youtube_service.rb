@@ -1,8 +1,8 @@
 class YoutubeService
   attr_reader :keywords
 
-  def initialize(keywords)
-    @keywords = keywords
+  def initialize(tags)
+    @tags = tags
   end
 
   def videos
@@ -20,7 +20,7 @@ class YoutubeService
     Faraday.new("https://www.googleapis.com/youtube/v3/search") do |f|
       f.adapter Faraday.default_adapter
       f.params[:key] = ENV["YOUTUBE_API_KEY"]
-      f.params[:q] = keywords
+      f.params[:q] = @tags
       f.params[:part] = "snippet"
       f.params[:type] = "video"
       f.params[:videoEmbeddable] = "true"
