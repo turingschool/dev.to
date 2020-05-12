@@ -1,4 +1,6 @@
 require "rails_helper"
+# We will also need to create a new spec for our new model
+# that coorespondes to our new table
 
 RSpec.describe Collection, type: :model do
   let_it_be(:user) { create(:user) }
