@@ -188,6 +188,7 @@
   </div>
   <% cache("article-bottom-content-#{@article.id}", expires_in: 18.hours) do %>
     <% @classic_article = Suggester::Articles::Classic.new(@article, not_ids: [@article.id]).get.first %>
+    <%= render "articles/youtube" %>
     <% if @classic_article %>
       <%= render "additional_content_boxes/article_box",
                  article: @classic_article,
