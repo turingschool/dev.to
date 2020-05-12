@@ -350,6 +350,9 @@ Rails.application.routes.draw do
 
   get "/embed/:embeddable" => "liquid_embeds#show"
 
+  # MachineCollection routes
+  get "/machinecollections" => "machine_collections#index"
+
   # serviceworkers
   get "/serviceworker" => "service_worker#index"
   get "/manifest" => "service_worker#manifest"
@@ -411,6 +414,7 @@ Rails.application.routes.draw do
       :constraints => { view: /comments|moderate|admin/ }
   get "/:username/:slug" => "stories#show"
   get "/:username" => "stories#index"
+  get "/the" => "machine_collections#index"
 
   root "stories#index"
 end
