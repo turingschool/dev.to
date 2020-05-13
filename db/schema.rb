@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_002448) do
+ActiveRecord::Schema.define(version: 2020_05_13_005825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -929,7 +929,11 @@ ActiveRecord::Schema.define(version: 2020_05_13_002448) do
   end
 
   create_table "tagcollections", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tagcollections_on_user_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -1102,7 +1106,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_002448) do
     t.datetime "last_article_at", default: "2017-01-01 05:00:00"
     t.datetime "last_comment_at", default: "2017-01-01 05:00:00"
     t.datetime "last_followed_at"
-    t.datetime "last_moderation_notification", default: "2017-01-01 05:00:00"
+    t.datetime "last_moderation_notification", default: "2017-01-01 07:00:00"
     t.datetime "last_notification_activity"
     t.string "last_onboarding_page"
     t.datetime "last_sign_in_at"
@@ -1166,6 +1170,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_002448) do
     t.string "stripe_id_code"
     t.text "summary"
     t.string "tabs_or_spaces"
+    t.bigint "tagcollections_id"
     t.string "text_color_hex"
     t.string "text_only_name"
     t.string "top_languages"
@@ -1189,6 +1194,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_002448) do
     t.index ["old_old_username"], name: "index_users_on_old_old_username"
     t.index ["old_username"], name: "index_users_on_old_username"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["tagcollections_id"], name: "index_users_on_tagcollections_id"
     t.index ["twitter_username"], name: "index_users_on_twitter_username", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
@@ -1229,14 +1235,17 @@ ActiveRecord::Schema.define(version: 2020_05_13_002448) do
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "page_views", "articles", on_delete: :cascade
   add_foreign_key "podcasts", "users", column: "creator_id"
+  add_foreign_key "pro_memberships", "users"
   add_foreign_key "sponsorships", "organizations"
   add_foreign_key "sponsorships", "users"
   add_foreign_key "tag_adjustments", "articles", on_delete: :cascade
   add_foreign_key "tag_adjustments", "tags", on_delete: :cascade
   add_foreign_key "tag_adjustments", "users", on_delete: :cascade
+  add_foreign_key "tagcollections", "users"
   add_foreign_key "user_blocks", "users", column: "blocked_id"
   add_foreign_key "user_blocks", "users", column: "blocker_id"
   add_foreign_key "user_counters", "users", on_delete: :cascade
+  add_foreign_key "users", "tagcollections", column: "tagcollections_id"
   add_foreign_key "users_roles", "users", on_delete: :cascade
   add_foreign_key "webhook_endpoints", "oauth_applications"
   add_foreign_key "webhook_endpoints", "users"
