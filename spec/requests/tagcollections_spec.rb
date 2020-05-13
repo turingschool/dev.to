@@ -13,13 +13,15 @@ RSpec.describe "Tagcollections", type: :request do
     sign_in user
   end
 
-  it "successfully routes to /tagcollections" do
+  it "successfully GETS /tagcollections" do
     get "/tagcollections"
 
     expect(response).to have_http_status(:ok)
   end
 
-  # xit "navigates by links to my collections" do
+  # it "succesfully GETS /tagecollection/:id" do
+  #   get "/tagcollections/#{tagcollection.id}"
   #
+  #   expect(response).to have_http_status(:ok)
   # end
 end
