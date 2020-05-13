@@ -1,4 +1,4 @@
 class MachineCollectionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title
+  attributes :title, :tag_list
 end
