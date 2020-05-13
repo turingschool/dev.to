@@ -9,7 +9,7 @@ RSpec.describe "Tagcollections", type: :request do
     create(:article, tags: %w[rails preact sql])
     create(:article, tags: %w[javascript preact sql])
     user = create(:user)
-    # tagcollection = @user.tagcollections.create(name: "All the Ruby", tag_list: ['ruby'])
+    user.tagcollections.create(name: "All the Ruby", tag_list: %w[ruby preact])
     sign_in user
   end
 
