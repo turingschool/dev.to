@@ -7,7 +7,7 @@ function displayVideos(videos) {
     } else {return videos.map(video => {
         let id = video.id;
         videoContainer.innerHTML += `<article class="video-article">
-            <%= render "liquids/youtube", id: "${id}", width: 350, height: 350 %>
+            <%= render "liquids/youtube", id: "${id}", width: 275, height: 275 %>
           </article>`})}}
   fetch(`/<%= @user.username %>/videos/youtube?tags=<%= @article.cached_tag_list %>`)
     .then(res => res.json())

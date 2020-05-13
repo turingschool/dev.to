@@ -1,6 +1,8 @@
+# possibly use this to create videos. This connects to the youtube_tag_spec.rb file containing an <iframe>
 class YoutubeTag < LiquidTagBase
   PARTIAL = "liquids/youtube".freeze
 
+  # constructor defines the width, height, id which is passed to the <iframe>
   def initialize(tag_name, id, tokens)
     super
     @id = parse_id(id)
@@ -8,6 +10,7 @@ class YoutubeTag < LiquidTagBase
     @height = 399
   end
 
+  # renders _youtube.html.erb?
   def render(_context)
     ActionController::Base.new.render_to_string(
       partial: PARTIAL,
@@ -40,9 +43,11 @@ class YoutubeTag < LiquidTagBase
     "#{id.split('?t=')[0]}?start=#{time_in_seconds}"
   end
 
+  # regex expression to determine the id of the youtube video, this is used as the last part of the src in <iframe>
   def valid_id?(id)
     id =~ /\A[a-zA-Z0-9_-]{11}((\?t\=)?(\d{1}h)?(\d{1,2}m)?(\d{1,2}s)?){5,11}?\Z/
   end
 end
 
+# exports/compiles
 Liquid::Template.register_tag("youtube", YoutubeTag)
