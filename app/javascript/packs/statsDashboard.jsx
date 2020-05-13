@@ -46,7 +46,7 @@ const StatsDash = () => {
 };
 
 const loadStatsDash = () => {
-  render(<StatsDash />);
+  render(<StatsDash />, document.getElementById('stats-dash'));
 };
 
 loadStatsDash();
