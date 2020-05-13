@@ -1,6 +1,6 @@
 class Api::V0::MachineCollectionsController < ApplicationController
   def index
-    render json: MachineCollectionSerializer.new(MachineCollection.all)
+    render json: MachineCollectionSerializer.new(MachineCollection.all.includes(:taggings))
   end
 
   def show
@@ -19,5 +19,5 @@ end
 private
 
 def machine_collection_params
-  params.permit(:title, :user_id)
+  params.permit(:title, :tag_list, :user_id)
 end
