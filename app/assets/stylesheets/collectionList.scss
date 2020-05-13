@@ -1,0 +1,74 @@
+@import 'variables';
+@import 'mixins';
+@import '_colors';
+
+.collection-list-container {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.collection-list__link-create {
+  border: 2px solid #2ad7c5;
+  border-radius: 100px;
+  color: #25c2b2;
+  display: inline-block;
+  font-size: 15px;
+  height: 32px;
+  margin: 0 8px 8px 0;
+  width: 168px;
+  padding: 2px 16px;
+  text-align: center;
+}
+
+.collection-item {
+  background: $white;
+  border: 1px solid $light-medium-gray;
+  border-radius: 3px;
+  color: $black;
+  max-width: 324px;
+
+  & .collection-item__body {
+    padding: 1rem;
+  }
+
+  & .collection-item__body-text {
+    color: $medium-gray;
+  }
+
+  & .collection-item__edit-button {
+    background: $bold-blue;
+    border: none;
+    border-radius: 3px;
+    color: $white;
+    font-weight: bold;
+    height: 36px;
+    width: 72px;
+  }
+
+  & .collection-item__header {
+    background: $smoke-10;
+    border-bottom: 1px solid $light-medium-gray;
+    padding: 1rem;
+  }
+
+  & .collection-item__tag {
+    border: 1px solid $light-medium-gray;
+    color: $black;
+    font-style: italic;
+    margin-right: 1rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  & .collection-item__tag-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  & h1 {
+    margin: 0;
+  }
+}

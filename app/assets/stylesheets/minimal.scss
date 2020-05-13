@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'fundamentals';
 @import 'scaffolds';
+@import 'collectionList';
 @import 'top-bar';
 @import 'footer';
 @import 'articles';
@@ -37,11 +38,7 @@
 @import 'typography';
 @import 'buttons';
 @import 'widgets';
-
 @import 'ltags/LiquidTags';
-
 @import 'chat';
-
 @import 'email_subscriptions';
-
 @import 'article-form-needed-legacy';

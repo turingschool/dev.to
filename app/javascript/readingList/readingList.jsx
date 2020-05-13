@@ -3,6 +3,9 @@ import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
+// ! REMOVE ONCE COLLECTION PATH AVAILABLE
+import { CollectionList } from '../collectionList/collectionList';
+
 // ! Imports from our codebase of other Preact components
 import {
   defaultState,
@@ -289,6 +292,7 @@ export class ReadingList extends Component {
         </div>
 
         {snackBar}
+        <CollectionList />
       </div>
     );
   }
