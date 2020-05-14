@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 
 // ! REMOVE ONCE COLLECTION PATH AVAILABLE
 import { CollectionList } from '../collectionList/collectionList';
+import { CollectionForm } from '../collectionForm/collectionForm';
 
 // ! Imports from our codebase of other Preact components
 import {
@@ -293,6 +294,7 @@ export class ReadingList extends Component {
 
         {snackBar}
         <CollectionList />
+        <CollectionForm />
       </div>
     );
   }
