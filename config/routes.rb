@@ -378,10 +378,6 @@ Rails.application.routes.draw do
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 
-  # ! Crearte a route for machine_collections
-  # ! Will be similar to readinglist
-  # ! index, show, create
-
   get "/feed" => "articles#feed", :as => "feed", :defaults => { format: "rss" }
   get "/feed/tag/:tag" => "articles#feed",
       :as => "tag_feed", :defaults => { format: "rss" }

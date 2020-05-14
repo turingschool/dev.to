@@ -15,6 +15,9 @@ export class CollectionList extends Component {
   }
 
   componentDidMount() {
+    // const response = fetch('http://localhost:3000/api/v0/machine_collections');
+    // console.log(response);
+
     this.setState({ collections: fakeCollections });
   }
 
