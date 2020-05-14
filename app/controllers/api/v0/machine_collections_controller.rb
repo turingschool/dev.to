@@ -11,6 +11,10 @@ class Api::V0::MachineCollectionsController < ApplicationController
     render json: MachineCollectionSerializer.new(MachineCollection.update(machine_collection_params))
   end
 
+  def create
+    render json: MachineCollectionSerializer.new(current_user.machine_collections.create(machine_collection_params))
+  end
+
   def destroy
     render json: MachineCollectionSerializer.new(MachineCollection.destroy(params[:id]))
   end
