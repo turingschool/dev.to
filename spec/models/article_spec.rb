@@ -139,6 +139,9 @@ RSpec.describe Article, type: :model do
 
     describe "#tag" do
       it "parses tags" do
+        # the method tag_list comes along with the access taggable gem
+        # the articles dont have a relationship in their tables, but this
+        # method allows us to see the tags associated with the specific article
         expect(test_article.tag_list.length.positive?).to be(true)
       end
 

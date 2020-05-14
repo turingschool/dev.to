@@ -1,4 +1,7 @@
-# New table for the machine_collection
-# A machine_collection will have a single title and many tags
-# An article can belong to many collections
-# A collection can contain many articles
+class MachineCollection < ApplicationRecord
+  # allows us to use .tag_list method on a machine collection to see what tags it has
+  acts_as_taggable_on :tags
+
+  belongs_to :user
+  validates :title, presence: true
+end

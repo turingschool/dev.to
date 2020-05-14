@@ -1,4 +1,7 @@
 class Collection < ApplicationRecord
+  # We will need to create a new model cooresponding to
+  # our new table, it will validate the presence of title
+  # and tags and have the many to many relationship with articles
   has_many :articles
   belongs_to :user
   belongs_to :organization, optional: true

@@ -95,6 +95,14 @@ Rails.application.routes.draw do
     end
   end
 
+  ###################################################################################
+  namespace :api do
+    namespace :v0 do
+      resources :machine_collections, only: %i[index show update destroy]
+    end
+  end
+  ###################################################################################
+
   namespace :api, defaults: { format: "json" } do
     scope module: :v0,
           constraints: ApiConstraints.new(version: 0, default: true) do
@@ -103,6 +111,7 @@ Rails.application.routes.draw do
           get "me(/:status)", to: "articles#me", as: :me, constraints: { status: /published|unpublished|all/ }
         end
       end
+      # resources :machine_collections, only: [:index]
       resources :comments, only: %i[index show]
       resources :chat_channels, only: [:show]
       resources :videos, only: [:index]
@@ -362,6 +371,10 @@ Rails.application.routes.draw do
 
   get "/pod", to: "podcast_episodes#index"
   get "/podcasts", to: redirect("pod")
+
+  # We will need to create a new route for our ccollections
+  # Similar to this reading list, but we will need the
+  # index, show, and create actions
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 

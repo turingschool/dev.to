@@ -1,5 +1,9 @@
 module Admin
   class CollectionsController < Admin::ApplicationController
+    # We will need to create a new collections controller that
+    # is not namespaced uper admin.
+    # it will have index, show and create actions
+
     # To customize the behavior of this controller,
     # simply overwrite any of the RESTful actions. For example:
     #
