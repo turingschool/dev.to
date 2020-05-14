@@ -1,46 +1,32 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
+import PropTypes from 'prop-types';
 import { CollectionListItem } from '../collectionListItem/collectionListItem';
 import { CollectionForm } from '../collectionForm/collectionForm';
 
-const fakeCollections = [
-  { id: 1, title: 'Best of JavaScript', tags: ['javascript', 'react'] },
-  { id: 2, title: 'Fav Ruby', tags: ['ruby', 'rails'] },
-];
+export const CollectionList = ({ collections }) => {
+  const renderedCollections = collections.map(collection => {
+    return <CollectionListItem key={collection.id} collection={collection} />;
+  });
 
-export class CollectionList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collections: [],
-    };
-  }
+  return (
+    <section className="collection-list-container">
+      <CollectionForm />
+      <a href="/something" className="collection-list__link-create">
+        Create a Collection
+      </a>
+      {renderedCollections}
+    </section>
+  );
+};
 
-  componentDidMount() {
-    // const response = fetch('http://localhost:3000/api/v0/machine_collections');
-    // console.log(response);
-
-    this.setState({ collections: fakeCollections });
-  }
-
-  render() {
-    console.log(this.props);
-    const { collections } = this.state;
-    const renderedCollections = collections.map(collection => {
-      return <CollectionListItem key={collection.id} collection={collection} />;
-    });
-
-    return (
-      <section className="collection-list-container">
-        <CollectionForm />
-        <a href="/something" className="collection-list__link-create">
-          Create a Collection
-        </a>
-        {renderedCollections}
-      </section>
-    );
-  }
-}
-
-CollectionList.defaultProps = {
-  collections: [],
+CollectionList.propTypes = {
+  collections: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      user_id: PropTypes.integer,
+      created_at: PropTypes.string,
+      updated_at: PropTypes.string,
+      tag_list: PropTypes.arrayOf(PropTypes.string),
+    }),
+  ).isRequired,
 };
