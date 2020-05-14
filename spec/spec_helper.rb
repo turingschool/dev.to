@@ -20,7 +20,9 @@ require "zonebie/rspec"
 # This makes Rspec fail if there's any output
 RSpec::Matchers.define_negated_matcher :avoid_outputting, :output
 ############
+require "capybara/rspec"
 RSpec.configure do |config|
+  config.include Capybara::DSL
   # makes example fail if there's any output
   # config.around do |ex|
   #   expect(&ex).to avoid_outputting.to_stdout.and avoid_outputting.to_stderr
