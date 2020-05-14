@@ -1,21 +1,21 @@
 import { h, render } from 'preact';
 import { getUserDataAndCsrfToken } from '../chat/util';
-import { ReadingList } from '../readingList/readingList';
+import { CollectionsList } from '../collectionsList/collectionsList';
 
 function loadElement() {
   getUserDataAndCsrfToken().then(({ currentUser }) => {
     console.log(currentUser);
-    // const root = document.getElementById('reading-list');
-    // if (root) {
-    //   render(
-    //     <ReadingList
-    //       availableTags={currentUser.followed_tag_names}
-    //       statusView={root.dataset.view}
-    //     />,
-    //     root,
-    //     root.firstElementChild,
-    //   );
-    // }
+    const root = document.getElementById('reading-list');
+    if (root) {
+      render(
+        <CollectionsList
+          availableTags={currentUser.followed_tag_names}
+          statusView={root.dataset.view}
+        />,
+        root,
+        root.firstElementChild,
+      );
+    }
   });
 }
 
