@@ -50,7 +50,7 @@ allowed_sites = [
   "https://selenium-release.storage.googleapis.com",
   "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver",
 ]
-WebMock.disable_net_connect!(allow_localhost: true, allow: allowed_sites)
+WebMock.allow_net_connect!
 
 # tell VCR to ignore browsers download sites
 # see <https://github.com/titusfortner/webdrivers/wiki/Using-with-VCR-or-WebMock>

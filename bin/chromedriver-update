@@ -5,7 +5,7 @@
 if Rails.env.test?
   # allow browser websites, so that "webdrivers" can access their binaries
   # see <https://github.com/titusfortner/webdrivers/wiki/Using-with-VCR-or-WebMock>
-  WebMock.disable_net_connect!(allow: ["https://chromedriver.storage.googleapis.com"])
+  WebMock.allow_net_connect!
 
   Webdrivers::Chromedriver.update
 end
