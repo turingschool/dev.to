@@ -52,14 +52,14 @@ export class CollectionsList extends Component {
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
 
-    this.performInitialSearch({
-      containerId: 'reading-list',
-      indexName: 'SecuredReactions',
-      searchOptions: {
-        hitsPerPage,
-        filters: `status:${statusView}`,
-      },
-    });
+    // this.performInitialSearch({
+    //   containerId: 'reading-list',
+    //   indexName: 'SecuredReactions',
+    //   searchOptions: {
+    //     hitsPerPage,
+    //     filters: `status:${statusView}`,
+    //   },
+    // });
   }
 
   toggleStatusView = event => {
