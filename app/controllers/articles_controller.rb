@@ -7,8 +7,6 @@ class ArticlesController < ApplicationController
   before_action :set_cache_control_headers, only: %i[feed]
   after_action :verify_authorized
 
-  # defines actions to take before and after this controller loads
-
   def feed
     skip_authorization
 
@@ -31,9 +29,6 @@ class ArticlesController < ApplicationController
 
     render layout: false
   end
-  # the feed methodcreates an instance variable with articles ordered by their publish date,
-  # it also checks to see if the article recieved a username or tag
-  # if articles is not present, there will be nothing rendered
 
   def new
     base_editor_assigments
@@ -258,10 +253,8 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(modified_params)
   end
 
-  # TODO: refactor all of this update logic into the Articles::Updater possibly,
-  # ideally there should only be one place to handle the update logic
   def article_params_json
-    params.require(:article) # to trigger the correct exception in case `:article` is missing
+    params.require(:article) 
 
     params["article"].transform_keys!(&:underscore)
 
