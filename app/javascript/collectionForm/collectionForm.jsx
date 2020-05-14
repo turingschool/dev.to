@@ -16,26 +16,31 @@ export class CollectionForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = () => {
-    // TODO use the sendFetch function
+  convertTagsToArray = () => {
+    const { tagList } = this.state;
+    const tagArray = tagList.split(', ').filter(tag => tag !== '');
+    return tagArray;
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
     const { tagList, title } = this.state;
-    const res = fetch('someURLendpoint', {
+    const formattedTags = this.convertTagsToArray(tagList);
+
+    fetch('http://localhost:3000/api/v0/machine_collections', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'X-CSRF-Token': window.csrfToken,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ tagList, title }),
+      body: JSON.stringify({ title, tag_list: formattedTags }),
       credentials: 'same-origin',
-    });
-
-    if (!res.ok) {
-      throw new Error('Error submitting collection. Please try again.');
-    }
-
-    // const resData = await res.json();
-    // TODO: Can display success message
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      });
 
     this.setState({ tagList: '', title: '' });
   };

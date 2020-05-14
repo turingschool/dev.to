@@ -2,9 +2,6 @@ import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
-import { CollectionList } from '../collectionList/collectionList';
-import { CollectionForm } from '../collectionForm/collectionForm';
-
 import {
   defaultState,
   loadNextPage,
@@ -279,10 +276,7 @@ export class ReadingList extends Component {
             onClick={this.loadNextPage}
           />
         </div>
-
         {snackBar}
-        <CollectionList />
-        <CollectionForm />
       </div>
     );
   }

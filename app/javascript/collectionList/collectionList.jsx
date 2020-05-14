@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { CollectionListItem } from '../collectionListItem/collectionListItem';
+import { CollectionForm } from '../collectionForm/collectionForm';
 
 const fakeCollections = [
   { id: 1, title: 'Best of JavaScript', tags: ['javascript', 'react'] },
@@ -22,6 +23,7 @@ export class CollectionList extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { collections } = this.state;
     const renderedCollections = collections.map(collection => {
       return <CollectionListItem key={collection.id} collection={collection} />;
@@ -29,6 +31,7 @@ export class CollectionList extends Component {
 
     return (
       <section className="collection-list-container">
+        <CollectionForm />
         <a href="/something" className="collection-list__link-create">
           Create a Collection
         </a>
