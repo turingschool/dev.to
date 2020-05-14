@@ -1508,6 +1508,12 @@ article {
   padding: 50% 30 50% 80;
 }
 
+.youtube-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .video-article {
   margin-bottom: 80px;
 }
