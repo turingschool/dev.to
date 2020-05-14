@@ -8,7 +8,7 @@ class Api::V0::MachineCollectionsController < ApplicationController
   end
 
   def update
-    render json: MachineCollectionSerializer.new(MachineCollection.update(params[:id], machine_collection_params))
+    render json: MachineCollectionSerializer.new(MachineCollection.update(machine_collection_params))
   end
 
   def destroy
@@ -19,5 +19,5 @@ end
 private
 
 def machine_collection_params
-  params.permit(:title, :tag_list, :user_id)
+  params.permit(:title, :user_id, tag_list: [])
 end
