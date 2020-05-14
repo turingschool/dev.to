@@ -99,7 +99,7 @@ Rails.application.routes.draw do
   ###################################################################################
   namespace :api do
     namespace :v0 do
-      resources :machine_collections, only: %i[index show update destroy]
+      resources :machine_collections, only: %i[index show update destroy create]
     end
   end
   ###################################################################################
