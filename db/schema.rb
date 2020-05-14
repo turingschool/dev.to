@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_005825) do
+ActiveRecord::Schema.define(version: 2020_05_14_141240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 2020_05_13_005825) do
     t.integer "user_id"
     t.index ["secret"], name: "index_api_secrets_on_secret", unique: true
     t.index ["user_id"], name: "index_api_secrets_on_user_id"
+  end
+
+  create_table "article_tagcollections", force: :cascade do |t|
+    t.bigint "article_id"
+    t.bigint "tagcollection_id"
+    t.index ["article_id"], name: "index_article_tagcollections_on_article_id"
+    t.index ["tagcollection_id"], name: "index_article_tagcollections_on_tagcollection_id"
   end
 
   create_table "articles", id: :serial, force: :cascade do |t|
@@ -1219,6 +1226,8 @@ ActiveRecord::Schema.define(version: 2020_05_13_005825) do
   end
 
   add_foreign_key "api_secrets", "users", on_delete: :cascade
+  add_foreign_key "article_tagcollections", "articles"
+  add_foreign_key "article_tagcollections", "tagcollections"
   add_foreign_key "audit_logs", "users"
   add_foreign_key "badge_achievements", "badges"
   add_foreign_key "badge_achievements", "users"
