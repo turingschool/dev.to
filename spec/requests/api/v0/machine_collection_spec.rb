@@ -91,4 +91,20 @@ RSpec.describe "Api::V0::MachineCollections" do
     expect(MachineCollection.count).to eq(1)
     expect { MachineCollection.find(collection1.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it "can create a new collection" do
+    user = create(:user)
+
+    sign_in user
+
+    collection_params = { title: "Best of JS",
+                          tag_list: %w["Java Javascript"] }
+
+    post "/api/v0/machine_collections", params: collection_params
+
+    collection = MachineCollection.last
+    expect(response).to be_successful
+    expect(MachineCollection.all.count).to eq(1)
+    expect(collection.title).to eq(collection_params[:title])
+  end
 end
