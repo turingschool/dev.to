@@ -10,6 +10,9 @@ class MachineCollectionsController < ApplicationController
     @machine_collection = logged_in_user.machine_collections.find(params[:id])
   end
 
+  def new
+  end
+
 private
 
   def machine_collection_params
