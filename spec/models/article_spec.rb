@@ -23,6 +23,9 @@ RSpec.describe Article, type: :model do
     it { is_expected.to belong_to(:organization).optional }
     it { is_expected.to belong_to(:collection).optional.touch(true) }
     it { is_expected.to have_many(:comments) }
+    it { is_expected.to have_many(:machine_collection_articles) }
+    it { is_expected.to have_many(:machine_collections).through(:machine_collection_articles) }
+
     it { is_expected.to have_many(:reactions).dependent(:destroy) }
     it { is_expected.to have_many(:notifications).dependent(:delete_all) }
     it { is_expected.to have_many(:notification_subscriptions).dependent(:destroy) }

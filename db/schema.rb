@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_214321) do
+ActiveRecord::Schema.define(version: 2020_05_12_185230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -521,6 +521,19 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.string "remoteness"
     t.string "time_commitment"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "machine_collection_articles", force: :cascade do |t|
+    t.bigint "article_id"
+    t.bigint "machine_collection_id"
+    t.index ["article_id"], name: "index_machine_collection_articles_on_article_id"
+    t.index ["machine_collection_id"], name: "index_machine_collection_articles_on_machine_collection_id"
+  end
+
+  create_table "machine_collections", force: :cascade do |t|
+    t.string "title"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_machine_collections_on_user_id"
   end
 
   create_table "mentions", id: :serial, force: :cascade do |t|
@@ -1216,6 +1229,9 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
   add_foreign_key "chat_channel_memberships", "users"
   add_foreign_key "classified_listings", "users", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "machine_collection_articles", "articles"
+  add_foreign_key "machine_collection_articles", "machine_collections"
+  add_foreign_key "machine_collections", "users"
   add_foreign_key "messages", "chat_channels"
   add_foreign_key "messages", "users"
   add_foreign_key "notification_subscriptions", "users", on_delete: :cascade
