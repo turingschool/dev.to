@@ -1,4 +1,6 @@
 require "rails_helper"
+require "capybara/rspec"
+require "capybara/rails"
 
 RSpec.describe "articles/show", type: :view do
   let(:user1) { create(:user) }
@@ -46,5 +48,10 @@ RSpec.describe "articles/show", type: :view do
     render
     expect(rendered).to have_css("form#new_comment")
     expect(rendered).to have_css("input#submit-button")
+  end
+
+  it "shows three related youtube videos" do
+    render "articles/youtube"
+    expect(rendered).to have_css("youtube")
   end
 end
