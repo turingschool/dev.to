@@ -1498,6 +1498,26 @@ article {
   border-bottom-right-radius: 3px;
 }
 
+.youtube {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 98%;
+  margin-left: 0.5em;
+  align-content: center;
+  padding: 50% 30 50% 80;
+}
+
+.youtube-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-article {
+  margin-bottom: 80px;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

@@ -412,6 +412,9 @@ Rails.application.routes.draw do
   get "/:username/:slug" => "stories#show"
   get "/:username" => "stories#index"
 
+  # ea - the fetch call in the youtube partial should come here
+  get "/:username/videos/youtube" => "youtube#index"
+
   root "stories#index"
 end
 
