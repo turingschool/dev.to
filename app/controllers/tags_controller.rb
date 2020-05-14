@@ -14,8 +14,6 @@ class TagsController < ApplicationController
     authorize @tag
   end
 
-  # finds all tags
-
   def update
     @tag = Tag.find_by!(id: params[:id])
     authorize @tag
@@ -33,12 +31,10 @@ class TagsController < ApplicationController
     authorize tag
     redirect_to "/admin/tags/#{tag.id}/edit"
   end
-  # find articles by tag
 
   private
 
   def convert_empty_string_to_nil
-    # nil plays nicely with our hex colors, whereas empty string doesn't
     params[:tag][:text_color_hex] = nil if params[:tag][:text_color_hex] == ""
     params[:tag][:bg_color_hex] = nil if params[:tag][:bg_color_hex] == ""
   end
