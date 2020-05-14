@@ -6,6 +6,5 @@ class MachineCollection < ApplicationRecord
  acts_as_taggable_on :tags
  resourcify
 
- validates_presence_of :title
-
+ validates_presence_of :title, :tag_list
 end
