@@ -17,37 +17,71 @@ RSpec.describe "Api::V0::MachineCollections" do
     user = create(:user, username: "ben", summary: "Something something")
     collection1 = user.machine_collections.create!(title: "Best of JS", tag_list: %w[Java Javascript])
     user.machine_collections.create!(title: "Best of Ruby")
-    id = collection1.id
 
-    get "/api/v0/machine_collections/#{id}"
+    get "/api/v0/machine_collections/#{collection1.id}"
 
     expect(response).to be_successful
 
     collection = JSON.parse(response.body, symbolize_names: true)[:data]
-    expect(collection[:id].to_i).to eq(id)
+    expect(collection[:attributes][:title]).to eq("Best of JS")
     expect(collection[:attributes][:tag_list].first).to eq("Java")
   end
 
   it "can update a machine_collection's title" do
     user = create(:user, username: "ben", summary: "Something something")
     collection1 = user.machine_collections.create!(title: "Best of JS", tag_list: %w[Java Javascript])
-    id = collection1.id
-    previous_title = MachineCollection.last.title
-    collection_params = { title: "Alex Rules, JS Drools", tag_list: %w[Rails Ruby] }
 
-    patch "/api/v0/machine_collections/#{id}", params: collection_params
+    collection_params = { title: "Alex Rules, JS Drools" }
 
-    collection = MachineCollection.find_by(id: id)
+    patch "/api/v0/machine_collections/#{collection1.id}", params: collection_params
+
+    collection = MachineCollection.find(collection1.id)
 
     expect(response).to be_successful
-    expect(collection.title).not_to eq(previous_title)
+    expect(collection.title).not_to eq("Best of JS")
     expect(collection.title).to eq("Alex Rules, JS Drools")
+  end
+
+  it "can update a collections tags" do
+    user = create(:user, username: "ben", summary: "Something something")
+    collection1 = user.machine_collections.create!(title: "Best of JS", tag_list: %w[Java Javascript])
+
+    collection_params = { tag_list: %w[Rails Ruby] }
+
+    patch "/api/v0/machine_collections/#{collection1.id}", params: collection_params
+
+    collection = MachineCollection.find(collection1.id)
+
+    expect(response).to be_successful
+    expect(collection.tag_list.first).not_to eq("Java")
+    expect(collection.tag_list.first).to eq("Rails")
+    expect(collection.tag_list.last).not_to eq("Javascript")
+    expect(collection.tag_list.last).to eq("Ruby")
+  end
+
+  it "can update a collections title and tags" do
+    user = create(:user, username: "ben", summary: "Something something")
+    collection1 = user.machine_collections.create!(title: "Best of JS", tag_list: %w[Java Javascript])
+
+    collection_params = { title: "Best of Ruby", tag_list: %w[Rails Ruby] }
+
+    patch "/api/v0/machine_collections/#{collection1.id}", params: collection_params
+
+    collection = MachineCollection.find(collection1.id)
+
+    expect(response).to be_successful
+    expect(collection.title).not_to eq("Best of JS")
+    expect(collection.title).to eq("Best of Ruby")
+    expect(collection.tag_list.first).not_to eq("Java")
+    expect(collection.tag_list.first).to eq("Rails")
+    expect(collection.tag_list.last).not_to eq("Javascript")
+    expect(collection.tag_list.last).to eq("Ruby")
   end
 
   it "can delete a machine_collection" do
     user = create(:user, username: "ben", summary: "Something something")
     collection1 = user.machine_collections.create!(title: "Best of JS", tag_list: %w[Java Javascript])
-    user.machine_collections.create!(title: "Best of Ruby")
+    user.machine_collections.create!(title: "Best of Ruby", tag_list: %w[Rails Ruby])
 
     expect(MachineCollection.count).to eq(2)
 
