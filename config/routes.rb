@@ -95,6 +95,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/machine_collections", to: "machine_collections#index"
   ###################################################################################
   namespace :api do
     namespace :v0 do
