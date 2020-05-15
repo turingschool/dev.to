@@ -14,7 +14,7 @@ import {
 import { ItemListItem } from '../src/components/ItemList/ItemListItem';
 import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListItemArchiveButton';
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
-import { ItemListTags } from '../src/components/ItemList/ItemListTags';
+import { ItemListCollection } from '../src/components/ItemList/ItemListCollection';
 
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
@@ -31,15 +31,12 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
-export class ReadingList extends Component {
+export class TagCollections extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-
     const { availableTags, statusView } = this.props;
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
-    // bind and initialize all shared functions
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
       leading: true,
     });
@@ -54,7 +51,7 @@ export class ReadingList extends Component {
     const { hitsPerPage, statusView } = this.state;
 
     this.performInitialSearch({
-      containerId: 'reading-list',
+      containerId: 'tag-collection',
       indexName: 'SecuredReactions',
       searchOptions: {
         hitsPerPage,
@@ -76,7 +73,6 @@ export class ReadingList extends Component {
       ? READING_LIST_ARCHIVE_PATH
       : READING_LIST_PATH;
 
-    // empty items so that changing the view will start from scratch
     this.setState({ statusView: newStatusView, items: [] });
 
     this.search(query, {
@@ -84,8 +80,6 @@ export class ReadingList extends Component {
       tags: selectedTags,
       statusView: newStatusView,
     });
-
-    // change path in the address bar
     window.history.replaceState(null, null, newPath);
   };
 
@@ -111,8 +105,6 @@ export class ReadingList extends Component {
       items: newItems,
       totalCount: totalCount - 1,
     });
-
-    // hide the snackbar in a few moments
     setTimeout(() => {
       t.setState({ archiving: false });
     }, 1000);
@@ -199,10 +191,10 @@ export class ReadingList extends Component {
           <div className="widget filters">
             <input
               onKeyUp={this.onSearchBoxType}
-              placeHolder="search your list"
+              placeHolder="search your collection"
             />
             <div className="filters-header">
-              <h4 className="filters-header-text">my tags</h4>
+              <h4 className="filters-header-text">my collections</h4>
               {Boolean(selectedTags.length) && (
                 <a
                   className="filters-header-action"
@@ -218,11 +210,12 @@ export class ReadingList extends Component {
                 </a>
               )}
             </div>
-            <ItemListTags
+            <ItemListCollection
               availableTags={availableTags}
               selectedTags={selectedTags}
-              onClick={this.toggleTag}
+              onClick={this.toggleCollection}
             />
+            {/* ^^ This is where we can create a component for the collections made by the user */}
 
             <div className="status-view-toggle">
               <a
@@ -230,9 +223,13 @@ export class ReadingList extends Component {
                 onClick={e => this.toggleStatusView(e)}
                 data-no-instant
               >
-                {isStatusViewValid ? 'View Archive' : 'View Reading List'}
+                {/* {isStatusViewValid ? 'View Archive' : 'View Collection'} */}
               </a>
             </div>
+            <input
+              className="add-to-collection"
+              placeholder="add to collection"
+            />
           </div>
         </div>
 
@@ -259,11 +256,11 @@ export class ReadingList extends Component {
   }
 }
 
-ReadingList.defaultProps = {
+TagCollections.defaultProps = {
   statusView: STATUS_VIEW_VALID,
 };
 
-ReadingList.propTypes = {
+TagCollections.propTypes = {
   availableTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   statusView: PropTypes.oneOf([STATUS_VIEW_VALID, STATUS_VIEW_ARCHIVED]),
 };
