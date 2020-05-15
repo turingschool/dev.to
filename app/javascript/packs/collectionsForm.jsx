@@ -15,18 +15,20 @@ function loadForm() {
     window.currentUser = currentUser;
     window.csrfToken = csrfToken;
 
-    const root = document.getElementById('article-form');
-    const { article, organizations, version } = root.dataset;
+    console.log(currentUser);
 
-    render(
-      <ArticleForm
-        article={article}
-        organizations={organizations}
-        version={version}
-      />,
-      root,
-      root.firstElementChild,
-    );
+    // const root = document.getElementById('article-form');
+    // const { article, organizations, version } = root.dataset;
+    //
+    // render(
+    //   <ArticleForm
+    //     article={article}
+    //     organizations={organizations}
+    //     version={version}
+    //   />,
+    //   root,
+    //   root.firstElementChild,
+    // );
   });
 }
 

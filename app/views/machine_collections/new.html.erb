@@ -1,8 +1,5 @@
-<%= javascript_include_tag "https://embed.runkit.com", defer: true %>
-
 <div class="articleformcontainer">
-  <div class="articleform"
-       id="article-form">
+  <div class="articleform">
     <form class="articleform__form articleform__form--v2">
         <input class="articleform__title articleform__titlepreview" type="text" placeholder="Title" />
         <div class="articleform__detailfields">
@@ -19,11 +16,9 @@
           <button class="articleform__buttons--publish">PUBLISH</button>
       </div>
     </form>
-    <div style="display:none">
-      <%= render "pages/editor_guide_text", version: "2" %>
-    </div>
   </div>
 </div>
+<%= javascript_pack_tag "collectionsForm", defer: true %>
 
 <style>
   #footer-container {
