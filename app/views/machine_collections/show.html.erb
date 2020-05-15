@@ -1,0 +1,5 @@
+<div class="home">
+  <div id="machine-collection" data-algolia-key="<%= @secured_algolia_key %>" data-collections="<%= @tags %>">
+  </div>
+</div>
+<%= javascript_pack_tag "currentCollection", defer: true %>
