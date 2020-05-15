@@ -365,6 +365,12 @@ Rails.application.routes.draw do
   get "/readinglist" => "reading_list_items#index"
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 
+  get "/tagcollections", to: "tagcollections#index"
+  post "/tagcollections", to: "tagcollections#create", as: :tagcollections_create
+  get "/tagcollections/:id", to: "tagcollections#show"
+
+  post "/tagcollections/new", to: "tagcollections#create"
+
   get "/feed" => "articles#feed", :as => "feed", :defaults => { format: "rss" }
   get "/feed/tag/:tag" => "articles#feed",
       :as => "tag_feed", :defaults => { format: "rss" }

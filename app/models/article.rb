@@ -21,7 +21,6 @@ class Article < ApplicationRecord
 
   counter_culture :user
   counter_culture :organization
-
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -29,6 +28,8 @@ class Article < ApplicationRecord
   has_many :notification_subscriptions, as: :notifiable, inverse_of: :notifiable, dependent: :destroy
   has_many :rating_votes
   has_many :page_views
+  has_many :article_tagcollections, dependent: :destroy
+  has_many :tagcollections, through: :article_tagcollections
 
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }
@@ -529,14 +530,11 @@ class Article < ApplicationRecord
   end
 
   def validate_tag
-    # remove adjusted tags
     remove_tag_adjustments_from_tag_list
     add_tag_adjustments_to_tag_list
 
-    # check there are not too many tags
     return errors.add(:tag_list, "exceed the maximum of 4 tags") if tag_list.size > 4
 
-    # check tags names aren't too long and don't contain non alphabet characters
     tag_list.each do |tag|
       new_tag = Tag.new(name: tag)
       new_tag.validate_name
