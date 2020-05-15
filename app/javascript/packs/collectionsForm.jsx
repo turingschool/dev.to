@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 import { getUserDataAndCsrfToken } from '../chat/util';
-import ArticleForm from '../article-form/articleForm';
+import CollectionsForm from '../collections-form/collectionsForm';
 
 HTMLDocument.prototype.ready = new Promise(resolve => {
   if (document.readyState !== 'loading') {
@@ -15,20 +15,15 @@ function loadForm() {
     window.currentUser = currentUser;
     window.csrfToken = csrfToken;
 
-    console.log(currentUser);
-
-    // const root = document.getElementById('article-form');
+    const root = document.getElementById('collections-form-container');
     // const { article, organizations, version } = root.dataset;
-    //
-    // render(
-    //   <ArticleForm
-    //     article={article}
-    //     organizations={organizations}
-    //     version={version}
-    //   />,
-    //   root,
-    //   root.firstElementChild,
-    // );
+
+    render(
+      <CollectionsForm
+      />,
+      root,
+      root.firstElementChild,
+    );
   });
 }
 
