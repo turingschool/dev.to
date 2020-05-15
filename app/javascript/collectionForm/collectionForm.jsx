@@ -40,6 +40,9 @@ export class CollectionForm extends Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
       });
 
     this.setState({ tagList: '', title: '' });
@@ -83,7 +86,11 @@ export class CollectionForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <button type="submit" className="collection-form_submit-button">
+          <button
+            className="collection-form_submit-button"
+            disabled={!!(!title || !tagList)}
+            type="submit"
+          >
             CREATE
           </button>
         </form>
