@@ -1,4 +1,10 @@
-<div class="youtube"></div>
+<div class="youtube-container">
+  <h3>Related Videos</h3>
+  <p>The videos below are based on the following tags: <%= @article.cached_tag_list %>.</p>
+  <div class="youtube">
+
+  </div>
+</div>
 <script>
 function displayVideos(videos) {
     let videoContainer = document.querySelector('.youtube')
