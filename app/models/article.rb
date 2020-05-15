@@ -4,7 +4,6 @@ class Article < ApplicationRecord
   include AlgoliaSearch
   include Storext.model
   include Reactable
-  # imports ^
 
   acts_as_taggable_on :tags
   resourcify
@@ -19,11 +18,9 @@ class Article < ApplicationRecord
   belongs_to :job_opportunity, optional: true
   belongs_to :organization, optional: true
   belongs_to :collection, optional: true, touch: true
-  # defines which models can access this model
 
   counter_culture :user
   counter_culture :organization
-  # gem for counting, to see how many users there are and organizations that are related to this article?
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :profile_pins, as: :pinnable, inverse_of: :pinnable
   has_many :buffer_updates, dependent: :destroy
@@ -533,14 +530,11 @@ class Article < ApplicationRecord
   end
 
   def validate_tag
-    # remove adjusted tags
     remove_tag_adjustments_from_tag_list
     add_tag_adjustments_to_tag_list
 
-    # check there are not too many tags
     return errors.add(:tag_list, "exceed the maximum of 4 tags") if tag_list.size > 4
 
-    # check tags names aren't too long and don't contain non alphabet characters
     tag_list.each do |tag|
       new_tag = Tag.new(name: tag)
       new_tag.validate_name
