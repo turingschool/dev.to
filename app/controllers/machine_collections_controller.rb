@@ -1,5 +1,6 @@
 class MachineCollectionsController < ApplicationController
   def index
-    @collections = MachineCollection.format_data
+    data = MachineCollection.all.includes([:taggings])
+    @collections = data.format_data
   end
 end
