@@ -1,9 +1,9 @@
 class YoutubeFacade
   attr_reader :keywords, :id
 
-  def initialize(tags)
+  def initialize(params)
     @id = nil
-    @tags = tags
+    @params = params
   end
 
   def videos
@@ -15,6 +15,6 @@ class YoutubeFacade
   private
 
   def youtube_service
-    @service = YoutubeService.new(@tags)
+    @service = YoutubeService.new(@params)
   end
 end
