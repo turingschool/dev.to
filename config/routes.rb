@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/BlockLength
 
 Rails.application.routes.draw do
+
   use_doorkeeper do
     controllers tokens: "oauth/tokens"
   end
@@ -143,7 +144,7 @@ Rails.application.routes.draw do
       get "/analytics/referrers", to: "analytics#referrers"
     end
   end
-
+  post "/machinecollections", to: "machine_collections#create"
   get "/machinecollections/new" => "machine_collections#new"
 
   namespace :notifications do
