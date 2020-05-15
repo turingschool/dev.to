@@ -1,6 +1,7 @@
 class ArticleSuggester
-  def initialize(article)
+  def initialize(article = nil, collection = nil)
     @article = article
+    @collection = collection
   end
 
   def articles(max: 4)
@@ -22,9 +23,13 @@ class ArticleSuggester
     end
   end
 
+  def machine_articles(max: 10)
+    collection_suggestions_by_tag(max: max)
+  end
+
   private
 
-  attr_reader :article
+  attr_reader :article, :collection
 
   def other_suggestions(max: 4, ids_to_ignore: [])
     ids_to_ignore << article.id
@@ -39,6 +44,14 @@ class ArticleSuggester
   def suggestions_by_tag(max: 4)
     Article.published.tagged_with(article.tag_list, any: true).
       where.not(id: article.id).
+      order("hotness_score DESC").
+      includes(user: [:pro_membership]).
+      offset(rand(0..offsets[0])).
+      first(max)
+  end
+
+  def collection_suggestions_by_tag(max: 10)
+    Article.published.tagged_with(collection.tag_list, any: true).
       order("hotness_score DESC").
       includes(user: [:pro_membership]).
       offset(rand(0..offsets[0])).
