@@ -366,6 +366,7 @@ Rails.application.routes.draw do
   get "/readinglist/:view" => "reading_list_items#index", :constraints => { view: /archive/ }
 
   get "/tagcollections", to: "tagcollections#index"
+  post "/tagcollections", to: "tagcollections#create", as: :tagcollections_create
   get "/tagcollections/:id", to: "tagcollections#show"
 
   post "/tagcollections/new", to: "tagcollections#create"

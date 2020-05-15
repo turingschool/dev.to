@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent-props */
 import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
@@ -108,6 +109,22 @@ export class TagCollections extends Component {
     setTimeout(() => {
       t.setState({ archiving: false });
     }, 1000);
+  };
+
+  postCollection = e => {
+    e.preventDefault();
+    const collectionName = e.target.firstChild.value;
+    fetch('/tagcollections', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(collectionName),
+    })
+      .then(res => res.json())
+      .then(data => data)
+      .then(err => err);
   };
 
   statusViewValid() {
@@ -226,10 +243,12 @@ export class TagCollections extends Component {
                 {/* {isStatusViewValid ? 'View Archive' : 'View Collection'} */}
               </a>
             </div>
-            <input
-              className="add-to-collection"
-              placeholder="add to collection"
-            />
+            <form className="add-form" onSubmit={e => this.postCollection(e)}>
+              <input
+                className="add-to-collection"
+                placeholder="add to collection"
+              />
+            </form>
           </div>
         </div>
 
