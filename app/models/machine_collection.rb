@@ -10,4 +10,8 @@ class MachineCollection < ApplicationRecord
       { title: collection.title, tag_list: collection.tag_list }
     end
   end
+
+  def format
+    { title: title, tag_list: tag_list }
+  end
 end
