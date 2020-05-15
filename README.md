@@ -1,3 +1,10 @@
+## ERD
+
+Below is the flow chart of the code base we used and adjusted for our given
+track, elsewhere on the internet.
+
+![ERD](app/assets/images/ERD.png)
+
 <div align="center">
   <br>
   <img alt="DEV" src="https://thepracticaldev.s3.amazonaws.com/i/ro3538by3b2fupbs63sr.png" width="500px">
