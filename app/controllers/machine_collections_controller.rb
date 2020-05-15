@@ -1,5 +1,5 @@
 class MachineCollectionsController < ApplicationController
   def index
-    @collections = MachineCollection.all
+    @collections = MachineCollection.format_data
   end
 end
