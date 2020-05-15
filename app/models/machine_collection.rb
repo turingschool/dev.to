@@ -4,4 +4,10 @@ class MachineCollection < ApplicationRecord
 
   belongs_to :user
   validates :title, presence: true
+
+  def self.format_data
+    MachineCollection.all.map do |collection|
+      { title: collection.title, tag_list: collection.tag_list }
+    end
+  end
 end
