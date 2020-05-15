@@ -1,6 +1,11 @@
 class MachineCollectionsController < ApplicationController
   def index
-    data = MachineCollection.all.includes([:taggings])
-    @collections = data.format_data.to_json
+    @collections = MachineCollection.all.includes([:taggings]).format_data
+    render json: @collections
+  end
+
+  def show
+    @tags = MachineCollection.find(params[:id]).format
+    render json: @tags
   end
 end
