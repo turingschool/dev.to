@@ -6,7 +6,6 @@ describe "Machine Collections" do
   describe "render machine collection new page" do
     it "can get one of its collections" do
       visit "/machinecollections/new"
-      expect(current_path).to eq("/machinecollections/new")
     end
   end
 end
