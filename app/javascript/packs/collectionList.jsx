@@ -7,7 +7,7 @@ function loadElement() {
     const root = document.getElementById('machine-collections');
     if (root) {
       render(
-        <CollectionList collections={root.dataset.collections} />,
+        <CollectionList collections={JSON.parse(root.dataset.collections)} />,
         root,
         root.firstElementChild,
       );

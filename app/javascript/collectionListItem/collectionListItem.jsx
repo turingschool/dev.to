@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { PropTypes } from 'preact-compat';
 
 export const CollectionListItem = ({ collection }) => {
-  const renderedTags = collection.tags.map(tag => {
+  const renderedTags = collection.tag_list.map(tag => {
     return <p className="collection-item__tag">{`#${tag}`}</p>;
   });
   return (
@@ -27,6 +27,6 @@ CollectionListItem.propTypes = {
   collection: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
+    tag_list: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
