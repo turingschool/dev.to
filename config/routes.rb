@@ -144,6 +144,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/machinecollections/new" => "machine_collections#new"
+
   namespace :notifications do
     resources :counts, only: [:index]
     resources :reads, only: [:create]
