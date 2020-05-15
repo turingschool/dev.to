@@ -19,6 +19,14 @@ RSpec.describe "Tagcollections", type: :request do
     expect(response).to have_http_status(:ok)
   end
 
+  it "successfully create new tag collection" do
+    post "/tagcollections", params: { tagcollection: { name: "All the JS",
+                                                       tag_list: "javascript" } }
+
+    expect(response).to be_successful
+    # data = JSON.parse(response.body)
+  end
+
   # it "succesfully GETS /tagecollection/:id" do
   #   get "/tagcollections/#{tagcollection.id}"
   #
