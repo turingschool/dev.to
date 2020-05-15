@@ -115,6 +115,7 @@ group :development do
   gem "guard-livereload", "~> 2.5", require: false # Guard::LiveReload automatically reloads your browser when 'view' files are modified
   gem "guard-rspec", "~> 4.7", require: false # Guard::RSpec automatically run your specs
   gem "memory_profiler", "~> 0.9", require: false # Memory profiling routines for Ruby 2.3+
+  gem "whenever", require: false # Helps run Cron Jobs 
   gem "pry", "~> 0.12" # An IRB alternative and runtime developer console
   gem "pry-rails", "~> 0.3" # Use Pry as your rails console
   gem "web-console", "~> 3.7" # Rails Console on the Browser
