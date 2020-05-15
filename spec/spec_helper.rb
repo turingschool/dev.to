@@ -109,8 +109,10 @@ end
 
 VCR.configure do |c|
   c.hook_into :webmock
-  c.cassette_library_dir = "spec/cassettes"
+  c.cassette_library_dir = "spec/support/fixtures/vcr_cassettes"
   c.default_cassette_options = { record: :new_episodes }
+  c.filter_sensitive_data("<YOUTUBE_API_KEY>") { ENV["YOUTUBE_API_KEY"] }
+  c.configure_rspec_metadata!
 
   ## Ignore some requests based on the hosts involved.
   c.ignore_hosts "localhost", "8.8.8.8", "our.local.test.server.org"
