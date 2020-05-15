@@ -113,17 +113,24 @@ export class TagCollections extends Component {
 
   postCollection = e => {
     e.preventDefault();
-    const collectionName = e.target.firstChild.value;
+    const params = {
+      name: e.target.firstChild.value,
+      tag_list: 'javascript',
+    };
+    console.log(JSON.stringify(params));
+
     fetch('/tagcollections', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Accept: 'application/json',
+        'X-CSRF-Token': window.csrfToken,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(collectionName),
+      body: JSON.stringify(params),
+      credentials: 'same-origin',
     })
-      .then(res => res.json())
-      .then(data => data)
+      .then(res => console.log(res))
+      .then(data => console.log(data))
       .then(err => err);
   };
 
