@@ -1,5 +1,6 @@
 class MachineCollectionsController < ApplicationController
   def index
-    @collections = MachineCollection.all.includes(:taggings).format_data.to_json
+    data = MachineCollection.all.includes([:taggings])
+    @collections = data.format_data.to_json
   end
 end
