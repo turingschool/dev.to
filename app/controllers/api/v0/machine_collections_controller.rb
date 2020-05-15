@@ -12,7 +12,11 @@ class Api::V0::MachineCollectionsController < ApplicationController
   end
 
   def create
-    render json: MachineCollectionSerializer.new(current_user.machine_collections.create(machine_collection_params))
+    if params[:tag_list].empty? || params[:title].empty?
+      render json: { text: "Unauthorized", status: "403" }
+    else
+      render json: MachineCollectionSerializer.new(current_user.machine_collections.create(machine_collection_params))
+    end
   end
 
   def destroy
