@@ -15,6 +15,7 @@ export const ItemListItem = ({ item, children }) => {
 
   // update readingTime to 1 min if the reading time is less than 1 min
   adaptedItem.readingTime = Math.max(1, adaptedItem.readingTime || null);
+
   return (
     <div className="item-wrapper">
       <a className="item" href={adaptedItem.path}>

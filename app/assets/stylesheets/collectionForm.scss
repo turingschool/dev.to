@@ -1,0 +1,35 @@
+@import 'variables';
+@import 'mixins';
+@import '_colors';
+
+.collection-form-container {
+  background: $white;
+  border: 1px solid $light-medium-gray;
+  border-radius: 3px;
+  max-width: 860px;
+  min-height: calc(85vh - 280px);
+  padding: 1rem;
+
+  & a,
+  h1 {
+    color: $bold-blue;
+  }
+
+  & .collection-form_submit-button {
+    background: $bold-blue;
+    border: none;
+    border-radius: 5rem;
+    color: $white;
+    font-weight: bold;
+    height: 36px;
+    width: 72px;
+  }
+
+  & .collection-form-tags {
+    margin-bottom: 24px;
+  }
+
+  & .collection-form-title {
+    margin-bottom: 24px;
+  }
+}

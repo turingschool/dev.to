@@ -2,11 +2,6 @@ import { h, Component } from 'preact';
 import { PropTypes } from 'preact-compat';
 import debounce from 'lodash.debounce';
 
-// I beleive we will be using this file because our collection
-// show page is going to look almost identical to the reading list
-// page so we can use this file for reference
-
-// Imports from our codebase of other Preact components
 import {
   defaultState,
   loadNextPage,
@@ -21,15 +16,11 @@ import { ItemListItemArchiveButton } from '../src/components/ItemList/ItemListIt
 import { ItemListLoadMoreButton } from '../src/components/ItemList/ItemListLoadMoreButton';
 import { ItemListTags } from '../src/components/ItemList/ItemListTags';
 
-// Constant variables used within this components
 const STATUS_VIEW_VALID = 'valid';
 const STATUS_VIEW_ARCHIVED = 'archived';
 const READING_LIST_ARCHIVE_PATH = '/readinglist/archive';
 const READING_LIST_PATH = '/readinglist';
 
-// A Preact functional component,
-// if there are no selected tags and no query it renders all articles in a user's reading list
-// else if there is a tag or query renders a static message about not finding any articles.
 const FilterText = ({ selectedTags, query, value }) => {
   return (
     <h1>
@@ -40,16 +31,14 @@ const FilterText = ({ selectedTags, query, value }) => {
   );
 };
 
-// The main Preact component in this file
 export class ReadingList extends Component {
   constructor(props) {
     super(props);
 
-    // Destructures the keys of the props object
     const { availableTags, statusView } = this.props;
+
     this.state = defaultState({ availableTags, archiving: false, statusView });
 
-    // bind and initialize all shared functions
     this.onSearchBoxType = debounce(onSearchBoxType.bind(this), 300, {
       leading: true,
     });
@@ -60,11 +49,6 @@ export class ReadingList extends Component {
     this.clearSelectedTags = clearSelectedTags.bind(this);
   }
 
-  // ! A React lifecycle method that is invoked when this component is mounted to the DOM.
-  // Sets up the search functionality for the component by assigning a search function to
-  // the component's index piece of state and then invokes the initial search,
-  // which returns a promise which upon resolution, assigns the results of the search to
-  // the items key of the local state
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
 
@@ -78,21 +62,17 @@ export class ReadingList extends Component {
     });
   }
 
-  // This changes the statusView piece of state between "valid" and "archived"
-  // this.state.statusView is initially received as props and can be 'valid'.
-  // It is taken from the dataset of the root element,
-  // which is the parent element of the readingList.
-  // This method is toggling the URL path in the browser to show the either /readinglist
-  // or /readinlist/archive and also toggling the link text when clicking "View Archive"
   toggleStatusView = event => {
     event.preventDefault();
 
     const { query, selectedTags } = this.state;
 
     const isStatusViewValid = this.statusViewValid();
+
     const newStatusView = isStatusViewValid
       ? STATUS_VIEW_ARCHIVED
       : STATUS_VIEW_VALID;
+
     const newPath = isStatusViewValid
       ? READING_LIST_ARCHIVE_PATH
       : READING_LIST_PATH;
@@ -141,6 +121,7 @@ export class ReadingList extends Component {
     }, 1000);
   };
 
+  // ! If the status view is equal to 'valid', return true
   statusViewValid() {
     const { statusView } = this.state;
     return statusView === STATUS_VIEW_VALID;
@@ -225,14 +206,20 @@ export class ReadingList extends Component {
     ) : (
       ''
     );
+
+    // ! What is actually rendered
     return (
       <div className="home item-list">
+        {/* ! The LEFT side of the view */}
         <div className="side-bar">
           <div className="widget filters">
+            {/* ! The search bar to search your reading list */}
             <input
               onKeyUp={this.onSearchBoxType}
               placeHolder="search your list"
             />
+
+            {/* ! The clear all text will appear if a tag is selected */}
             <div className="filters-header">
               <h4 className="filters-header-text">my tags</h4>
               {Boolean(selectedTags.length) && (
@@ -250,12 +237,15 @@ export class ReadingList extends Component {
                 </a>
               )}
             </div>
+
+            {/* ! The list of a user's tags */}
             <ItemListTags
               availableTags={availableTags}
               selectedTags={selectedTags}
               onClick={this.toggleTag}
             />
 
+            {/* ! The link to change the view to the archive */}
             <div className="status-view-toggle">
               <a
                 href={READING_LIST_ARCHIVE_PATH}
@@ -268,6 +258,8 @@ export class ReadingList extends Component {
           </div>
         </div>
 
+        {/* ! The RIGHT side of the view */}
+        {/* ! Renders the itemsToRender defined above or invokes the renderEmptyItems method defined above */}
         <div className="items-container">
           <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
             <div className="results-header">
@@ -284,7 +276,6 @@ export class ReadingList extends Component {
             onClick={this.loadNextPage}
           />
         </div>
-
         {snackBar}
       </div>
     );

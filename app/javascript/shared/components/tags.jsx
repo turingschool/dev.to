@@ -23,19 +23,14 @@ const NAVIGATION_KEYS = [
 
 const LETTERS_NUMBERS = /[a-z0-9]/i;
 
-/* TODO: Remove all instances of this.props.listing
-   and refactor this component to be more generic */
-
 class Tags extends Component {
   constructor(props) {
     super(props);
 
-    // prevents the same search frombeing submitted more than once
     this.debouncedTagSearch = debounce(this.handleInput.bind(this), 150, {
       leading: true,
     });
 
-    // component state
     this.state = {
       selectedIndex: -1,
       searchResults: [],
@@ -46,7 +41,6 @@ class Tags extends Component {
     };
   }
 
-  // if the listing prop is true, set the state to contain some additional arrays of tags
   componentDidMount() {
     const { listing } = this.props;
     if (listing === true) {
@@ -86,10 +80,7 @@ class Tags extends Component {
     }
   }
 
-  // When the component is updated, stop the cursor from moving to the last tag
-  // in the list when going back to edit a prior tag
   componentDidUpdate() {
-    // stop cursor jumping if the user goes back to edit previous tags
     const { cursorIdx, prevLen } = this.state;
     if (
       cursorIdx < this.textArea.value.length &&
@@ -100,9 +91,6 @@ class Tags extends Component {
     }
   }
 
-  // Creates a property on the class that can be accessed via a function, a getter
-  // Splits the selection on commas ensures that each is trimmed of
-  // whitespace and that the length is > 0 between commas
   get selected() {
     const { defaultValue } = this.props;
     return defaultValue
@@ -111,28 +99,21 @@ class Tags extends Component {
       .filter(item => item.length > 0);
   }
 
-  // Returns true if the index of the selection is <= to 0 to
-  // indicate it is first in an array
   get isTopOfSearchResults() {
     const { selectedIndex } = this.state;
     return selectedIndex <= 0;
   }
 
-  // Returns true if the index of the selection is last in the search results array
   get isBottomOfSearchResults() {
     const { selectedIndex, searchResults } = this.state;
     return selectedIndex >= searchResults.length - 1;
   }
 
-  // If the selectedIndex exists, it is true which indicates a selection has been made
   get isSearchResultSelected() {
     const { selectedIndex } = this.state;
     return selectedIndex > -1;
   }
 
-  // Takes in an array of tags and an index
-  // Returns the tag at specific index
-  // Finds the index by splitting the array into chars and counting the commas
   getCurrentTagAtSelectionIndex = (value, index) => {
     let tagIndex = 0;
     const tagByCharacterIndex = {};
@@ -153,9 +134,6 @@ class Tags extends Component {
     return tag.trim();
   };
 
-  // Given an index of the String value, finds the range between commas.
-  // This is useful when we want to insert a new tag anywhere in the
-  // comma separated list of tags.
   getRangeBetweenCommas = (value, index) => {
     let start = 0;
     let end = value.length;
@@ -165,6 +143,7 @@ class Tags extends Component {
       .split('')
       .reverse()
       .indexOf(',');
+
     const toNextComma = value.slice(index).indexOf(',');
 
     if (toPreviousComma !== -1) {
@@ -178,18 +157,15 @@ class Tags extends Component {
     return [start, end];
   };
 
-  // Handles keydown events, using the constants defined on lines 5-24
   handleKeyDown = e => {
     const component = this;
     const { maxTags } = this.props;
 
-    // If the tag element was passed a max value of 4 and 4 elements exist in the selected array, prevent further keypresses
     if (component.selected.length === maxTags && e.key === KEYS.COMMA) {
       e.preventDefault();
       return;
     }
 
-    // Allows up and down arrow keys to be used to navigate the hovering menu
     if (
       (e.key === KEYS.DOWN || e.key === KEYS.TAB) &&
       !this.isBottomOfSearchResults &&
@@ -245,16 +221,12 @@ class Tags extends Component {
     }
   };
 
-  // This method allows the search results when entering a tag to be clicked on
-  // and inserted into the input field
   handleTagClick = e => {
     if (e.target.className === 'articleform__tagsoptionrulesbutton') {
       return;
     }
-
     const input = document.getElementById('tag-input');
     input.focus();
-
     // the rules container (__tagoptionrow) is the real target of the event,
     // by using currentTarget we let the event propagation work
     // from the inner rules box as well (__tagrules)
@@ -263,10 +235,7 @@ class Tags extends Component {
 
   handleInput = e => {
     let { value } = e.target;
-    // If we start typing immediately after a comma, add a space
-    // before what we typed.
-    // e.g. If value = "javascript," and we type a "p",
-    // the result should be "javascript, p".
+
     if (e.inputType === 'insertText') {
       const isTypingAfterComma =
         e.target.value[e.target.selectionStart - 2] === ',';
@@ -295,7 +264,6 @@ class Tags extends Component {
     return this.search(query);
   };
 
-  // Forces a re-render when a selection loses focus in the browser
   handleFocusChange = () => {
     const component = this;
     setTimeout(() => {
@@ -306,7 +274,6 @@ class Tags extends Component {
     }, 250);
   };
 
-  // This method is a helper method for handleInput, it adds a space after an input
   insertSpace = (value, position) => {
     return `${value.slice(0, position)} ${value.slice(position, value.length)}`;
   };
@@ -328,7 +295,6 @@ class Tags extends Component {
       tagValue = `${tagValue}, `;
     }
 
-    // Insert new tag between commas if there are any.
     const newInput =
       input.value.slice(0, range[0]) +
       tagValue +
@@ -381,14 +347,12 @@ class Tags extends Component {
       });
   }
 
-  // Sets search results array to empty
   resetSearchResults() {
     this.setState({
       searchResults: [],
     });
   }
 
-  // Moves the selected tag upwards in the search results
   moveUpInSearchResults() {
     this.setState(prevState => ({
       selectedIndex: prevState.selectedIndex - 1,

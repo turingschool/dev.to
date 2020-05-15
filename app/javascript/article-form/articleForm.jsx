@@ -72,10 +72,12 @@ export default class ArticleForm extends Component {
     version: PropTypes.string.isRequired,
     article: PropTypes.string.isRequired,
     organizations: PropTypes.string,
+    name: PropTypes.string,
   };
 
   static defaultProps = {
     organizations: '',
+    name: '',
   };
 
   constructor(props) {
@@ -352,6 +354,8 @@ export default class ArticleForm extends Component {
       edited,
       version,
     } = this.state;
+
+    const { name } = this.props;
     const notice = submitting ? (
       <Notice published={published} version={version} />
     ) : (
@@ -438,6 +442,7 @@ export default class ArticleForm extends Component {
               defaultValue={title}
               onKeyDown={this.handleTitleKeyDown}
               onChange={linkState(this, 'title')}
+              name={name}
             />
             <div className="articleform__detailfields">
               <Tags
