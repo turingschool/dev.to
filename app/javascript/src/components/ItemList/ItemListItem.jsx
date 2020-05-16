@@ -2,15 +2,16 @@
 import { h } from 'preact';
 import { PropTypes } from 'preact-compat';
 
-export const ItemListItem = ({ item, children }) => {
+export const ItemListItem = ({ item, children, currentUser, path }) => {
+  console.log(item);
   const adaptedItem = {
-    path: item.article_path || item.searchable_reactable_path,
-    title: item.article_title || item.searchable_reactable_title,
-    user: item.article_user || item.reactable_user,
-    publishedDate: item.reactable_published_date,
-    visitedDate: item.readable_visited_at,
-    readingTime: item.article_reading_time || item.reading_time,
-    tags: item.article_tags || item.reactable_tags,
+    path: item.article_path || item.searchable_reactable_path || path || null,
+    title: item.article_title || item.searchable_reactable_title || item.title || null,
+    user: item.article_user || item.reactable_user || currentUser,
+    publishedDate: item.reactable_published_date || null,
+    visitedDate: item.readable_visited_at || null,
+    readingTime: item.article_reading_time || item.reading_time || null,
+    tags: item.article_tags || item.reactable_tags || item.tag_list | null,
   };
 
   // update readingTime to 1 min if the reading time is less than 1 min
