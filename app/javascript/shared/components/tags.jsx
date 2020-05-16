@@ -84,7 +84,6 @@ class Tags extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state);
     // stop cursor jumping if the user goes back to edit previous tags
     const { cursorIdx, prevLen } = this.state;
     if (

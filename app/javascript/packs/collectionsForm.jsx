@@ -17,14 +17,19 @@ function loadForm() {
 
     const root = document.getElementById('collections-form-container');
 
-    render(<CollectionsForm />, root, root.firstElementChild);
+    render(
+      <CollectionsForm
+      />,
+      root,
+      root.firstElementChild,
+    );
   });
 }
 
 document.ready.then(() => {
   loadForm();
   window.InstantClick.on('change', () => {
-    if (document.getElementById('article-form')) {
+    if (document.getElementById('collections-form-container')) {
       loadForm();
     }
   });
