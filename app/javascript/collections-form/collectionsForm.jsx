@@ -7,17 +7,27 @@ export default class CollectionsForm extends Component {
   constructor() {
     super();
     this.state = {
-      tagList: '',
+      tagList: [],
       title: '',
     }
   }
 
   updateTitle = (e) => {
     this.setState({title: e.target.value})
+    console.log(this.state);
+  }
+
+  convertTagsToArray() {
+    let newArray = this.state.tagList.split(',');
+    newArray = newArray.map(item => item.replace(/\s/g, ''));
+    return newArray.filter(item => item.length);
   }
 
   postData = (e) => {
     e.preventDefault();
+    const tags = this.convertTagsToArray();
+    const postItem = JSON.stringify({title: this.state.title, tag_list: tags});
+    console.log(postItem);
     fetch("http://localhost:3000/machinecollections", {
       method: "POST",
       headers: {
@@ -25,12 +35,11 @@ export default class CollectionsForm extends Component {
         'X-CSRF-Token': window.csrfToken,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(this.state),
+      body: postItem,
       credentials: 'same-origin',
     })
-    .then(res => console.log(res))
-    // .then(data => console.log(data))
-    // .catch(err => console.log(err))
+    .then(res => window.location.assign(res.url))
+    // .then(res => console.log(res))
   }
 
   render() {
