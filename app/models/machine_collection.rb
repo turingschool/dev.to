@@ -9,6 +9,6 @@ class MachineCollection < ApplicationRecord
   validates :title, :tag_list, presence: true
 
   def suggested_articles
-    ArticleSuggester.new(nil, self).machine_articles(max: 10)
+    self.articles << ArticleSuggester.new(nil, self).machine_articles(max: 10)
   end
 end

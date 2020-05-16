@@ -17,7 +17,7 @@ class MachineCollectionsController < ApplicationController
     user = User.find_by(id: logged_in_user.id)
     coll = user.machine_collections.create({title: params[:title], tag_list: params[:tag_list]})
     if coll.save
-      coll.articles << coll.suggested_articles
+      coll.suggested_articles
       redirect_to "/machine_collections/#{coll.id}"
     else
       flash[:error] = 'Collection not created. Please complete the required fields.'
