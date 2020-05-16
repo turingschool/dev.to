@@ -1,26 +1,31 @@
 class YoutubeService
-  attr_reader :keywords
+  attr_reader :tags, :keywords
 
-  def initialize(tags)
-    @tags = tags
+  def initialize(params)
+    @tags = params[:tags]
+    @title = params[:title]
+    @description = params[:description]
   end
 
   def videos
-    get_json[:items]
+    results = get_json(@tags)
+    results = get_json(@description) if results[:items].empty?
+    results = get_json(@title) if results[:items].empty?
+    results[:items]
   end
 
   private
 
-  def get_json
-    @response ||= conn.get
+  def get_json(search_params)
+    @response ||= conn(search_params).get
     JSON.parse(@response.body, symbolize_names: true)
   end
 
-  def conn
+  def conn(search_params)
     Faraday.new("https://www.googleapis.com/youtube/v3/search") do |f|
       f.adapter Faraday.default_adapter
       f.params[:key] = ENV["YOUTUBE_API_KEY"]
-      f.params[:q] = @tags
+      f.params[:q] = search_params
       f.params[:part] = "snippet"
       f.params[:type] = "video"
       f.params[:videoEmbeddable] = "true"

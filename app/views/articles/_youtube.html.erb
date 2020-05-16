@@ -1,4 +1,13 @@
-<div class="youtube"></div>
+<div class="youtube-container">
+  <h3>Related Videos</h3>
+  <p>The videos below are based on the following.</p>
+  <p>Tags: <%= @article.cached_tag_list %></p>
+  <p>Description: <%= @article.description %></p>
+  <p>Title: <%= @article.title %></p>
+  <div class="youtube">
+
+  </div>
+</div>
 <script>
 function displayVideos(videos) {
     let videoContainer = document.querySelector('.youtube')
@@ -9,7 +18,7 @@ function displayVideos(videos) {
         videoContainer.innerHTML += `<article class="video-article">
             <%= render "liquids/youtube", id: "${id}", width: 275, height: 275 %>
           </article>`})}}
-  fetch(`/<%= @user.username %>/videos/youtube?tags=<%= @article.cached_tag_list %>`)
+  fetch(`/<%= @user.username %>/videos/youtube?tags=<%= @article.cached_tag_list %>&description=<%= @article.description %>&title=<%= @article.title %>`)
     .then(res => res.json())
     .then(data => displayVideos(data.data.attributes.videos))
 </script>

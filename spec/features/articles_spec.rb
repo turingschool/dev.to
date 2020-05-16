@@ -1,7 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Articles Youtube Section" do
+
   describe "Youtube Video Section on Articles Show View" do
+
     it "can show a heading and description of related videos." do
       user = create(:user)
       article_1 = create(:article, user_id: user.id)
@@ -19,11 +21,13 @@ RSpec.describe "Articles Youtube Section" do
 
       click_on(last_article.title)
 
-      expect(page).to have_content("Related Videos")
+      expect(page).to have_content('Related Videos')
       expect(page).to have_content("The videos below are based on the following.")
       expect(page).to have_content("Tags: #{tags}")
       expect(page).to have_content("Description: #{description}")
       expect(page).to have_content("Title: #{title}")
     end
+
   end
+
 end
