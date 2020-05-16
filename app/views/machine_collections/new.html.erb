@@ -1,16 +1,8 @@
 <div class="articleformcontainer">
-  <div id="collections-form-container"></div>
     <div class="articleform">
       <form class="articleform__form articleform__form--v2">
-          <input class="articleform__title articleform__titlepreview" type="text" placeholder="Title" />
-          <div class="articleform__detailfields">
-            <div class="articleform__tagswrapper">
-              <textarea type="text" class="articleform__tags" placeholder="4 tags max, comma separated, no spaces or special characters"></textarea>
-            </div>
+          <div id="collections-form-container">
           </div>
-        <textarea class="articleform__body" placeholder="Body Markdown" name="body_markdown" style="margin-top: -4px"></textarea>
-        <div>
-          <button class="articleform__detailsButton articleform__detailsButton--image articleform__detailsButton--bottom"></button>
         </div>
         <div class="articleform__buttons">
             <p><button class="clear-button">clear</button></p>
@@ -18,7 +10,6 @@
         </div>
       </form>
     </div>
-  </div>
 <%= javascript_pack_tag "collectionsForm", defer: true %>
 
 <style>
