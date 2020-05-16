@@ -17,6 +17,7 @@ export default class CollectionsForm extends Component {
   }
 
   postData = (e) => {
+    e.preventDefault();
     fetch("http://localhost:3000/machinecollections", {
       method: "POST",
       headers: {
@@ -49,7 +50,10 @@ export default class CollectionsForm extends Component {
           autoComplete="off"
           classPrefix="articleform"
         />
-      <button type="button" onClick={this.postData}>tester</button>
+      </div>
+      <div class="articleform__buttons">
+          <p><button class="clear-button">clear</button></p>
+          <button class="articleform__buttons--publish" onClick={this.postData}>PUBLISH</button>
       </div>
       </div>
     )
