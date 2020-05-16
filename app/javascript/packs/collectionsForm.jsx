@@ -16,14 +16,8 @@ function loadForm() {
     window.csrfToken = csrfToken;
 
     const root = document.getElementById('collections-form-container');
-    // const { article, organizations, version } = root.dataset;
 
-    render(
-      <CollectionsForm
-      />,
-      root,
-      root.firstElementChild,
-    );
+    render(<CollectionsForm />, root, root.firstElementChild);
   });
 }
 
