@@ -4,13 +4,15 @@ import { CollectionsList } from '../collectionsList/collectionsList';
 
 function loadElement() {
   getUserDataAndCsrfToken().then(({ currentUser }) => {
-    console.log(currentUser);
     const root = document.getElementById('reading-list');
+    const { collections } = root.dataset;
     if (root) {
       render(
         <CollectionsList
           availableTags={currentUser.followed_tag_names}
           statusView={root.dataset.view}
+          collections={JSON.parse(collections)}
+          currentUser={currentUser}
         />,
         root,
         root.firstElementChild,

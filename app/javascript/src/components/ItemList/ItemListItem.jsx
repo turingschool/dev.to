@@ -2,32 +2,37 @@
 import { h } from 'preact';
 import { PropTypes } from 'preact-compat';
 
-export const ItemListItem = ({ item, children }) => {
+export const ItemListItem = ({ item, children, currentUser, path }) => {
   const adaptedItem = {
-    path: item.article_path || item.searchable_reactable_path,
-    title: item.article_title || item.searchable_reactable_title,
-    user: item.article_user || item.reactable_user,
-    publishedDate: item.reactable_published_date,
-    visitedDate: item.readable_visited_at,
-    readingTime: item.article_reading_time || item.reading_time,
-    tags: item.article_tags || item.reactable_tags,
+    path: item.article_path || item.searchable_reactable_path || path || null,
+    title: item.article_title || item.searchable_reactable_title || item.title || null,
+    user: item.article_user || item.reactable_user || currentUser,
+    publishedDate: item.reactable_published_date || null,
+    visitedDate: item.readable_visited_at || null,
+    readingTime: item.article_reading_time || item.reading_time || null,
+    tags: item.tag_list || item.article_tags || item.reactable_tags || null,
   };
-
+  console.log(adaptedItem)
   // update readingTime to 1 min if the reading time is less than 1 min
   adaptedItem.readingTime = Math.max(1, adaptedItem.readingTime || null);
+
   return (
     <div className="item-wrapper">
       <a className="item" href={adaptedItem.path}>
         <div className="item-title">{adaptedItem.title}</div>
-
         <div className="item-details">
           <a className="item-user" href={`/${adaptedItem.user.username}`}>
             <img src={adaptedItem.user.profile_image_90} alt="Profile Pic" />
             {`${adaptedItem.user.name}・`}
             {adaptedItem.visitedDate
               ? `visited on ${adaptedItem.visitedDate}・`
-              : `${adaptedItem.publishedDate}・`}
-            {`${adaptedItem.readingTime} min read・`}
+              : adaptedItem.publishedDate ?
+                `${adaptedItem.publishedDate}・`
+                : null}
+            {adaptedItem.readingTime
+              ? `${adaptedItem.readingTime} min read・`
+              : null
+            }
           </a>
 
           {adaptedItem.tags.length > 0 ? (
@@ -41,7 +46,6 @@ export const ItemListItem = ({ item, children }) => {
           ) : (
             ''
           )}
-
           {children}
         </div>
       </a>

@@ -51,15 +51,7 @@ export class CollectionsList extends Component {
 
   componentDidMount() {
     const { hitsPerPage, statusView } = this.state;
-
-    // this.performInitialSearch({
-    //   containerId: 'reading-list',
-    //   indexName: 'SecuredReactions',
-    //   searchOptions: {
-    //     hitsPerPage,
-    //     filters: `status:${statusView}`,
-    //   },
-    // });
+    this.setState({items: this.props.collections});
   }
 
   toggleStatusView = event => {
@@ -176,7 +168,7 @@ export class CollectionsList extends Component {
     const archiveButtonLabel = isStatusViewValid ? 'archive' : 'unarchive';
     const itemsToRender = items.map(item => {
       return (
-        <ItemListItem item={item}>
+        <ItemListItem item={item} currentUser={this.props.currentUser} path={`/machinecollections/${item.id}`}>
           <ItemListItemArchiveButton
             text={archiveButtonLabel}
             onClick={e => this.toggleArchiveStatus(e, item)}
@@ -229,17 +221,17 @@ export class CollectionsList extends Component {
                 onClick={e => this.toggleStatusView(e)}
                 data-no-instant
               >
-                {isStatusViewValid ? 'View Archive' : 'View Reading List'}
+                {isStatusViewValid ? 'View Archive' : 'View Machine Collections'}
               </a>
             </div>
           </div>
         </div>
 
         <div className="items-container">
-          <div className={`results ${itemsLoaded ? 'results--loaded' : ''}`}>
+          <div className={`results results--loaded`}>
             <div className="results-header">
-              {isStatusViewValid ? 'Reading List' : 'Archive'}
-              {` (${totalCount > 0 ? totalCount : 'empty'})`}
+              {isStatusViewValid ? 'Machine Collections' : 'Archive'}
+              {` (${this.state.items.length > 0 ? this.state.items.length : 'empty'})`}
             </div>
             <div>
               {items.length > 0 ? itemsToRender : this.renderEmptyItems()}
