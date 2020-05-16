@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 import { getUserDataAndCsrfToken } from '../chat/util';
-import ArticleForm from '../article-form/articleForm';
+import CollectionsForm from '../collections-form/collectionsForm';
 
 HTMLDocument.prototype.ready = new Promise(resolve => {
   if (document.readyState !== 'loading') {
@@ -15,14 +15,10 @@ function loadForm() {
     window.currentUser = currentUser;
     window.csrfToken = csrfToken;
 
-    const root = document.getElementById('article-form');
-    const { article, organizations, version } = root.dataset;
+    const root = document.getElementById('collections-form-container');
 
     render(
-      <ArticleForm
-        article={article}
-        organizations={organizations}
-        version={version}
+      <CollectionsForm
       />,
       root,
       root.firstElementChild,
@@ -33,7 +29,7 @@ function loadForm() {
 document.ready.then(() => {
   loadForm();
   window.InstantClick.on('change', () => {
-    if (document.getElementById('article-form')) {
+    if (document.getElementById('collections-form-container')) {
       loadForm();
     }
   });
