@@ -70,7 +70,7 @@ end
 Rails.logger.info "3. Creating Tags"
 
 tags = %w[beginners career computerscience git go
-          java javascript linux productivity python security webdev]
+          java javascript linux productivity python security webdev ruby]
 
 tags.each do |tag_name|
   Tag.create!(
