@@ -1,13 +1,5 @@
-<% title "Machine Collections" %>
-
-<% @machine_collections.each do |collection| %>
-
-Collection Tags:<%= collection.tags %>
-Collection Articles:<%= collection.articles.map { |a| a.title } %>
-<% end %>
-
 <div class="home">
-  <div class="item-list-container" id="reading-list">
+  <div class="item-list-container" id="reading-list" data-collections="<%= @machine_collections.to_json() %>">
   </div>
 </div>
 <%= javascript_pack_tag "collectionsList", defer: true %>
