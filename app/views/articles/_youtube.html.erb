@@ -1,0 +1,26 @@
+<div class="youtube-container">
+  <h3>Related Videos</h3>
+  <div class="yt-info">
+    <p>The videos below are based on the following.</p>
+    <p>Tags: <%= @article.cached_tag_list %></p>
+    <p>Description: <%= @article.description %></p>
+    <p>Title: <%= @article.title %></p>
+  </div>
+  <div class="youtube">
+
+  </div>
+</div>
+<script>
+function displayVideos(videos) {
+    let videoContainer = document.querySelector('.youtube')
+    if (videos.length === 0) {
+      return videoContainer.innerHTML = `<h2>There were no videos found matching your topic.</h2>`
+    } else {return videos.map(video => {
+        let id = video.id;
+        videoContainer.innerHTML += `<article class="video-article">
+            <%= render "liquids/youtube", id: "${id}", width: 275, height: 275 %>
+          </article>`})}}
+  fetch(`/<%= @user.username %>/videos/youtube?tags=<%= @article.cached_tag_list %>&description=<%= @article.description %>&title=<%= @article.title %>`)
+    .then(res => res.json())
+    .then(data => displayVideos(data.data.attributes.videos))
+</script>

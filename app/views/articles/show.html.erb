@@ -184,6 +184,7 @@
       <% end %>
     <% end %>
     <%= render "articles/org_branding", organization: @organization %>
+    <%= render "articles/youtube" %>
     <%= render "articles/full_comment_area" %>
   </div>
   <% cache("article-bottom-content-#{@article.id}", expires_in: 18.hours) do %>
